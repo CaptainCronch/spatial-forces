@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhlsjeqhvlcgy"]
+
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="1_u0c3x"]
+[ext_resource type="Script" path="res://scripts/classes/attack.gd" id="2_gmu68"]
+[ext_resource type="Texture2D" uid="uid://c6p4p5cnyn8mj" path="res://assets/projectiles/bullet4.png" id="2_wq6r8"]
+
+[sub_resource type="Resource" id="Resource_tokf7"]
+script = ExtResource("2_gmu68")
+attack_damage = 5.0
+knockback_force = 1.0
+origin_name = "Kelu"
+attack_type = 0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qg2o"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1llka"]
+radius = 3.0
+
+[node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox") groups=["Projectile"]]
+collision_layer = 2
+can_sleep = false
+max_contacts_reported = 1
+angular_velocity = 12.5664
+script = ExtResource("1_u0c3x")
+attack = SubResource("Resource_tokf7")
+hurtbox = NodePath("Hurtbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_wq6r8")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0qg2o")
+
+[node name="Death" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["Projectile"]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_1llka")
+
+[connection signal="timeout" from="Death" to="." method="_on_death_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

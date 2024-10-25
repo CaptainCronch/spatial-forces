@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjfrg5jh4fm7"]
+
+[ext_resource type="Script" path="res://scripts/ships/kelu.gd" id="1_c7pl7"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://scenes/components/weapon_component.tscn" id="2_if688"]
+[ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://assets/ships/kelu.png" id="2_xa4lf"]
+[ext_resource type="Script" path="res://scripts/components/health_component.gd" id="3_8tjxs"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="4_y4c8t"]
+
+[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("left_engine", "right_engine", "weapon_component", "sprite", "hitbox") groups=["Player", "Player1"]]
+script = ExtResource("1_c7pl7")
+left_engine = NodePath("LeftEngine")
+right_engine = NodePath("RightEngine")
+weapon_component = NodePath("WeaponComponent")
+sprite = NodePath("Sprite2D")
+hitbox = NodePath("HitboxComponent")
+player_color = 2
+
+[node name="WeaponComponent" parent="." instance=ExtResource("2_if688")]
+max_clip = 4
+reload_time = 0.5
+reload_delay = 0.8
+fire_delay = 0.3
+
+[node name="LeftEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-5, -7)
+amount = 100
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+
+[node name="RightEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-5, 7)
+amount = 100
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(2, 0)
+polygon = PackedVector2Array(8, 0, -8, 8, -8, -8)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("2_xa4lf")
+
+[node name="HealthComponent" type="Node2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_8tjxs")
+max_health = 100.0
+target = NodePath("..")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp") groups=["Player", "Player1"]]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("4_y4c8t")
+health_comp = NodePath("../HealthComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-6, -6, -6, 6, 6, 0)
