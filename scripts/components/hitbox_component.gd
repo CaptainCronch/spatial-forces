@@ -14,5 +14,5 @@ func damage(attack : Attack):
 	if health_comp: health_comp.damage(attack)
 	if target is RigidBody2D:
 		target.apply_central_impulse(
-			attack.attack_position.direction_to(global_position) * attack.knockback_force
+			attack.attack_direction * attack.knockback_force
 		)

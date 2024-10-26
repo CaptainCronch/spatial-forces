@@ -8,11 +8,11 @@ signal death(attack : Attack)
 
 #const number_popup := preload("res://Scenes/number_popup.tscn")
 
+@export var health_bar : Meter
 @export var default_color := Color.RED
 @export var blocked_color := Color.DARK_ORANGE
 @export var max_health : float
 @export var target : Node2D
-@export var invincibility_time := 0.0
 @export var heal_rate := 0.0
 #@export var heal_time := 10.0
 @export var heal_tick := 0.25
@@ -24,7 +24,6 @@ var dead := false
 var heal_bonus : BonusManager
 var heal_tween : Tween
 
-@onready var invincibility_timer : Timer = $Invincibility
 @onready var heal_timer : Timer = $Heal
 @onready var heal_delay_timer : Timer = $HealDelay
 
@@ -32,6 +31,8 @@ var heal_tween : Tween
 func _ready():
 	heal_bonus = BonusManager.new()
 	health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = health
 
 
 func damage(attack : Attack):
@@ -39,7 +40,6 @@ func damage(attack : Attack):
 	heal_timer.stop() # stop healing even if damage is 0
 	if heal_tween: heal_tween.kill()
 	if attack.attack_damage <= 0: return
-	if not invincibility_timer.is_stopped(): return
 	if attack.attack_damage <= 0.0:
 		#spawn_number_popup("BLOCKED!!", blocked_color)
 		return
@@ -47,20 +47,18 @@ func damage(attack : Attack):
 	health -= roundf(attack.attack_damage)
 	damage_taken.emit(attack)
 	health_changed.emit(-attack.attack_damage)
+	health_bar.value = health
 	#spawn_number_popup(str(roundf(attack.attack_damage)), default_color)
 
 	if health <= 0:
 		die(attack)
-		return
-	if is_zero_approx(invincibility_time): return
-	invincibility_timer.start(invincibility_time)
 
 
 func die(attack):
 	if dead: return
 	death.emit(attack)
 	dead = true
-	#target.queue_free()
+	target.die()
 
 
 func heal(amount : float) -> void :
@@ -69,6 +67,7 @@ func heal(amount : float) -> void :
 	health = minf(health + amount, max_health)
 	healed.emit(amount)
 	health_changed.emit(amount)
+	health_bar.value = health
 
 
 #func spawn_number_popup(value : String, color := Color.RED):

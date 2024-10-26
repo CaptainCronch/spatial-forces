@@ -117,6 +117,7 @@ fullscreen={
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Player1"
 2d_physics/layer_3="Player2"
+2d_physics/layer_4="Player"
 
 [physics]
 

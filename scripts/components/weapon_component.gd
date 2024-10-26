@@ -1,6 +1,7 @@
 extends Node2D
 class_name WeaponComponent
 
+@export var clip_bar : Meter
 @export var max_clip : int
 @export var reload_time : float
 @export var reload_delay : float
@@ -18,6 +19,8 @@ func _ready() -> void:
 	clip = max_clip
 	reload_timer.wait_time = reload_time
 	reload_delay_timer.wait_time = reload_delay
+	clip_bar.max_value = max_clip
+	clip_bar.value = clip
 
 
 func use(ammo : int) -> void:
@@ -26,18 +29,22 @@ func use(ammo : int) -> void:
 	reload_delay_timer.start(reload_delay)
 	fire_delay_timer.start(fire_delay)
 	reload_timer.stop()
+	clip_bar.value = clip
+
+
+func reload(ammo : int):
+	clip += 1
+	if clip < max_clip:
+		reload_timer.start(reload_time)
+	clip_bar.value = clip
 
 
 func _on_reload_timer_timeout() -> void:
-	clip += 1
-	if clip < max_clip:
-		reload_timer.start(reload_time)
+	reload(1)
 
 
 func _on_delay_timer_timeout() -> void:
-	clip += 1
-	if clip < max_clip:
-		reload_timer.start(reload_time)
+	reload(1)
 
 
 func _on_fire_delay_timer_timeout() -> void:

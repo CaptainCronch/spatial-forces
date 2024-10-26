@@ -7,9 +7,12 @@ class_name Attack
 @export var attack_type : ATTACK_TYPE
 
 var attack_position := Vector2.ZERO
+var attack_direction := Vector2.ZERO
 
 enum ATTACK_TYPE {
-
+	SHARP,
+	BLUNT,
+	EXPLOSIVE,
 }
 
 
