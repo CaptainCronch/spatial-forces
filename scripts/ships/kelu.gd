@@ -1,6 +1,6 @@
-extends "res://scripts/player_controller.gd"
+extends Ship
 
-const BULLET := preload("res://scenes/bullet.tscn")
+const BULLET := preload("res://scenes/projectiles/kelu_bullet.tscn")
 
 @export var turbo_bar: Meter
 @export var left_engine: CPUParticles2D
@@ -9,7 +9,6 @@ const BULLET := preload("res://scenes/bullet.tscn")
 
 var turbo_timer := 0.0
 var emit_scale := 1.0
-var bullet_instance: Node2D
 
 @export var fire_time := 0.1
 @export var turbo_time := 1.0
@@ -19,6 +18,8 @@ func _ready() -> void:
 	super()
 	turbo_bar.max_value = turbo_time
 	turbo_bar.value = turbo_timer
+	await get_tree().process_frame
+	print(1 / PhysicsServer2D.body_get_direct_state(get_rid()).inverse_inertia)
 
 
 func _process(_delta: float) -> void:
@@ -58,13 +59,14 @@ func fire():
 	if weapon_component.clip <= 0 or not weapon_component.can_fire: return
 	weapon_component.use(1)
 
+	var bullet_instance : RigidBody2D
 	for i in 3:
 		bullet_instance = BULLET.instantiate()
 		bullet_instance.position = weapon_component.get_global_position()
 		bullet_instance.rotation = rotation
-		bullet_instance.apply_impulse(Vector2(bullet_speed, 0).rotated(rotation), Vector2())
+		bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
 		get_tree().current_scene.call_deferred("add_child", bullet_instance)
-		bullet_instance.modulate = COLOR_VALUES[player_color]
+		bullet_instance.modulate = Types.COLOR_VALUES[player_color]
 
 		if player_id == PlayerIDs.PLAYER_2:
 			bullet_instance.set_collision_layer_value(2, false)

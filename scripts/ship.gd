@@ -1,6 +1,7 @@
 extends RigidBody2D
+class_name Ship
 
-const SPEED_LIMIT = 200
+const SPEED_LIMIT = 256
 
 enum PlayerIDs {PLAYER_1, PLAYER_2}
 var player_id : PlayerIDs
@@ -10,11 +11,8 @@ const PLAYER1_INPUTS := ["p1_up", "p1_right", "p1_down", "p1_left", "p1_primary"
 const PLAYER2_INPUTS := ["p2_up", "p2_right", "p2_down", "p2_left", "p2_primary", "p2_secondary"]
 var inputs := PLAYER1_INPUTS
 
-enum PlayerColors {BLUE, RED, GREEN, CYAN, MAGENTA, YELLOW}
-const COLOR_VALUES := [Color(0,0,1),Color(1,0,0),Color(0,1,0),Color(0,1,1),Color(1,0,1),Color(1,1,0)]
-var player_color : PlayerColors
+var player_color : Types.Colors
 
-@export var sprite : Sprite2D
 @export var hitbox : HitboxComponent
 
 @export var rotation_speed := 360.0
@@ -22,25 +20,23 @@ var player_color : PlayerColors
 @export var back_acceleration := 2.0
 @export var top_speed := 96.0
 @export var bullet_speed := 400.0
-@export var max_clip := 4
 
 var top_speed_boost := 1.0
 var acceleration_boost := 1.0
 var rotation_dir := 0
 var move_dir := Vector2()
-var clip := max_clip
 #var timer = 0
 
 #@onready var bullet_spawn
 
 
 func _ready():
-	get_tree().current_scene.camera.add_target(self)
 	call_deferred("initialize")
 
 
 func initialize():
-	modulate = COLOR_VALUES[player_color]
+	get_tree().current_scene.camera.add_target(self)
+	modulate = Types.COLOR_VALUES[player_color]
 
 	if player_id == PlayerIDs.PLAYER_2:
 		remove_from_group("Player1")

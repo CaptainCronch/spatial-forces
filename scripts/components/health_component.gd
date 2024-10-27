@@ -29,6 +29,8 @@ var heal_tween : Tween
 
 
 func _ready():
+	if not heal_timer or not heal_delay_timer:
+		printerr("HealthComponent of ", get_parent().name, " is missing child timer nodes! (Did you add the component via the \"Add Child Node\" option instead of the \"Instantiate Child Scene\" option?)")
 	heal_bonus = BonusManager.new()
 	health = max_health
 	health_bar.max_value = max_health

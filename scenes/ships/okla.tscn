@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=3 uid="uid://ic7j2y8oht16"]
+
+[ext_resource type="Texture2D" uid="uid://b4aj43mwsjri8" path="res://assets/ships/okla.png" id="1_s312t"]
+[ext_resource type="Script" path="res://scripts/ships/okla.gd" id="1_xdcja"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://scenes/components/health_component.tscn" id="2_3l45v"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://scenes/components/weapon_component.tscn" id="3_e7i6p"]
+[ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="5_aws81"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://scenes/meter.tscn" id="6_cesgo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2d6k1"]
+radius = 5.0
+
+[node name="Okla" type="RigidBody2D" node_paths=PackedStringArray("slugger_bar", "engine", "weapon_component", "hitbox")]
+inertia = 18.0
+angular_damp = 3.0
+script = ExtResource("1_xdcja")
+slugger_bar = NodePath("SluggerBar")
+engine = NodePath("Engine")
+weapon_component = NodePath("WeaponComponent")
+hitbox = NodePath("HitboxComponent")
+rotation_speed = 720.0
+acceleration = 32.0
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("2_3l45v")]
+health_bar = NodePath("../HealthBar")
+max_health = 100.0
+target = NodePath("..")
+
+[node name="WeaponComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("3_e7i6p")]
+clip_bar = NodePath("../ClipBar")
+max_clip = 3
+reload_time = 1.0
+reload_delay = 1.2
+fire_delay = 0.7
+
+[node name="Engine" type="CPUParticles2D" parent="."]
+position = Vector2(-4, 0)
+amount = 400
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("1_s312t")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2d6k1")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target")]
+script = ExtResource("5_aws81")
+health_comp = NodePath("")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-5, 0, -3, -4, 0, -6, 3, -4, 8, -4, 8, 4, 3, 4, 0, 6, -3, 4)
+
+[node name="SluggerBar" parent="." instance=ExtResource("6_cesgo")]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -7.0
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("6_cesgo")]
+offset_left = 10.0
+offset_top = -9.0
+offset_right = 11.0
+offset_bottom = -8.0
+rotation = 3.14159
+
+[node name="ClipBar" parent="." instance=ExtResource("6_cesgo")]
+offset_left = 10.0
+offset_top = 12.0
+offset_right = 11.0
+offset_bottom = 13.0
+rotation = 3.14159

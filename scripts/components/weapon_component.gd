@@ -16,6 +16,8 @@ var can_fire := true
 
 
 func _ready() -> void:
+	if not reload_timer or not reload_delay_timer or not fire_delay_timer:
+		printerr("WeaponComponent of ", get_parent().name, " is missing child timer nodes! (Did you add the component via the \"Add Child Node\" option instead of the \"Instantiate Child Scene\" option?)")
 	clip = max_clip
 	reload_timer.wait_time = reload_time
 	reload_delay_timer.wait_time = reload_delay
@@ -23,11 +25,11 @@ func _ready() -> void:
 	clip_bar.value = clip
 
 
-func use(ammo : int) -> void:
+func use(ammo : int, delay_multiplier := 1.0) -> void:
 	can_fire = false
 	clip -= ammo
-	reload_delay_timer.start(reload_delay)
-	fire_delay_timer.start(fire_delay)
+	reload_delay_timer.start(reload_delay * delay_multiplier)
+	fire_delay_timer.start(fire_delay) # maybe only start reload delay after fire delay?
 	reload_timer.stop()
 	clip_bar.value = clip
 

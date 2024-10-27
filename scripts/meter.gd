@@ -1,7 +1,7 @@
 extends TextureProgressBar
 class_name Meter
 
-@export var vis_delay := 1.0
+@export var vis_delay := 1.5
 
 var is_ready := false
 
