@@ -18,8 +18,6 @@ func _ready() -> void:
 	super()
 	turbo_bar.max_value = turbo_time
 	turbo_bar.value = turbo_timer
-	await get_tree().process_frame
-	print(1 / PhysicsServer2D.body_get_direct_state(get_rid()).inverse_inertia)
 
 
 func _process(_delta: float) -> void:

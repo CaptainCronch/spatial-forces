@@ -28,6 +28,6 @@ func _ready() -> void:
 	add_child(p1)
 	var p2 : Ship = SHIP_SCENES[player_2].instantiate()
 	p2.player_color = player_2_color
-	p2.player_id = 1
+	p2.player_id = Ship.PlayerIDs.PLAYER_2
 	p1.position = Vector2(-128, 0)
 	add_child(p2)

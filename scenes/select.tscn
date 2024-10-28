@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwk44i7ixrk2d"]
+
+[ext_resource type="Texture2D" uid="uid://cvg7pj3skkvap" path="res://assets/environment/1024-64-checkers.png" id="1_r3jxy"]
+[ext_resource type="Texture2D" uid="uid://blxrfd002no4a" path="res://assets/environment/1024-128-checkers.png" id="2_tb6vy"]
+[ext_resource type="Script" path="res://scripts/multi_target_camera.gd" id="3_cgfrb"]
+
+[node name="Select" type="Node2D"]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="SmallParallax" type="Parallax2D" parent="Environment"]
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(1024, 1024)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/SmallParallax"]
+modulate = Color(0.0562916, 0.0562916, 0.0562916, 1)
+texture = ExtResource("1_r3jxy")
+centered = false
+
+[node name="LargeParallax" type="Parallax2D" parent="Environment"]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(1024, 1024)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LargeParallax"]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_tb6vy")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_cgfrb")

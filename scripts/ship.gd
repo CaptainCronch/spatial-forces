@@ -17,7 +17,7 @@ var player_color : Types.Colors
 
 @export var rotation_speed := 360.0
 @export var acceleration := 128.0
-@export var back_acceleration := 2.0
+@export var back_acceleration := 16.0
 @export var top_speed := 96.0
 @export var bullet_speed := 400.0
 
@@ -52,7 +52,7 @@ func initialize():
 
 func _physics_process(_delta):
 	apply_torque(rotation_dir * rotation_speed) # spin
-	apply_central_force(move_dir.rotated(rotation) * acceleration * acceleration_boost) # move
+	apply_central_force(move_dir.rotated(rotation)) # move
 
 	var back_factor := minf(pow(2, # exponential curve so we get pushed back more the closer we are to the top speed
 		(linear_velocity.length() - (top_speed * top_speed_boost))),
@@ -77,9 +77,9 @@ func get_input():
 		rotation_dir -= 1
 
 	if Input.is_action_pressed(inputs[PlayerInputs.UP]):
-		move_dir += Vector2(1, 0)
+		move_dir += Vector2(acceleration * acceleration_boost, 0)
 	if Input.is_action_pressed(inputs[PlayerInputs.DOWN]):
-		move_dir += Vector2(-1, 0)
+		move_dir += Vector2(-back_acceleration * acceleration_boost, 0)
 
 	if Input.is_action_just_pressed(inputs[PlayerInputs.PRIMARY]):
 		fire()

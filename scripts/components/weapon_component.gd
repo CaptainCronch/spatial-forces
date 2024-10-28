@@ -35,7 +35,7 @@ func use(ammo : int, delay_multiplier := 1.0) -> void:
 
 
 func reload(ammo : int):
-	clip += 1
+	clip += ammo
 	if clip < max_clip:
 		reload_timer.start(reload_time)
 	clip_bar.value = clip

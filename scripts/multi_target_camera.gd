@@ -3,8 +3,8 @@ class_name MultiTargetCamera
 
 @export var move_speed := 0.5
 @export var zoom_speed := 0.05
-@export var min_zoom := 1.0
-@export var max_zoom := 5.0
+@export var min_zoom := 0.2
+@export var max_zoom := 1.0
 @export var margin := Vector2(400, 200)
 
 var targets := []
