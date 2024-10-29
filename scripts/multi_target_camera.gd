@@ -3,7 +3,7 @@ class_name MultiTargetCamera
 
 @export var move_speed := 0.5
 @export var zoom_speed := 0.05
-@export var min_zoom := 0.2
+@export var min_zoom := 0.15
 @export var max_zoom := 1.0
 @export var margin := Vector2(400, 200)
 
@@ -29,9 +29,9 @@ func _process(_delta):
 	for target in targets:
 		p += target.global_position
 	p /= targets.size()
-	global_position = global_position.lerp(p, move_speed)
+	#global_position = global_position.lerp(p, move_speed)
 
-	var r := Rect2(global_position, Vector2.ONE)
+	var r := Rect2(p, Vector2.ONE)
 	for target in targets:
 		r = r.expand(target.global_position)
 	r = r.grow_individual(margin.x, margin.y, margin.x, margin.y)
@@ -42,6 +42,9 @@ func _process(_delta):
 	else:
 		z = clampf((1 / r.size.y) * screen_size.y, min_zoom, max_zoom)
 	zoom = zoom.lerp(Vector2.ONE * z, zoom_speed)
+
+	#print(r.position + r.size)
+	global_position = global_position.lerp(r.position + (r.size/2), move_speed)
 
 	#$Line2D.set_point_position(0, r.position + Vector2(r.size.x, r.size.y))
 	#$Line2D.set_point_position(1, r.position + Vector2(r.size.x, 0))

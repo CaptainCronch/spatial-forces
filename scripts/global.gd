@@ -1,5 +1,18 @@
 extends Node
 
+enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK}
+const SHIP_SCENES: Array[PackedScene] = [
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/okla.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/kelu.tscn"),
+]
+
 
 #func _ready():
 	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)

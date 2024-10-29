@@ -4,7 +4,21 @@ const SPARKS := preload("res://scenes/particles/sparks.tscn")
 
 @export var attack : Attack
 @export var hurtbox : Area2D
+@export var sprite : Sprite2D
 @export var spark_scale := 2.0
+
+
+func _ready() -> void:
+	sprite.modulate = modulate
+	sprite.global_position = global_position
+
+
+func _process(_delta: float) -> void:
+	sprite.global_position = global_position
+
+
+func _physics_process(_delta: float) -> void:
+	sprite.rotation = linear_velocity.angle()
 
 
 func _on_death_timeout() -> void:

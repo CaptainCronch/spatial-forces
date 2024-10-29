@@ -1,16 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2i211avmpf4e"]
+[gd_scene load_steps=7 format=3 uid="uid://b2i211avmpf4e"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_nh2c1"]
 [ext_resource type="Texture2D" uid="uid://cvg7pj3skkvap" path="res://assets/environment/1024-64-checkers.png" id="2_658j6"]
+[ext_resource type="Texture2D" uid="uid://fpfb60fipqaw" path="res://assets/testmap.png" id="2_qb2eq"]
 [ext_resource type="Texture2D" uid="uid://blxrfd002no4a" path="res://assets/environment/1024-128-checkers.png" id="3_xvt7x"]
+[ext_resource type="TileSet" uid="uid://dr53erg1ld30g" path="res://tileset.tres" id="4_pwauv"]
 [ext_resource type="Script" path="res://scripts/multi_target_camera.gd" id="4_yream"]
 
-[sub_resource type="TileSet" id="TileSet_nwm3l"]
-
-[node name="Level" type="Node2D" node_paths=PackedStringArray("camera")]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("camera", "tilemap")]
 script = ExtResource("1_nh2c1")
 player_1 = 5
 camera = NodePath("Camera2D")
+tilemap = NodePath("Environment/BaseTilemap")
+map = ExtResource("2_qb2eq")
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -34,8 +36,9 @@ modulate = Color(0, 0, 0, 1)
 texture = ExtResource("3_xvt7x")
 centered = false
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Environment"]
-tile_set = SubResource("TileSet_nwm3l")
+[node name="BaseTilemap" type="TileMapLayer" parent="Environment"]
+tile_set = ExtResource("4_pwauv")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 script = ExtResource("4_yream")

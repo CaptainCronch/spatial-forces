@@ -1,19 +1,16 @@
 extends RigidBody2D
 class_name Ship
 
-const SPEED_LIMIT = 256
+const SPEED_LIMIT := 384.0
 
 enum PlayerIDs {PLAYER_1, PLAYER_2}
-var player_id : PlayerIDs
+var player_id: PlayerIDs
 
-enum PlayerInputs {UP, RIGHT, DOWN, LEFT, PRIMARY, SECONDARY}
-const PLAYER1_INPUTS := ["p1_up", "p1_right", "p1_down", "p1_left", "p1_primary", "p1_secondary"]
-const PLAYER2_INPUTS := ["p2_up", "p2_right", "p2_down", "p2_left", "p2_primary", "p2_secondary"]
-var inputs := PLAYER1_INPUTS
-
-var player_color : Types.Colors
+var player_color: Types.Colors
 
 @export var hitbox : HitboxComponent
+@export var input: InputComponent
+@export var steering: SteeringComponent
 
 @export var rotation_speed := 360.0
 @export var acceleration := 128.0
@@ -25,6 +22,7 @@ var top_speed_boost := 1.0
 var acceleration_boost := 1.0
 var rotation_dir := 0
 var move_dir := Vector2()
+var block_tiles: Array[RID] = []
 #var timer = 0
 
 #@onready var bullet_spawn
@@ -32,6 +30,8 @@ var move_dir := Vector2()
 
 func _ready():
 	call_deferred("initialize")
+	hitbox.body_shape_entered.connect(_on_hitbox_body_shape_entered)
+	hitbox.body_shape_exited.connect(_on_hitbox_body_shape_exited)
 
 
 func initialize():
@@ -41,7 +41,7 @@ func initialize():
 	if player_id == PlayerIDs.PLAYER_2:
 		remove_from_group("Player1")
 		add_to_group("Player2")
-		inputs = PLAYER2_INPUTS
+		if is_instance_valid(input): input.inputs = input.PLAYER2_INPUTS
 		hitbox.set_collision_layer_value(2, false)
 		hitbox.set_collision_layer_value(3, true)
 		hitbox.set_collision_mask_value(2, true)
@@ -63,26 +63,8 @@ func _physics_process(_delta):
 
 
 func _process(_delta):
-	get_input()
+	pass
 	#$Label.text = str(roundf(linear_velocity.length())) # debug
-
-
-func get_input():
-	rotation_dir = 0
-	move_dir = Vector2()
-
-	if Input.is_action_pressed(inputs[PlayerInputs.RIGHT]):
-		rotation_dir += 1
-	if Input.is_action_pressed(inputs[PlayerInputs.LEFT]):
-		rotation_dir -= 1
-
-	if Input.is_action_pressed(inputs[PlayerInputs.UP]):
-		move_dir += Vector2(acceleration * acceleration_boost, 0)
-	if Input.is_action_pressed(inputs[PlayerInputs.DOWN]):
-		move_dir += Vector2(-back_acceleration * acceleration_boost, 0)
-
-	if Input.is_action_just_pressed(inputs[PlayerInputs.PRIMARY]):
-		fire()
 
 
 func _integrate_forces(state): # if ship_going_faster_than_speed_limit: dont()
@@ -90,10 +72,31 @@ func _integrate_forces(state): # if ship_going_faster_than_speed_limit: dont()
 		state.linear_velocity = state.linear_velocity.normalized() * SPEED_LIMIT
 
 
-func fire():
-	pass # to be overridden in inherited classes
+func primary(): print("yep")
+func primary_release(): pass
+func primary_hold(): pass
+
+func secondary(): pass
+func secondary_release(): pass
+func secondary_hold(): pass
 
 
 func die():
 	get_tree().current_scene.camera.remove_target(self)
-	queue_free()
+	if is_instance_valid(input): input.disabled = true
+	if is_instance_valid(steering): steering.disabled = true
+	#queue_free()
+
+
+func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+	if body is TileMapLayer:
+		var coords : Vector2i = body.get_coords_for_body_rid(body_rid)
+		if body.get_cell_tile_data(coords).get_custom_data("Type") == "player_pass":
+			block_tiles.append(body_rid)
+
+
+func _on_hitbox_body_shape_exited(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+	if body is TileMapLayer:
+		var coords : Vector2i = body.get_coords_for_body_rid(body_rid)
+		if body.get_cell_tile_data(coords).get_custom_data("Type") == "player_pass":
+			block_tiles.erase(body_rid)

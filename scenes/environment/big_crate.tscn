@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dt1vv05vn56k3"]
+
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="1_6fr4f"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_f3alr"]
+[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_x7dxg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]
+size = Vector2(32, 32)
+
+[node name="BigCrate" type="RigidBody2D"]
+collision_mask = 9
+mass = 2.0
+physics_material_override = ExtResource("1_f3alr")
+script = ExtResource("2_x7dxg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6fr4f")
+region_enabled = true
+region_rect = Rect2(96, 64, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rjek7")

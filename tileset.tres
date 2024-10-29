@@ -1,0 +1,96 @@
+[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://dr53erg1ld30g"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://bn61r2tjfkmwe" path="res://absorbent.tres" id="1_xayk2"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="2_cwg27"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="3_d1rga"]
+[ext_resource type="PhysicsMaterial" uid="uid://bs7m4cxi00fws" path="res://smooth.tres" id="3_ygoel"]
+[ext_resource type="PackedScene" uid="uid://bg38iq5mogx6x" path="res://scenes/environment/gravity_well_right.tscn" id="4_trrar"]
+[ext_resource type="PackedScene" uid="uid://dhdfrinucc6w7" path="res://scenes/environment/gravity_well_up.tscn" id="5_1ce36"]
+[ext_resource type="PackedScene" uid="uid://cs10byyf0kfse" path="res://scenes/environment/one_way_down.tscn" id="6_xb7w6"]
+[ext_resource type="PackedScene" uid="uid://bho2earrnu7ct" path="res://scenes/environment/one_way_left.tscn" id="7_q7gak"]
+[ext_resource type="PackedScene" uid="uid://laax53spsxoa" path="res://scenes/environment/one_way_right.tscn" id="8_3omia"]
+[ext_resource type="PackedScene" uid="uid://d1doltio61c36" path="res://scenes/environment/one_way_up.tscn" id="9_bl0hy"]
+[ext_resource type="PackedScene" uid="uid://bhoim1bvdyeox" path="res://scenes/environment/small_ball.tscn" id="10_ea8bo"]
+[ext_resource type="PackedScene" uid="uid://bd8fmmv7aqnol" path="res://scenes/environment/small_crate.tscn" id="11_53iqr"]
+[ext_resource type="PackedScene" uid="uid://lk34pnn8efq" path="res://scenes/environment/small_pill.tscn" id="12_qdkv4"]
+[ext_resource type="PackedScene" uid="uid://cwhl4fnxl0k0w" path="res://scenes/environment/small_plank.tscn" id="13_iqm8u"]
+[ext_resource type="PackedScene" uid="uid://bfnsglky3l750" path="res://scenes/environment/big_ball.tscn" id="14_3u477"]
+[ext_resource type="PackedScene" uid="uid://bnkg411kq53ma" path="res://scenes/environment/spikes_down.tscn" id="15_b01bi"]
+[ext_resource type="PackedScene" uid="uid://buep6ermavu1r" path="res://scenes/environment/spikes_left.tscn" id="16_xadya"]
+[ext_resource type="PackedScene" uid="uid://cudlpawm07pm2" path="res://scenes/environment/spikes_right.tscn" id="17_bcj0d"]
+[ext_resource type="PackedScene" uid="uid://dyx5jxuc1bvxw" path="res://scenes/environment/spikes_up.tscn" id="18_37824"]
+[ext_resource type="PackedScene" uid="uid://dt1vv05vn56k3" path="res://scenes/environment/big_crate.tscn" id="19_w7prr"]
+[ext_resource type="PackedScene" uid="uid://b6t15b0qu6rro" path="res://scenes/environment/boost_pad_down.tscn" id="20_7ykan"]
+[ext_resource type="PackedScene" uid="uid://dwwxxuv7u6dx" path="res://scenes/environment/boost_pad_left.tscn" id="21_45eai"]
+[ext_resource type="PackedScene" uid="uid://237wh21ay2by" path="res://scenes/environment/boost_pad_right.tscn" id="22_62x1j"]
+[ext_resource type="PackedScene" uid="uid://0m3cgv5oljt7" path="res://scenes/environment/boost_pad_up.tscn" id="23_aest6"]
+[ext_resource type="PackedScene" uid="uid://beobexdm7da0o" path="res://scenes/environment/gravity_well_down.tscn" id="24_oaxhu"]
+[ext_resource type="PackedScene" uid="uid://ddt346uq4fub1" path="res://scenes/environment/gravity_well_left.tscn" id="25_ab6or"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hvxp"]
+resource_name = "base"
+texture = ExtResource("3_d1rga")
+texture_region_size = Vector2i(32, 32)
+2:0/next_alternative_id = 3
+2:0/0 = 0
+2:0/0/physics_layer_2/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0/custom_data_0 = "player_pass"
+3:0/0 = 0
+3:0/0/physics_layer_4/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0/custom_data_0 = "bouncy"
+1:2/0 = 0
+1:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0/custom_data_0 = "bouncy"
+2:2/0 = 0
+2:2/0/physics_layer_3/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0/custom_data_0 = "projectile_pass"
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0/custom_data_0 = "absorbent"
+0:2/0 = 0
+0:2/0/z_index = -5
+0:2/0/custom_data_0 = "background"
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_clmi5"]
+resource_name = "scenes"
+scenes/2/scene = ExtResource("14_3u477")
+scenes/3/scene = ExtResource("19_w7prr")
+scenes/4/scene = ExtResource("20_7ykan")
+scenes/5/scene = ExtResource("21_45eai")
+scenes/6/scene = ExtResource("22_62x1j")
+scenes/7/scene = ExtResource("23_aest6")
+scenes/8/scene = ExtResource("24_oaxhu")
+scenes/9/scene = ExtResource("25_ab6or")
+scenes/10/scene = ExtResource("4_trrar")
+scenes/11/scene = ExtResource("5_1ce36")
+scenes/12/scene = ExtResource("6_xb7w6")
+scenes/13/scene = ExtResource("7_q7gak")
+scenes/14/scene = ExtResource("8_3omia")
+scenes/15/scene = ExtResource("9_bl0hy")
+scenes/16/scene = ExtResource("10_ea8bo")
+scenes/17/scene = ExtResource("11_53iqr")
+scenes/18/scene = ExtResource("12_qdkv4")
+scenes/19/scene = ExtResource("13_iqm8u")
+scenes/20/scene = ExtResource("15_b01bi")
+scenes/21/scene = ExtResource("16_xadya")
+scenes/22/scene = ExtResource("17_bcj0d")
+scenes/23/scene = ExtResource("18_37824")
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/physics_material = ExtResource("1_xayk2")
+physics_layer_1/collision_layer = 1
+physics_layer_1/physics_material = ExtResource("2_cwg27")
+physics_layer_2/collision_layer = 16
+physics_layer_2/collision_mask = 7
+physics_layer_2/physics_material = ExtResource("2_cwg27")
+physics_layer_3/collision_layer = 32
+physics_layer_3/collision_mask = 8
+physics_layer_3/physics_material = ExtResource("2_cwg27")
+physics_layer_4/collision_layer = 1
+physics_layer_4/physics_material = ExtResource("3_ygoel")
+custom_data_layer_0/name = "Type"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_1hvxp")
+sources/1 = SubResource("TileSetScenesCollectionSource_clmi5")

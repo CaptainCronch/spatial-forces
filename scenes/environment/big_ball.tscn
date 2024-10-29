@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfnsglky3l750"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_p71u7"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="1_s7nn0"]
+[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_mog8i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rk78g"]
+radius = 16.0
+
+[node name="BigBall" type="RigidBody2D"]
+collision_mask = 9
+mass = 2.0
+physics_material_override = ExtResource("1_p71u7")
+script = ExtResource("2_mog8i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s7nn0")
+region_enabled = true
+region_rect = Rect2(128, 64, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rk78g")

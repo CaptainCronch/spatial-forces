@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhoim1bvdyeox"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_7d5x8"]
+[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_pvj8w"]
+[ext_resource type="Texture2D" uid="uid://djol8ymgr5rwu" path="res://assets/environment/small-ball.png" id="2_s6n0a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qr0o6"]
+radius = 8.0
+
+[node name="SmallBall" type="RigidBody2D"]
+collision_mask = 9
+physics_material_override = ExtResource("1_7d5x8")
+script = ExtResource("2_pvj8w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s6n0a")
+region_rect = Rect2(96, 64, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qr0o6")

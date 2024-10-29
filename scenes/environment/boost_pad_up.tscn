@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0m3cgv5oljt7"]
+
+[ext_resource type="PackedScene" uid="uid://237wh21ay2by" path="res://scenes/environment/boost_pad_right.tscn" id="1_syumb"]
+
+[node name="Boost" instance=ExtResource("1_syumb")]
+rotation = 4.71239

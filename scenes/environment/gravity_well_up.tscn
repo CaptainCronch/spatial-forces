@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhdfrinucc6w7"]
+
+[ext_resource type="PackedScene" uid="uid://bg38iq5mogx6x" path="res://scenes/environment/gravity_well_right.tscn" id="1_lt445"]
+
+[node name="GravityWell" instance=ExtResource("1_lt445")]
+rotation = 4.71239
+gravity_point_center = Vector2(0, -1)
+gravity_direction = Vector2(0, -1)

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd8fmmv7aqnol"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_a4xvj"]
+[ext_resource type="Texture2D" uid="uid://d103oxvl41jgx" path="res://assets/environment/small-box.png" id="1_b011w"]
+[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_6rnif"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]
+size = Vector2(16, 16)
+
+[node name="SmallCrate" type="RigidBody2D"]
+collision_mask = 9
+physics_material_override = ExtResource("1_a4xvj")
+script = ExtResource("2_6rnif")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b011w")
+region_rect = Rect2(96, 64, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rjek7")

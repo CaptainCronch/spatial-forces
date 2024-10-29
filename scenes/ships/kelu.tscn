@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjfrg5jh4fm7"]
+[gd_scene load_steps=11 format=3 uid="uid://bjfrg5jh4fm7"]
 
 [ext_resource type="Script" path="res://scripts/ships/kelu.gd" id="1_c7pl7"]
-[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://default_physics_material.tres" id="1_ib032"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_ib032"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://scenes/components/weapon_component.tscn" id="2_if688"]
 [ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://assets/ships/kelu.png" id="2_xa4lf"]
 [ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://scenes/components/health_component.tscn" id="4_6o0ob"]
 [ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="4_y4c8t"]
 [ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://scenes/components/meter.tscn" id="6_kb5h6"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://scenes/components/input_component.tscn" id="8_i8q1l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
 radius = 6.0
@@ -14,11 +15,12 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ql4xu"]
 radius = 192.0
 
-[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("turbo_bar", "left_engine", "right_engine", "weapon_component", "hitbox") groups=["Player", "Player1"]]
+[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("turbo_bar", "left_engine", "right_engine", "weapon_component", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
-collision_mask = 9
+collision_mask = 41
 physics_material_override = ExtResource("1_ib032")
 inertia = 18.0
+continuous_cd = 2
 angular_damp = 3.0
 script = ExtResource("1_c7pl7")
 turbo_bar = NodePath("TurboBar")
@@ -26,6 +28,7 @@ left_engine = NodePath("LeftEngine")
 right_engine = NodePath("RightEngine")
 weapon_component = NodePath("WeaponComponent")
 hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
 
 [node name="WeaponComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("2_if688")]
 clip_bar = NodePath("../ClipBar")
@@ -41,7 +44,7 @@ target = NodePath("..")
 
 [node name="LeftEngine" type="CPUParticles2D" parent="."]
 position = Vector2(-5, -7)
-amount = 200
+amount = 50
 lifetime = 20.0
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -50,7 +53,7 @@ scale_amount_max = 2.0
 
 [node name="RightEngine" type="CPUParticles2D" parent="."]
 position = Vector2(-5, 7)
-amount = 200
+amount = 50
 lifetime = 20.0
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -68,7 +71,7 @@ texture = ExtResource("2_xa4lf")
 [node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"]]
 position = Vector2(2, 0)
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("4_y4c8t")
 health_comp = NodePath("../HealthComponent")
 target = NodePath("..")
@@ -105,6 +108,9 @@ offset_top = 6.0
 offset_right = 13.0
 offset_bottom = 7.0
 rotation = 2.61799
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_i8q1l")]
+target = NodePath("..")
 
 [connection signal="area_entered" from="Rushdown" to="." method="_on_rushdown_area_entered"]
 [connection signal="area_exited" from="Rushdown" to="." method="_on_rushdown_area_exited"]

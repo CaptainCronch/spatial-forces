@@ -26,14 +26,18 @@ func _process(_delta: float) -> void:
 	turbo(_delta)
 
 
-func turbo(_delta: float):
-	if Input.is_action_pressed(inputs[PlayerInputs.SECONDARY]) and turbo_timer < turbo_time:
+func secondary_hold():
+	if turbo_timer < turbo_time:
 		top_speed_boost = 2.0
-		turbo_timer += _delta
+		turbo_timer += get_process_delta_time()
 		turbo_bar.value = turbo_timer
-	else:
-		top_speed_boost = 1.0
 
+
+func secondary_release():
+	top_speed_boost = 1.0
+
+
+func turbo(_delta: float):
 	if is_zero_approx(move_dir.length_squared()) and turbo_timer > 0.0:
 		turbo_timer -= _delta
 		turbo_bar.value = turbo_timer
@@ -53,8 +57,8 @@ func set_engines():
 	right_engine.speed_scale *= top_speed_boost
 
 
-func fire():
-	if weapon_component.clip <= 0 or not weapon_component.can_fire: return
+func primary():
+	if weapon_component.clip <= 0 or not weapon_component.can_fire or	 block_tiles: return
 	weapon_component.use(1)
 
 	var bullet_instance : RigidBody2D

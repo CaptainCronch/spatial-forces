@@ -31,6 +31,7 @@ func _physics_process(delta):
 			for group in detection_groups:
 				if area.is_in_group(group):
 					attack.attack_position = global_position
+					attack.attack_direction = Vector2.RIGHT.rotated(rotation)
 					hit.emit(area)
 					area.damage(attack)
 					break

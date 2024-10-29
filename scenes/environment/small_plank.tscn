@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwhl4fnxl0k0w"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_wr1hi"]
+[ext_resource type="Texture2D" uid="uid://cmspeg3uguga4" path="res://assets/environment/plank.png" id="2_8g3a2"]
+[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_a46j1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u715g"]
+size = Vector2(16, 8)
+
+[node name="SmallPlank" type="RigidBody2D"]
+collision_mask = 9
+mass = 0.5
+physics_material_override = ExtResource("1_wr1hi")
+script = ExtResource("2_a46j1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8g3a2")
+region_rect = Rect2(96, 64, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u715g")

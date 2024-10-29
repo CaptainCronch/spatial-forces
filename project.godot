@@ -118,11 +118,15 @@ fullscreen={
 2d_physics/layer_2="Player1"
 2d_physics/layer_3="Player2"
 2d_physics/layer_4="Player"
+2d_physics/layer_5="PlayerPass"
+2d_physics/layer_6="ProjectilePass"
+2d_physics/layer_7="Effect"
 
 [physics]
 
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
+2d/default_linear_damp=0.1
 
 [rendering]
 
