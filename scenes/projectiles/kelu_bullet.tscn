@@ -18,7 +18,7 @@ radius = 2.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_1llka"]
 radius = 5.0
 
-[node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite") groups=["Projectile"]]
+[node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite", "death_timer") groups=["Projectile"]]
 collision_layer = 2
 collision_mask = 17
 mass = 0.5
@@ -26,11 +26,14 @@ physics_material_override = ExtResource("1_ql8oa")
 can_sleep = false
 continuous_cd = 1
 max_contacts_reported = 1
+linear_damp = 1.0
 angular_velocity = 12.5664
 script = ExtResource("1_u0c3x")
 attack = SubResource("Resource_tokf7")
 hurtbox = NodePath("Hurtbox")
 sprite = NodePath("Sprite2D")
+death_timer = NodePath("Death")
+speed = 600.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 top_level = true
@@ -42,7 +45,6 @@ shape = SubResource("CircleShape2D_0qg2o")
 [node name="Death" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
-autostart = true
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Projectile"]]
 collision_layer = 2

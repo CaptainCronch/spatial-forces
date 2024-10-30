@@ -41,9 +41,10 @@ clip_bar = NodePath("../ClipBar")
 max_clip = 3
 reload_time = 0.5
 reload_delay = 1.2
-fire_delay = 0.6
+fire_delay = 0.7
 
 [node name="Engine" type="CPUParticles2D" parent="."]
+top_level = true
 position = Vector2(-4, 0)
 amount = 400
 lifetime = 20.0

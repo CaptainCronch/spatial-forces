@@ -18,6 +18,12 @@ func _ready() -> void:
 	super()
 	turbo_bar.max_value = turbo_time
 	turbo_bar.value = turbo_timer
+	if modulate == Color.WHITE:
+		emit_scale = 0.1
+		left_engine.lifetime = 0.2
+		right_engine.lifetime = 0.2
+		left_engine.amount = 10
+		right_engine.amount = 10
 
 
 func _process(_delta: float) -> void:
@@ -65,18 +71,13 @@ func primary():
 	for i in 3:
 		bullet_instance = BULLET.instantiate()
 		bullet_instance.position = weapon_component.get_global_position()
+		bullet_instance.sprite.global_position = weapon_component.get_global_position()
 		bullet_instance.rotation = rotation
-		bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
+		#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
 		get_tree().current_scene.call_deferred("add_child", bullet_instance)
 		bullet_instance.modulate = Types.COLOR_VALUES[player_color]
 
-		if player_id == PlayerIDs.PLAYER_2:
-			bullet_instance.set_collision_layer_value(2, false)
-			bullet_instance.set_collision_layer_value(3, true)
-			bullet_instance.hurtbox.set_collision_layer_value(2, false)
-			bullet_instance.hurtbox.set_collision_layer_value(3, true)
-			bullet_instance.hurtbox.set_collision_mask_value(2, true)
-			bullet_instance.hurtbox.set_collision_mask_value(3, false)
+		set_projectile_player(bullet_instance)
 		await get_tree().create_timer(fire_time).timeout
 
 

@@ -38,6 +38,7 @@ enum Mode {GAME, DEMO}
 @export var camera: MultiTargetCamera
 @export var tilemap: TileMapLayer
 @export var map: Texture2D
+@export var padding := 50
 
 var p1_spawns : Array[Vector2i]
 var p2_spawns : Array[Vector2i]
@@ -67,6 +68,9 @@ func game_spawn():
 
 func demo_spawn():
 	var spawns := p1_spawns.duplicate()
+	spawns.append_array(p2_spawns)
+	spawns.append_array(p3_spawns)
+	spawns.append_array(p4_spawns)
 
 	#for ship in Global.SHIP_SCENES:
 	var ship := Global.SHIP_SCENES[0]
@@ -94,7 +98,7 @@ func build(img: Image) -> void:
 		printerr("Map is too large! (> 64px in height or width)")
 		return
 
-	for x in img.get_width():
+	for x in img.get_width(): # check colors and place correct tile
 		for y in img.get_height():
 			match img.get_pixelv(Vector2i(x, y)):
 				Color8(255, 255, 255): #ffffff
@@ -176,4 +180,8 @@ func build(img: Image) -> void:
 				Color8(255, 255, 0): #ffff00
 					p4_spawns.append(Vector2i(x, y) * 32)
 
-	pass
+	var rect := Rect2i(Vector2i(0, 0), Vector2i(img.get_width(), img.get_height()))
+	for x in img.get_width() + padding * 2: # fill out empty space around map
+		for y in img.get_height() + padding * 2:
+			if not rect.has_point(Vector2i(x - padding, y - padding)):
+				tilemap.set_cell(Vector2i(x - padding, y - padding), BASE_TILES_SOURCE_ID, BOUNCY_COORDS)

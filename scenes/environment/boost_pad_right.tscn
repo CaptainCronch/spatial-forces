@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="2_jakvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ll8vb"]
-size = Vector2(10, 28)
+size = Vector2(16, 28)
 
 [node name="Boost" type="Area2D"]
 collision_layer = 64
@@ -18,7 +18,7 @@ region_enabled = true
 region_rect = Rect2(128, 0, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-11, 0)
+position = Vector2(-8, 0)
 shape = SubResource("RectangleShape2D_ll8vb")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

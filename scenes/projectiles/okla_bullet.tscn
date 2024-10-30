@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_ol112"]
 script = ExtResource("2_uh17k")
-attack_damage = 4.0
+attack_damage = 2.0
 knockback_force = 15.0
 origin_name = "Okla"
 attack_type = 0
@@ -17,7 +17,7 @@ radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1llka"]
 
-[node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite") groups=["Projectile"]]
+[node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite", "death_timer") groups=["Projectile"]]
 collision_layer = 2
 collision_mask = 17
 mass = 0.5
@@ -25,10 +25,12 @@ physics_material_override = ExtResource("1_tg27c")
 can_sleep = false
 continuous_cd = 1
 max_contacts_reported = 1
+linear_damp = 1.0
 script = ExtResource("1_kwr7y")
 attack = SubResource("Resource_ol112")
 hurtbox = NodePath("Hurtbox")
 sprite = NodePath("Sprite2D")
+death_timer = NodePath("Death")
 spark_scale = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -41,7 +43,6 @@ shape = SubResource("CircleShape2D_0qg2o")
 [node name="Death" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
-autostart = true
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["Projectile"]]
 collision_layer = 2

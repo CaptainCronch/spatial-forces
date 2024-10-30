@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var spawn_speed := 50.0
+@export var spawn_speed := 10.0
 @export var spawn_rotation := PI
 
 

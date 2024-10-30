@@ -1,6 +1,64 @@
-[gd_scene load_steps=2 format=3 uid="uid://clovy12w6brxj"]
+[gd_scene load_steps=5 format=3 uid="uid://clovy12w6brxj"]
 
 [ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://scenes/level.tscn" id="1_y2iuu"]
+[ext_resource type="Texture2D" uid="uid://bgjpmdedjduoa" path="res://assets/maps/selectmap.png" id="2_u5p10"]
+[ext_resource type="PackedScene" uid="uid://dsr38of5gww7r" path="res://scenes/ship_select_info.tscn" id="3_5k78f"]
+[ext_resource type="Script" path="res://scenes/select_ui.gd" id="3_w08l0"]
 
 [node name="Level" instance=ExtResource("1_y2iuu")]
 current_mode = 1
+map = ExtResource("2_u5p10")
+
+[node name="UI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("outside", "top_left", "top_right", "bottom_left", "bottom_right", "ship_select_p1", "ship_select_p2")]
+layer = 101
+script = ExtResource("3_w08l0")
+outside = NodePath("Outside")
+top_left = NodePath("MarginContainer/TopLeft")
+top_right = NodePath("MarginContainer/TopRight")
+bottom_left = NodePath("MarginContainer/BottomLeft")
+bottom_right = NodePath("MarginContainer/BottomRight")
+ship_select_p1 = NodePath("ShipSelectInfo1")
+ship_select_p2 = NodePath("ShipSelectInfo2")
+
+[node name="Outside" type="Control" parent="UI" index="0"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -256.0
+offset_top = -256.0
+offset_right = -256.0
+offset_bottom = -256.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI" index="1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="TopLeft" type="Control" parent="UI/MarginContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TopRight" type="Control" parent="UI/MarginContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="BottomLeft" type="Control" parent="UI/MarginContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="BottomRight" type="Control" parent="UI/MarginContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="ShipSelectInfo1" parent="UI" index="2" instance=ExtResource("3_5k78f")]
+
+[node name="ShipSelectInfo2" parent="UI" index="3" instance=ExtResource("3_5k78f")]

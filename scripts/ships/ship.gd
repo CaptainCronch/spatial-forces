@@ -16,10 +16,10 @@ var player_color: Types.Colors
 @export var acceleration := 128.0
 @export var back_acceleration := 16.0
 @export var top_speed := 96.0
-@export var bullet_speed := 400.0
 
 var top_speed_boost := 1.0
 var acceleration_boost := 1.0
+var rotational_boost := 1.0
 var rotation_dir := 0
 var move_dir := Vector2()
 var block_tiles: Array[RID] = []
@@ -51,7 +51,7 @@ func initialize():
 
 
 func _physics_process(_delta):
-	apply_torque(rotation_dir * rotation_speed) # spin
+	apply_torque(rotation_dir * rotation_speed * rotational_boost) # spin
 	apply_central_force(move_dir.rotated(rotation)) # move
 
 	var back_factor := minf(pow(2, # exponential curve so we get pushed back more the closer we are to the top speed
@@ -82,10 +82,22 @@ func secondary_hold(): pass
 
 
 func die():
-	get_tree().current_scene.camera.remove_target(self)
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
+
+	await get_tree().create_timer(1.0).timeout
+	get_tree().current_scene.camera.remove_target(self)
 	#queue_free()
+
+
+func set_projectile_player(projectile: Node2D) -> void:
+	if player_id == PlayerIDs.PLAYER_2:
+		projectile.set_collision_layer_value(2, false)
+		projectile.set_collision_layer_value(3, true)
+		projectile.hurtbox.set_collision_layer_value(2, false)
+		projectile.hurtbox.set_collision_layer_value(3, true)
+		projectile.hurtbox.set_collision_mask_value(2, true)
+		projectile.hurtbox.set_collision_mask_value(3, false)
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:

@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bnq06uyl2njxi"]
+
+[ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://assets/GemunuLibre-VariableFont_wght.ttf" id="1_n1vxc"]
+
+[sub_resource type="FontVariation" id="FontVariation_jtuiq"]
+base_font = ExtResource("1_n1vxc")
+variation_opentype = {
+2003265652: 800
+}
+
+[resource]
+default_font = SubResource("FontVariation_jtuiq")
+default_font_size = 10

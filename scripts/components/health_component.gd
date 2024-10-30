@@ -38,6 +38,9 @@ func _ready():
 
 
 func damage(attack : Attack):
+	if target is RigidBody2D:
+		target.apply_central_impulse(attack.attack_direction * attack.knockback_force)
+
 	if dead: return
 	heal_timer.stop() # stop healing even if damage is 0
 	if heal_tween: heal_tween.kill()
@@ -60,6 +63,9 @@ func die(attack):
 	if dead: return
 	death.emit(attack)
 	dead = true
+	if target is RigidBody2D:
+		var stable_force := minf(500, attack.knockback_force * 100)
+		target.apply_central_impulse(attack.attack_direction * stable_force)
 	target.die()
 
 

@@ -5,4 +5,5 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
-		body.apply_central_impulse(Vector2.RIGHT.rotated(rotation) * bounce_force)
+		#body.apply_central_impulse(Vector2.RIGHT.rotated(rotation) * bounce_force)
+		body.linear_velocity = Vector2.RIGHT.rotated(rotation) * bounce_force

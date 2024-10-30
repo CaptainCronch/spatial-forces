@@ -4,4 +4,4 @@ extends Area2D
 
 
 func _ready() -> void:
-	particles.lifetime += randf_range(-0.2, 0.2)
+	particles.lifetime += randf_range(0.0, 0.2)
