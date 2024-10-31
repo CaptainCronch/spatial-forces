@@ -28,8 +28,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	super(_delta)
-	set_engines()
 	turbo(_delta)
+	set_engines()
 
 
 func secondary_hold():

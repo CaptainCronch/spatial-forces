@@ -23,6 +23,7 @@ var rotational_boost := 1.0
 var rotation_dir := 0
 var move_dir := Vector2()
 var block_tiles: Array[RID] = []
+var demo := false
 #var timer = 0
 
 #@onready var bullet_spawn
@@ -35,8 +36,8 @@ func _ready():
 
 
 func initialize():
-	get_tree().current_scene.camera.add_target(self)
-	modulate = Types.COLOR_VALUES[player_color]
+	if not demo: get_tree().current_scene.camera.add_target(self)
+	if not demo: modulate = Types.COLOR_VALUES[player_color]
 
 	if player_id == PlayerIDs.PLAYER_2:
 		remove_from_group("Player1")
@@ -85,8 +86,11 @@ func die():
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
 
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	get_tree().current_scene.camera.remove_target(self)
+	get_tree().current_scene.camera.zoom_scale = 2.0
+	await get_tree().create_timer(3.0).timeout
+	get_tree().current_scene.camera.zoom_scale = 1.0
 	#queue_free()
 
 

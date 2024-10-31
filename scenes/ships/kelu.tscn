@@ -44,7 +44,7 @@ target = NodePath("..")
 
 [node name="LeftEngine" type="CPUParticles2D" parent="."]
 position = Vector2(-5, -7)
-amount = 50
+amount = 200
 lifetime = 20.0
 spread = 0.0
 gravity = Vector2(0, 0)
@@ -53,7 +53,7 @@ scale_amount_max = 2.0
 
 [node name="RightEngine" type="CPUParticles2D" parent="."]
 position = Vector2(-5, 7)
-amount = 50
+amount = 200
 lifetime = 20.0
 spread = 0.0
 gravity = Vector2(0, 0)

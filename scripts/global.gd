@@ -12,6 +12,117 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
 ]
+const SHIP_INFO: Array[Dictionary] = [
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Okla",
+		"subtitle": "Burst Movement",
+		"alt_subtitle": "Rotational Skillshots",
+		"max": 96,
+		"acc": 32,
+		"rot": 720,
+		"clp": 3,
+		"passive": "Stronger shot when spinning",
+		"primary": "Burstgun",
+		"secondary": "One big bullet",
+		"sprite": preload("res://assets/ships/okla.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 96,
+		"acc": 128,
+		"rot": 360,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Quick triple star burst",
+		"secondary": "Hold for more max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+]
 
 
 #func _ready():
@@ -54,6 +165,18 @@ func decay_towards(value : float, target : float,
 	var new_value := (value - target) * pow(2, -delta * decay_power) + target
 
 	if absf(new_value - target) < round_threshold:
+		return target
+	else:
+		return new_value
+
+
+func decay_vec2_towards(value : Vector2, target : Vector2,
+			decay_power : float, delta : float = get_process_delta_time(),
+			round_threshold : float = 0.0) -> Vector2 :
+
+	var new_value := (value - target) * pow(2, -delta * decay_power) + target
+
+	if (new_value - target).abs().length() < round_threshold:
 		return target
 	else:
 		return new_value

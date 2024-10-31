@@ -38,6 +38,7 @@ enum Mode {GAME, DEMO}
 @export var camera: MultiTargetCamera
 @export var tilemap: TileMapLayer
 @export var map: Texture2D
+@export var UI: CanvasLayer
 @export var padding := 50
 
 var p1_spawns : Array[Vector2i]
@@ -72,9 +73,7 @@ func demo_spawn():
 	spawns.append_array(p3_spawns)
 	spawns.append_array(p4_spawns)
 
-	#for ship in Global.SHIP_SCENES:
-	var ship := Global.SHIP_SCENES[0]
-	for i in range(20):
+	for ship in Global.SHIP_SCENES:
 		var new_ship: Ship = ship.instantiate()
 		new_ship.input.free()
 		var new_steering: SteeringComponent = STEERING.instantiate()
@@ -82,6 +81,7 @@ func demo_spawn():
 		new_steering.target = new_ship
 		new_ship.steering = new_steering
 		new_ship.player_color = Types.Colors.WHITE
+		new_ship.demo = true
 		add_child(new_ship)
 		if spawns.size() <= 0:
 			printerr("There are less p1 spawnpoints than ships...")
@@ -91,6 +91,8 @@ func demo_spawn():
 			new_ship.global_translate(spawns[rand])
 			#spawns.remove_at(rand)
 		new_ship.rotation = randf_range(0, TAU)
+
+		UI.ships.append(new_ship)
 
 
 func build(img: Image) -> void:

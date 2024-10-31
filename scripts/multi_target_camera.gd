@@ -1,13 +1,15 @@
 extends Camera2D
 class_name MultiTargetCamera
 
-@export var move_speed := 0.5
+@export var move_speed := 5.0
 @export var zoom_speed := 0.05
 @export var min_zoom := 0.15
 @export var max_zoom := 1.0
-@export var margin := Vector2(400, 200)
+@export var margin := Vector2(350, 150)
 
-var targets := []
+var targets : Array[Node2D] = []
+var zoom_scale := 1.0
+var desired_offset := Vector2()
 
 @onready var screen_size = get_viewport_rect().size
 
@@ -22,6 +24,8 @@ func remove_target(t):
 
 
 func _process(_delta):
+	offset = Global.decay_vec2_towards(offset, desired_offset, move_speed)
+
 	if !targets:
 		return
 
@@ -41,10 +45,10 @@ func _process(_delta):
 		z = clampf((1 / r.size.x) * screen_size.x, min_zoom, max_zoom)
 	else:
 		z = clampf((1 / r.size.y) * screen_size.y, min_zoom, max_zoom)
-	zoom = zoom.lerp(Vector2.ONE * z, zoom_speed)
+	zoom = zoom.lerp(Vector2.ONE * z * zoom_scale, zoom_speed)
 
 	#print(r.position + r.size)
-	global_position = global_position.lerp(r.position + (r.size/2), move_speed)
+	global_position = Global.decay_vec2_towards(global_position, r.position + (r.size/2), move_speed)
 
 	#$Line2D.set_point_position(0, r.position + Vector2(r.size.x, r.size.y))
 	#$Line2D.set_point_position(1, r.position + Vector2(r.size.x, 0))

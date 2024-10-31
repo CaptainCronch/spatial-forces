@@ -25,9 +25,9 @@ func _ready() -> void:
 	slugger_bar.max_value = slug_charge_time
 	slugger_bar.value = slug_charge_timer
 	if modulate == Color.WHITE:
-		emit_scale = 0.1
-		engine.lifetime = 0.2
-		engine.amount = 10
+		emit_scale = 0.2
+		engine.lifetime = 0.4
+		engine.amount = 20
 
 
 func _process(_delta: float) -> void:
