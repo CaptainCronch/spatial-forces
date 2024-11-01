@@ -75,9 +75,8 @@ const SHIP_INFO: Array[Dictionary] = [
 	},
 	{
 		"title": "Okla",
-		"subtitle": "Burst Movement",
-		"alt_subtitle": "Rotational Skillshots",
-		"max": 96,
+		"subtitle": "Rotational Skillshots",
+		"max": 128,
 		"acc": 32,
 		"rot": 720,
 		"clp": 3,

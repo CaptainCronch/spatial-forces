@@ -30,6 +30,7 @@ hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
 rotation_speed = 720.0
 acceleration = 32.0
+top_speed = 128.0
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("2_3l45v")]
 health_bar = NodePath("../HealthBar")

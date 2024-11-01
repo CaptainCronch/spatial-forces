@@ -16,8 +16,8 @@ theme = ExtResource("1_b7k42")
 theme_override_constants/separation = 3
 script = ExtResource("2_oaaw2")
 title = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Label")
-ship_holder = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control")
-ship = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Sprite")
+ship_holder = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Node2D")
+ship = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Node2D/Sprite")
 player_number = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label")
 subtitle = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label2")
 max = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label")
@@ -48,6 +48,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(220, 40)
 layout_mode = 2
 theme_override_constants/separation = 0
 
@@ -55,6 +56,7 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 36
 text = "KELU"
 uppercase = true
@@ -64,7 +66,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Sprite" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+[node name="Node2D" type="Node2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control"]
+
+[node name="Sprite" type="Sprite2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Node2D"]
 texture = ExtResource("2_dcj1r")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
@@ -259,6 +263,7 @@ size_flags_vertical = 3
 text = "More acceleration when near enemy"
 horizontal_alignment = 1
 autowrap_mode = 3
+visible_characters_behavior = 1
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -285,6 +290,7 @@ size_flags_vertical = 3
 text = "Quick triple star burst"
 horizontal_alignment = 1
 autowrap_mode = 3
+visible_characters_behavior = 1
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
@@ -308,6 +314,7 @@ size_flags_vertical = 3
 text = "Hold for more max speed"
 horizontal_alignment = 1
 autowrap_mode = 3
+visible_characters_behavior = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 visible = false
