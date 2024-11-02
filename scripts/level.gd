@@ -49,6 +49,7 @@ var p4_spawns : Array[Vector2i]
 
 func _ready() -> void:
 	if map: build(map.get_image())
+	camera.global_position = map.get_size() * 16
 
 	if current_mode == Mode.GAME: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()

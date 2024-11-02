@@ -1,5 +1,8 @@
 extends Node
 
+const LEVEL := preload("res://scenes/level.tscn")
+const SELECT := preload("res://scenes/select.tscn")
+
 enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK}
 const SHIP_SCENES: Array[PackedScene] = [
 	preload("res://scenes/ships/kelu.tscn"),

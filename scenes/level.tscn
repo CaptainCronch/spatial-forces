@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2i211avmpf4e"]
+[gd_scene load_steps=10 format=3 uid="uid://b2i211avmpf4e"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_nh2c1"]
 [ext_resource type="Texture2D" uid="uid://cvg7pj3skkvap" path="res://assets/environment/1024-64-checkers.png" id="2_658j6"]
@@ -7,6 +7,11 @@
 [ext_resource type="TileSet" uid="uid://dr53erg1ld30g" path="res://tileset.tres" id="4_pwauv"]
 [ext_resource type="Script" path="res://scripts/multi_target_camera.gd" id="4_yream"]
 [ext_resource type="Shader" path="res://dark_mode.gdshader" id="6_h408j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abqqv"]
+bg_color = Color(0.06, 0.06, 0.06, 1)
+anti_aliasing = false
+anti_aliasing_size = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dfffv"]
 shader = ExtResource("6_h408j")
@@ -48,6 +53,15 @@ tile_set = ExtResource("4_pwauv")
 
 [node name="ScreenEffects" type="CanvasLayer" parent="Environment"]
 layer = 100
+
+[node name="FadePanel" type="Panel" parent="Environment/ScreenEffects"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_abqqv")
 
 [node name="DarkMode" type="ColorRect" parent="Environment/ScreenEffects"]
 material = SubResource("ShaderMaterial_dfffv")

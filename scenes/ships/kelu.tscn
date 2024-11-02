@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjfrg5jh4fm7"]
+[gd_scene load_steps=12 format=3 uid="uid://bjfrg5jh4fm7"]
 
 [ext_resource type="Script" path="res://scripts/ships/kelu.gd" id="1_c7pl7"]
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_ib032"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/components/hitbox_component.gd" id="4_y4c8t"]
 [ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://scenes/components/meter.tscn" id="6_kb5h6"]
 [ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://scenes/components/input_component.tscn" id="8_i8q1l"]
+[ext_resource type="PackedScene" uid="uid://bwhdsvnj6rdbt" path="res://scenes/components/delimiter_component.tscn" id="9_2ohu3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
 radius = 6.0
@@ -15,7 +16,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ql4xu"]
 radius = 192.0
 
-[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("turbo_bar", "left_engine", "right_engine", "weapon_component", "hitbox", "input") groups=["Player", "Player1"]]
+[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("turbo_bar", "left_engine", "right_engine", "weapon_component", "delimiter_component", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
 collision_mask = 41
 physics_material_override = ExtResource("1_ib032")
@@ -27,6 +28,7 @@ turbo_bar = NodePath("TurboBar")
 left_engine = NodePath("LeftEngine")
 right_engine = NodePath("RightEngine")
 weapon_component = NodePath("WeaponComponent")
+delimiter_component = NodePath("DelimiterComponent")
 hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
 
@@ -110,6 +112,9 @@ offset_bottom = 7.0
 rotation = 2.61799
 
 [node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_i8q1l")]
+target = NodePath("..")
+
+[node name="DelimiterComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_2ohu3")]
 target = NodePath("..")
 
 [connection signal="area_entered" from="Rushdown" to="." method="_on_rushdown_area_entered"]

@@ -1,9 +1,12 @@
-extends VBoxContainer
+extends HBoxContainer
+
+@export var ready_holder: Control
 
 @export var title: Label
 @export var ship_holder: Node2D
 @export var ship: Sprite2D
 @export var player_number: Label
+@export var underline: Line2D
 @export var subtitle: Label
 
 @export var max: Label
@@ -22,21 +25,23 @@ extends VBoxContainer
 @export var primary: Label
 @export var secondary: Label
 
-@export var desired_ship_rotation_speed := PI / 2
 @export var ship_scale := Vector2(1.5, 0.8)
-
 @export var tween_duration := 0.5
+@export var ready_duration := 0.2
+@export var player_string := "P1"
 
 @onready var labels: Array[Label] = [subtitle, passive, primary, secondary]
 @onready var numbers: Array[Label] = [max, acc, rot, clp]
 @onready var bars: Array[TextureRect] = [max_bar, acc_bar, rot_bar, clp_bar]
 
 var ship_rotation_direction := 1
+var desired_ship_rotation_speed := PI / 2
 var ship_rotation_speed := desired_ship_rotation_speed
 var text_tween: Tween
 var title_tween: Tween
 var number_tween: Tween
 var bar_tween: Tween
+var ready_tween: Tween
 var last_ship_index = null
 
 var max_value := 0.0
@@ -68,6 +73,8 @@ func _ready() -> void: # find minimum and maximum stats of all ships to get a sc
 			stat_min_max[3][0] = info.clp
 		if stat_min_max[3][1] == null or info.clp > stat_min_max[3][1]:
 			stat_min_max[3][1] = info.clp
+
+	player_number.text = player_string
 
 
 func _process(delta: float) -> void:
@@ -123,6 +130,19 @@ func update(ship_index: int, direction: int) -> void:
 	ship_rotation_speed += TAU * 2 * direction
 
 	last_ship_index = ship_index
+
+
+func ready_up(ready: bool):
+	if is_instance_valid(ready_tween): ready_tween.kill()
+	ready_tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
+	if ready:
+		ready_tween.tween_property(ready_holder, "custom_minimum_size:x", 64, ready_duration)
+		ready_tween.tween_property(ready_holder, "modulate", Color(1, 1, 1, 1), ready_duration)
+	else:
+		ready_tween.tween_property(ready_holder, "custom_minimum_size:x", 0, ready_duration)
+		ready_tween.tween_property(ready_holder, "modulate", Color(1, 1, 1, 0), ready_duration)
+
+
 
 
 func tween_number(property_name: String, end_value: int) -> void:

@@ -6,6 +6,7 @@ const BULLET := preload("res://scenes/projectiles/kelu_bullet.tscn")
 @export var left_engine: CPUParticles2D
 @export var right_engine: CPUParticles2D
 @export var weapon_component: WeaponComponent
+@export var delimiter_component: DelimiterComponent
 
 var turbo_timer := 0.0
 var emit_scale := 1.0
@@ -18,6 +19,7 @@ func _ready() -> void:
 	super()
 	turbo_bar.max_value = turbo_time
 	turbo_bar.value = turbo_timer
+	delimiter_component.label.text = "P" + str(player_id + 1)
 	if modulate == Color.WHITE:
 		emit_scale = 0.1
 		left_engine.lifetime = 0.2

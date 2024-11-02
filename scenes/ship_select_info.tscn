@@ -1,24 +1,37 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsr38of5gww7r"]
+[gd_scene load_steps=8 format=3 uid="uid://dsr38of5gww7r"]
 
 [ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://default_theme.tres" id="1_b7k42"]
 [ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://assets/ships/kelu.png" id="2_dcj1r"]
 [ext_resource type="Script" path="res://scripts/ship_select_info.gd" id="2_oaaw2"]
 [ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://assets/1px-square.png" id="3_myqy4"]
+[ext_resource type="Shader" path="res://scenes/stripes.gdshader" id="5_2awx0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_47t7x"]
+shader = ExtResource("5_2awx0")
+shader_parameter/color_gap = Color(0.0588235, 0.0588235, 0.0588235, 0.8)
+shader_parameter/color_stripe = Color(1, 1, 1, 1)
+shader_parameter/divisions = 5.0
+shader_parameter/stripe_bias = 2.0
+shader_parameter/speed = 0.5
+shader_parameter/angle = 0.35
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dv1lx"]
 bg_color = Color(0.059, 0.059, 0.059, 0.8)
+anti_aliasing = false
 anti_aliasing_size = 0.5
 
-[node name="ShipSelectInfo" type="VBoxContainer" node_paths=PackedStringArray("title", "ship_holder", "ship", "player_number", "subtitle", "max", "max_bar", "acc", "acc_bar", "rot", "rot_bar", "clp", "clp_bar", "passive", "primary", "secondary")]
+[node name="ShipSelectInfo" type="HBoxContainer" node_paths=PackedStringArray("ready_holder", "title", "ship_holder", "ship", "player_number", "underline", "subtitle", "max", "max_bar", "acc", "acc_bar", "rot", "rot_bar", "clp", "clp_bar", "passive", "primary", "secondary")]
 offset_right = 230.0
-offset_bottom = 154.0
+offset_bottom = 158.0
 theme = ExtResource("1_b7k42")
-theme_override_constants/separation = 3
+theme_override_constants/separation = 0
 script = ExtResource("2_oaaw2")
+ready_holder = NodePath("CenterContainer/Control")
 title = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Label")
 ship_holder = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Node2D")
 ship = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Control/Node2D/Sprite")
 player_number = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label")
+underline = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/Line2D")
 subtitle = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label2")
 max = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label")
 max_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control/TextureProgressBar")
@@ -31,6 +44,38 @@ clp_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/
 passive = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/Label2")
 primary = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer/Label2")
 secondary = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/VBoxContainer2/Label2")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Control" type="Control" parent="CenterContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Control"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(77, 31)
+theme_override_font_sizes/font_size = 56
+text = "READY"
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Control/Label"]
+material = SubResource("ShaderMaterial_47t7x")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_myqy4")
+expand_mode = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(230, 150)
@@ -83,6 +128,16 @@ theme_override_font_sizes/font_size = 24
 text = "P1"
 horizontal_alignment = 2
 uppercase = true
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Line2D" type="Line2D" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control"]
+position = Vector2(0, -2)
+points = PackedVector2Array(0, 0, -22.63, 0)
+width = 1.0
 
 [node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -315,15 +370,3 @@ text = "Hold for more max speed"
 horizontal_alignment = 1
 autowrap_mode = 3
 visible_characters_behavior = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 2
-theme_override_constants/margin_left = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-text = "press V to explode"
