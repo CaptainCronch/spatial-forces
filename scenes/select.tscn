@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://clovy12w6brxj"]
 
 [ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://scenes/level.tscn" id="1_y2iuu"]
-[ext_resource type="Texture2D" uid="uid://bgjpmdedjduoa" path="res://assets/maps/selectmap.png" id="2_u5p10"]
-[ext_resource type="PackedScene" uid="uid://dsr38of5gww7r" path="res://scenes/ship_select_info.tscn" id="3_5k78f"]
-[ext_resource type="Script" path="res://scripts/select_ui.gd" id="3_w08l0"]
-[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://default_theme.tres" id="5_3qyg3"]
+[ext_resource type="Texture2D" uid="uid://q7e1savtg7ga" path="res://assets/maps/sel_original.png" id="2_8ctso"]
+[ext_resource type="PackedScene" uid="uid://dsr38of5gww7r" path="res://scenes/ui/ship_select_info.tscn" id="3_5k78f"]
+[ext_resource type="Script" path="res://scripts/ui/select_ui.gd" id="3_w08l0"]
+[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="5_3qyg3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kg3tj"]
 bg_color = Color(0.06, 0.06, 0.06, 0.8)
@@ -13,7 +13,7 @@ anti_aliasing_size = 0.5
 
 [node name="Level" node_paths=PackedStringArray("UI") instance=ExtResource("1_y2iuu")]
 current_mode = 1
-map = ExtResource("2_u5p10")
+map = ExtResource("2_8ctso")
 UI = NodePath("UI")
 padding = 30
 
@@ -72,22 +72,22 @@ size_flags_vertical = 8
 player_string = "P2"
 
 [node name="Ship1Line" type="Line2D" parent="UI" index="5"]
-visible = false
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 width = 1.0
 begin_cap_mode = 2
 end_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 1
+antialiased = true
 
 [node name="Ship2Line" type="Line2D" parent="UI" index="6"]
-visible = false
 points = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 width = 1.0
 begin_cap_mode = 2
 end_cap_mode = 2
 sharp_limit = 0.0
 round_precision = 1
+antialiased = true
 
 [node name="PanelContainer" type="PanelContainer" parent="UI" index="7"]
 modulate = Color(1, 1, 1, 0)

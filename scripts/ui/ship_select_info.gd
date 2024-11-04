@@ -15,8 +15,8 @@ extends HBoxContainer
 @export var acc: Label
 @export var acc_bar: TextureRect
 
-@export var rot: Label
-@export var rot_bar: TextureRect
+@export var nrg: Label
+@export var nrg_bar: TextureRect
 
 @export var clp: Label
 @export var clp_bar: TextureRect
@@ -31,8 +31,8 @@ extends HBoxContainer
 @export var player_string := "P1"
 
 @onready var labels: Array[Label] = [subtitle, passive, primary, secondary]
-@onready var numbers: Array[Label] = [max, acc, rot, clp]
-@onready var bars: Array[TextureRect] = [max_bar, acc_bar, rot_bar, clp_bar]
+@onready var numbers: Array[Label] = [max, acc, nrg, clp]
+@onready var bars: Array[TextureRect] = [max_bar, acc_bar, nrg_bar, clp_bar]
 
 var ship_rotation_direction := 1
 var desired_ship_rotation_speed := PI / 2
@@ -46,7 +46,7 @@ var last_ship_index = null
 
 var max_value := 0.0
 var acc_value := 0.0
-var rot_value := 0.0
+var nrg_value := 0.0
 var clp_value := 0.0
 
 var stat_min_max: Array[Array] = [[null, null], [null, null], [null, null], [null, null]]
@@ -64,10 +64,10 @@ func _ready() -> void: # find minimum and maximum stats of all ships to get a sc
 		if stat_min_max[1][1] == null or info.acc > stat_min_max[1][1]:
 			stat_min_max[1][1] = info.acc
 
-		if stat_min_max[2][0] == null or info.rot < stat_min_max[2][0]:
-			stat_min_max[2][0] = info.rot
-		if stat_min_max[2][1] == null or info.rot > stat_min_max[2][1]:
-			stat_min_max[2][1] = info.rot
+		if stat_min_max[2][0] == null or info.nrg < stat_min_max[2][0]:
+			stat_min_max[2][0] = info.nrg
+		if stat_min_max[2][1] == null or info.nrg > stat_min_max[2][1]:
+			stat_min_max[2][1] = info.nrg
 
 		if stat_min_max[3][0] == null or info.clp < stat_min_max[3][0]:
 			stat_min_max[3][0] = info.clp
@@ -84,7 +84,7 @@ func _process(delta: float) -> void:
 	ship.global_position = ship_holder.get_global_transform_with_canvas().get_origin() + Vector2(-4, 2)
 	max.text = str(roundf(max_value))
 	acc.text = str(roundf(acc_value))
-	rot.text = str(roundf(rot_value))
+	nrg.text = str(roundf(nrg_value))
 	clp.text = str(roundf(clp_value))
 
 
@@ -116,14 +116,14 @@ func update(ship_index: int, direction: int) -> void:
 	bar_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel()
 	tween_bar(max_bar, 0, info.max)
 	tween_bar(acc_bar, 1, info.acc)
-	tween_bar(rot_bar, 2, info.rot)
+	tween_bar(nrg_bar, 2, info.nrg)
 	tween_bar(clp_bar, 3, info.clp)
 
 	if is_instance_valid(number_tween): number_tween.kill()
 	number_tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE).set_parallel()
 	tween_number("max", info.max)
 	tween_number("acc", info.acc)
-	tween_number("rot", info.rot)
+	tween_number("nrg", info.nrg)
 	tween_number("clp", info.clp)
 
 	ship_rotation_direction = direction
@@ -132,10 +132,10 @@ func update(ship_index: int, direction: int) -> void:
 	last_ship_index = ship_index
 
 
-func ready_up(ready: bool):
+func ready_up(is_ready: bool):
 	if is_instance_valid(ready_tween): ready_tween.kill()
 	ready_tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC).set_parallel()
-	if ready:
+	if is_ready:
 		ready_tween.tween_property(ready_holder, "custom_minimum_size:x", 64, ready_duration)
 		ready_tween.tween_property(ready_holder, "modulate", Color(1, 1, 1, 1), ready_duration)
 	else:

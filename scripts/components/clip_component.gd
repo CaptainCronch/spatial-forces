@@ -1,5 +1,5 @@
 extends Node2D
-class_name WeaponComponent
+class_name ClipComponent
 
 @export var clip_bar : Meter
 @export var max_clip : int

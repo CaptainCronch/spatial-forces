@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bhlsjeqhvlcgy"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_ql8oa"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_ql8oa"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="1_u0c3x"]
 [ext_resource type="Script" path="res://scripts/classes/attack.gd" id="2_gmu68"]
 [ext_resource type="Texture2D" uid="uid://c6p4p5cnyn8mj" path="res://assets/projectiles/bullet4.png" id="2_wq6r8"]
@@ -19,9 +19,9 @@ radius = 2.0
 radius = 5.0
 
 [node name="Bullet" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite", "death_timer") groups=["Projectile"]]
-collision_layer = 2
+collision_layer = 128
 collision_mask = 17
-mass = 0.5
+mass = 0.05
 physics_material_override = ExtResource("1_ql8oa")
 can_sleep = false
 continuous_cd = 1

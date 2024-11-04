@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dsr38of5gww7r"]
 
-[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://default_theme.tres" id="1_b7k42"]
+[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="1_b7k42"]
 [ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://assets/ships/kelu.png" id="2_dcj1r"]
-[ext_resource type="Script" path="res://scripts/ship_select_info.gd" id="2_oaaw2"]
+[ext_resource type="Script" path="res://scripts/ui/ship_select_info.gd" id="2_oaaw2"]
 [ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://assets/1px-square.png" id="3_myqy4"]
-[ext_resource type="Shader" path="res://scenes/stripes.gdshader" id="5_2awx0"]
+[ext_resource type="Shader" path="res://resources/stripes.gdshader" id="5_2awx0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47t7x"]
 shader = ExtResource("5_2awx0")
@@ -20,7 +20,7 @@ bg_color = Color(0.059, 0.059, 0.059, 0.8)
 anti_aliasing = false
 anti_aliasing_size = 0.5
 
-[node name="ShipSelectInfo" type="HBoxContainer" node_paths=PackedStringArray("ready_holder", "title", "ship_holder", "ship", "player_number", "underline", "subtitle", "max", "max_bar", "acc", "acc_bar", "rot", "rot_bar", "clp", "clp_bar", "passive", "primary", "secondary")]
+[node name="ShipSelectInfo" type="HBoxContainer" node_paths=PackedStringArray("ready_holder", "title", "ship_holder", "ship", "player_number", "underline", "subtitle", "max", "max_bar", "acc", "acc_bar", "nrg", "nrg_bar", "clp", "clp_bar", "passive", "primary", "secondary")]
 offset_right = 230.0
 offset_bottom = 158.0
 theme = ExtResource("1_b7k42")
@@ -37,8 +37,8 @@ max = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/Marg
 max_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control/TextureProgressBar")
 acc = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label2")
 acc_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control2/TextureProgressBar")
-rot = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label3")
-rot_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control3/TextureProgressBar")
+nrg = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label3")
+nrg_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control3/TextureProgressBar")
 clp = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3/Label4")
 clp_bar = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/MarginContainer/VBoxContainer2/Control4/TextureProgressBar")
 passive = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/Label2")
@@ -179,8 +179,7 @@ uppercase = true
 [node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/line_spacing = -4
-text = "rot
-"
+text = "nrg"
 uppercase = true
 
 [node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer"]
@@ -285,7 +284,7 @@ uppercase = true
 [node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/HBoxContainer/VBoxContainer3"]
 layout_mode = 2
 theme_override_constants/line_spacing = -4
-text = "360
+text = "100
 "
 uppercase = true
 

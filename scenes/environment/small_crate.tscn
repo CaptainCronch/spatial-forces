@@ -1,16 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://bd8fmmv7aqnol"]
+[gd_scene load_steps=6 format=3 uid="uid://bd8fmmv7aqnol"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_a4xvj"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_a4xvj"]
 [ext_resource type="Texture2D" uid="uid://d103oxvl41jgx" path="res://assets/environment/small-box.png" id="1_b011w"]
 [ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_6rnif"]
+[ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://scenes/particles/imbued.tscn" id="4_jl20c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]
 size = Vector2(16, 16)
 
-[node name="SmallCrate" type="RigidBody2D"]
-collision_mask = 25
+[node name="SmallCrate" type="RigidBody2D" node_paths=PackedStringArray("imbued_particles")]
+collision_mask = 153
 physics_material_override = ExtResource("1_a4xvj")
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("2_6rnif")
+imbued_particles = NodePath("Imbued")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_b011w")
@@ -18,3 +23,7 @@ region_rect = Rect2(96, 64, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rjek7")
+
+[node name="Imbued" parent="." instance=ExtResource("4_jl20c")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

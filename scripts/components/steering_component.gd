@@ -52,8 +52,10 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if disabled: return
 	target.rotation_dir = 0
+	target.move_dir = Vector2()
+
+	if disabled: return
 	target.move_dir = Vector2(target.acceleration * target.acceleration_boost, 0)
 
 	check_interest()

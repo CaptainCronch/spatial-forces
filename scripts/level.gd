@@ -31,15 +31,19 @@ const STEERING = preload("res://scenes/components/steering_component.tscn")
 enum Mode {GAME, DEMO}
 
 @export var current_mode: Mode
-@export var player_1: Global.Ships
-@export var player_1_color: Types.Colors = Types.Colors.BLUE
-@export var player_2 : Global.Ships
-@export var player_2_color: Types.Colors = Types.Colors.RED
+@export var player_1 : Global.Ships = Global.Ships.NONE
+@export var player_2 : Global.Ships = Global.Ships.NONE
+@export var p1_label: PlayerNumber
+@export var p2_label: PlayerNumber
+@export var number_holder: MarginContainer
 @export var camera: MultiTargetCamera
 @export var tilemap: TileMapLayer
 @export var map: Texture2D
 @export var UI: CanvasLayer
+@export var fade_panel: Panel
+@export var color_overlay: ColorRect
 @export var padding := 50
+@export var fade_time := 1.0
 
 var p1_spawns : Array[Vector2i]
 var p2_spawns : Array[Vector2i]
@@ -48,7 +52,10 @@ var p4_spawns : Array[Vector2i]
 
 
 func _ready() -> void:
+	color_overlay.material.set_shader_parameter("color_factor", Global.base_color)
+
 	if map: build(map.get_image())
+	else: build(Global.map.get_image())
 	camera.global_position = map.get_size() * 16
 
 	if current_mode == Mode.GAME: game_spawn()
@@ -56,16 +63,38 @@ func _ready() -> void:
 
 
 func game_spawn():
+	fade_panel.modulate = Color(1, 1, 1, 1)
+	var fade_tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	fade_tween.tween_property(fade_panel, "modulate", Color(1, 1, 1, 0), fade_time)
+	fade_tween.tween_callback(p1_label.show)
+	fade_tween.tween_callback(p2_label.show)
+	if player_1 == Global.Ships.NONE: player_1 = Global.p1_ship
+	if player_2 == Global.Ships.NONE: player_2 = Global.p2_ship
 	var p1 : Ship = Global.SHIP_SCENES[player_1].instantiate()
-	p1.player_color = player_1_color
-	add_child(p1)
 	p1.global_translate(p1_spawns[randi_range(0, p1_spawns.size() - 1)])
 	p1.rotate(PI)
+	add_child(p1)
 	var p2 : Ship = Global.SHIP_SCENES[player_2].instantiate()
-	p2.player_color = player_2_color
 	p2.player_id = Ship.PlayerIDs.PLAYER_2
-	add_child(p2)
 	p2.global_translate(p2_spawns[randi_range(0, p2_spawns.size() - 1)])
+	add_child(p2)
+
+	p1_label.ship = p1
+	p2_label.ship = p2
+	number_holder.show()
+
+	var number_tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	#number_tween.tween_callback(number_holder.remove_theme_constant_override.bind("margin_left"))
+	number_tween.tween_interval(5.0)
+	number_tween.tween_method(change_margin.bind(number_holder, "margin_left"), 16, -128 * 10, 1.0)
+	number_tween.parallel().tween_callback(p1_label.leave)
+	number_tween.parallel().tween_callback(p2_label.leave)
+	number_tween.tween_callback(p1_label.hide)
+	number_tween.tween_callback(p2_label.hide)
+
+
+func change_margin(amount: int, container: MarginContainer, which: String) -> void:
+	container.add_theme_constant_override(which, amount)
 
 
 func demo_spawn():
@@ -81,7 +110,6 @@ func demo_spawn():
 		new_ship.add_child(new_steering)
 		new_steering.target = new_ship
 		new_ship.steering = new_steering
-		new_ship.player_color = Types.Colors.WHITE
 		new_ship.demo = true
 		add_child(new_ship)
 		if spawns.size() <= 0:

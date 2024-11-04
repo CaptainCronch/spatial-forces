@@ -38,7 +38,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		area.damage(attack)
 		#OS.delay_msec(1000)
 	#spark()
-	queue_free()
+	if not area.is_in_group("Projectile"): queue_free()
 
 
 func spark() -> void:

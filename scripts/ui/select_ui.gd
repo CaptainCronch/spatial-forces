@@ -174,7 +174,10 @@ func ready_up() -> void:
 		countdown_tween.tween_property(countdown_scroll, "scroll_vertical", countdown_text_size, countdown_tween_time)
 		countdown_tween.parallel().tween_interval(1.0)
 		countdown_tween.tween_property(countdown_scroll, "scroll_vertical", 0, countdown_tween_time)
-		countdown_tween.tween_property(fade_panel, "modulate", Color(1, 1, 1, 1), tween_time)
+		countdown_tween.set_trans(Tween.TRANS_CUBIC).tween_property(fade_panel, "modulate", Color(1, 1, 1, 1), tween_time)
+		countdown_tween.tween_callback(func():
+			Global.p1_ship = p1_selected_ship
+			Global.p2_ship = p2_selected_ship)
 		countdown_tween.tween_callback(func(): get_tree().change_scene_to_packed(Global.LEVEL))
 
 	else:

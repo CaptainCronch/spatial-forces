@@ -1,12 +1,10 @@
 extends RigidBody2D
 class_name Ship
 
-const SPEED_LIMIT := 384.0
+const SPEED_LIMIT := 300.0
 
 enum PlayerIDs {PLAYER_1, PLAYER_2}
 var player_id: PlayerIDs
-
-var player_color: Types.Colors
 
 @export var hitbox : HitboxComponent
 @export var input: InputComponent
@@ -15,7 +13,7 @@ var player_color: Types.Colors
 @export var rotation_speed := 360.0
 @export var acceleration := 128.0
 @export var back_acceleration := 16.0
-@export var top_speed := 96.0
+@export var top_speed := 128.0
 
 var top_speed_boost := 1.0
 var acceleration_boost := 1.0
@@ -37,7 +35,6 @@ func _ready():
 
 func initialize():
 	if not demo: get_tree().current_scene.camera.add_target(self)
-	if not demo: modulate = Types.COLOR_VALUES[player_color]
 
 	if player_id == PlayerIDs.PLAYER_2:
 		remove_from_group("Player1")
@@ -73,7 +70,7 @@ func _integrate_forces(state): # if ship_going_faster_than_speed_limit: dont()
 		state.linear_velocity = state.linear_velocity.normalized() * SPEED_LIMIT
 
 
-func primary(): print("yep")
+func primary(): pass
 func primary_release(): pass
 func primary_hold(): pass
 
@@ -83,6 +80,7 @@ func secondary_hold(): pass
 
 
 func die():
+	if demo: return
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
 

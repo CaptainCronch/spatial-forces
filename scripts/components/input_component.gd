@@ -12,9 +12,10 @@ var disabled := false
 
 
 func _process(_delta: float) -> void:
-	if disabled: return
 	target.rotation_dir = 0
 	target.move_dir = Vector2()
+
+	if disabled: return
 
 	if Input.is_action_pressed(inputs[PlayerInputs.RIGHT]):
 		target.rotation_dir += 1

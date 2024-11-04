@@ -1,10 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://bi35p88q2yiy4"]
 
-[ext_resource type="Script" path="res://scripts/components/weapon_component.gd" id="1_d4ljm"]
+[ext_resource type="Script" path="res://scripts/components/clip_component.gd" id="1_m1i11"]
 
-[node name="WeaponComponent" type="Node2D"]
-position = Vector2(9, 0)
-script = ExtResource("1_d4ljm")
+[node name="ClipComponent" type="Node2D"]
+script = ExtResource("1_m1i11")
 
 [node name="ReloadTimer" type="Timer" parent="."]
 one_shot = true

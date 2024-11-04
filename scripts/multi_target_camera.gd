@@ -6,6 +6,7 @@ class_name MultiTargetCamera
 @export var min_zoom := 0.15
 @export var max_zoom := 1.0
 @export var margin := Vector2(350, 150)
+@export var smooth_speed := 50
 
 var targets : Array[Node2D] = []
 var zoom_scale := 1.0
@@ -47,6 +48,7 @@ func _process(_delta):
 		z = clampf((1 / r.size.y) * screen_size.y, min_zoom, max_zoom)
 	zoom = zoom.lerp(Vector2.ONE * z * zoom_scale, zoom_speed)
 
+	position_smoothing_speed = smooth_speed * inverse_lerp(min_zoom, max_zoom * 2, zoom.length())
 	#print(r.position + r.size)
 	global_position = Global.decay_vec2_towards(global_position, r.position + (r.size/2), move_speed)
 

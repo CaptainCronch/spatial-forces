@@ -3,11 +3,11 @@ extends Node
 const LEVEL := preload("res://scenes/level.tscn")
 const SELECT := preload("res://scenes/select.tscn")
 
-enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK}
+enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK, NONE}
 const SHIP_SCENES: Array[PackedScene] = [
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
-	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/klod.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/okla.tscn"),
@@ -19,112 +19,117 @@ const SHIP_INFO: Array[Dictionary] = [
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://assets/ships/kelu.png")
+	},
+	{
+		"title": "Klod",
+		"subtitle": "Deflect and Reflect",
+		"max": 96,
+		"acc": 156,
+		"nrg": 120,
+		"clp": 3,
+		"passive": "Heavy implement",
+		"primary": "Impulse punch",
+		"secondary": "Stasis",
+		"sprite": preload("res://assets/ships/klod.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 100,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
-		"sprite": preload("res://assets/ships/kelu.png")
-	},
-	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
-		"max": 96,
-		"acc": 128,
-		"rot": 360,
-		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
-		"sprite": preload("res://assets/ships/kelu.png")
-	},
-	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
-		"max": 96,
-		"acc": 128,
-		"rot": 360,
-		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
 		"title": "Okla",
 		"subtitle": "Rotational Skillshots",
-		"max": 128,
+		"max": 146,
 		"acc": 32,
-		"rot": 720,
-		"clp": 3,
-		"passive": "Stronger shot when spinning",
+		"nrg": 80,
+		"clp": 2,
+		"passive": "Stronger when spinning",
 		"primary": "Burstgun",
-		"secondary": "One big bullet",
+		"secondary": "Cannon",
 		"sprite": preload("res://assets/ships/okla.png")
 	},
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
 		"title": "Kelu",
 		"subtitle": "Aggressive Acceleration",
-		"max": 96,
+		"max": 128,
 		"acc": 128,
-		"rot": 360,
+		"nrg": 100,
 		"clp": 4,
 		"passive": "More acceleration when near enemy",
-		"primary": "Quick triple star burst",
-		"secondary": "Hold for more max speed",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 ]
+
+var base_color := Color(1.0, 0.8, 0.6)
+var p1_ship := Ships.KELU
+var p2_ship := Ships.KELU
+var map: Texture2D
 
 
 #func _ready():

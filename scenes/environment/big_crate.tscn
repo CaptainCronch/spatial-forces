@@ -1,17 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt1vv05vn56k3"]
+[gd_scene load_steps=6 format=3 uid="uid://dt1vv05vn56k3"]
 
 [ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="1_6fr4f"]
-[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://bouncy.tres" id="1_f3alr"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_f3alr"]
 [ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_x7dxg"]
+[ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://scenes/particles/imbued.tscn" id="4_byj0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]
 size = Vector2(32, 32)
 
-[node name="BigCrate" type="RigidBody2D"]
-collision_mask = 25
+[node name="BigCrate" type="RigidBody2D" node_paths=PackedStringArray("imbued_particles")]
+collision_mask = 153
 mass = 2.0
 physics_material_override = ExtResource("1_f3alr")
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("2_x7dxg")
+size_multiplier = 2.0
+imbued_damage = 30
+imbued_particles = NodePath("Imbued")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6fr4f")
@@ -20,3 +27,7 @@ region_rect = Rect2(96, 64, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rjek7")
+
+[node name="Imbued" parent="." instance=ExtResource("4_byj0a")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

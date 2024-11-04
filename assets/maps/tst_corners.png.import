@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgjpmdedjduoa"
-path="res://.godot/imported/selectmap.png-75c504e05e77cbf920eae9d14afa1085.ctex"
+uid="uid://bift0vsgonrot"
+path="res://.godot/imported/tst_corners.png-6a73a419f7de84e666966377a78703c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/maps/selectmap.png"
-dest_files=["res://.godot/imported/selectmap.png-75c504e05e77cbf920eae9d14afa1085.ctex"]
+source_file="res://assets/maps/tst_corners.png"
+dest_files=["res://.godot/imported/tst_corners.png-6a73a419f7de84e666966377a78703c5.ctex"]
 
 [params]
 

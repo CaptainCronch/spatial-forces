@@ -1,0 +1,121 @@
+[gd_scene load_steps=15 format=3 uid="uid://go4t48jpj83"]
+
+[ext_resource type="Script" path="res://scripts/ships/klod.gd" id="1_n03v7"]
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_remh7"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://scenes/components/clip_component.tscn" id="2_khom8"]
+[ext_resource type="Texture2D" uid="uid://cd8j4f10lxhvb" path="res://assets/ships/klod.png" id="2_ki1pp"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://scenes/components/health_component.tscn" id="3_6p5mw"]
+[ext_resource type="Script" path="res://scripts/classes/attack.gd" id="3_41nwe"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://scenes/components/input_component.tscn" id="5_fwn0k"]
+[ext_resource type="PackedScene" uid="uid://o7oexbfw62cw" path="res://scenes/components/hitbox_component.tscn" id="6_teri8"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://scenes/components/meter.tscn" id="8_qto0w"]
+
+[sub_resource type="Resource" id="Resource_vp66k"]
+script = ExtResource("3_41nwe")
+attack_damage = 0.0
+knockback_force = 128.0
+origin_name = "Klod"
+attack_type = 1
+
+[sub_resource type="Resource" id="Resource_xm56b"]
+script = ExtResource("3_41nwe")
+attack_damage = 30.0
+knockback_force = 64.0
+origin_name = "Klod"
+attack_type = 1
+
+[sub_resource type="Resource" id="Resource_aa1fy"]
+script = ExtResource("3_41nwe")
+attack_damage = 20.0
+knockback_force = 64.0
+origin_name = "Klod"
+attack_type = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jlbd3"]
+radius = 6.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7k5i"]
+size = Vector2(86, 36)
+
+[node name="Klod" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "punch_area", "stasis_bar", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_remh7")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("1_n03v7")
+clip_component = NodePath("ClipComponent")
+punch_area = NodePath("PunchArea")
+stasis_bar = NodePath("StasisBar")
+push_attack = SubResource("Resource_vp66k")
+debris_attack = SubResource("Resource_xm56b")
+weight_attack = SubResource("Resource_aa1fy")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+rotation_speed = 500.0
+acceleration = 156.0
+back_acceleration = 100.0
+top_speed = 96.0
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("2_khom8")]
+position = Vector2(5, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 3
+reload_time = 0.5
+reload_delay = 1.0
+fire_delay = 0.1
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("3_6p5mw")]
+health_bar = NodePath("../HealthBar")
+max_health = 120.0
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ki1pp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jlbd3")
+
+[node name="PunchArea" type="Area2D" parent="."]
+position = Vector2(-6, 0)
+collision_layer = 128
+collision_mask = 37
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PunchArea"]
+position = Vector2(43, 0)
+shape = SubResource("RectangleShape2D_e7k5i")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"] instance=ExtResource("6_teri8")]
+collision_layer = 2
+collision_mask = 148
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(5, 0, 2, -5, -2, -7, -5, -3, -5, 3, -2, 7, 2, 5)
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_fwn0k")]
+target = NodePath("..")
+
+[node name="HealthBar" parent="." instance=ExtResource("8_qto0w")]
+offset_left = 8.0
+offset_top = -5.0
+offset_right = 9.0
+offset_bottom = -4.0
+rotation = 3.66519
+
+[node name="ClipBar" parent="." instance=ExtResource("8_qto0w")]
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 11.0
+offset_bottom = 8.0
+rotation = 2.61799
+
+[node name="StasisBar" parent="." instance=ExtResource("8_qto0w")]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -7.0
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
