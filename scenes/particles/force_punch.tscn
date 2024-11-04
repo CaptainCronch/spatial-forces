@@ -6,13 +6,14 @@
 [node name="ForcePunch" type="CPUParticles2D"]
 top_level = true
 emitting = false
+amount = 10
 lifetime = 0.1
 one_shot = true
 explosiveness = 0.5
 local_coords = true
 texture = ExtResource("1_6yq7r")
 emission_shape = 3
-emission_rect_extents = Vector2(1, 18)
+emission_rect_extents = Vector2(1, 24)
 particle_flag_align_y = true
 spread = 0.0
 gravity = Vector2(0, 0)

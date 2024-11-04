@@ -28,7 +28,7 @@ const SMALL_PILL_ID := 18
 
 const STEERING = preload("res://scenes/components/steering_component.tscn")
 
-enum Mode {GAME, DEMO}
+enum Mode {GAME, DEMO, NONE}
 
 @export var current_mode: Mode
 @export var player_1 : Global.Ships = Global.Ships.NONE
@@ -60,6 +60,7 @@ func _ready() -> void:
 
 	if current_mode == Mode.GAME: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()
+	elif current_mode == Mode.NONE: pass
 
 
 func game_spawn():
@@ -113,7 +114,7 @@ func demo_spawn():
 		new_ship.demo = true
 		add_child(new_ship)
 		if spawns.size() <= 0:
-			printerr("There are less p1 spawnpoints than ships...")
+			printerr("There are less spawnpoints than ships...")
 			new_ship.global_translate(spawns[0])
 		else:
 			var rand := randi_range(0, spawns.size() - 1)

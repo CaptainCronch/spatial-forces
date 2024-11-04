@@ -5,9 +5,9 @@ class_name Weight
 @export var imbued_particles: CPUParticles2D
 @export var line: Line2D
 @export var pointer: Polygon2D
-@export var distance_threshold := 64.0
-@export var back_force := 64.0
-@export var max_factor := 5.0
+@export var distance_threshold := 32.0
+@export var back_force := 32.0
+@export var max_factor := 4.0
 
 var attack: Attack = null
 var force_added: float

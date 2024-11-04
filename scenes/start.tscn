@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8a2sbnrfw260"]
+
+[ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://scenes/level.tscn" id="1_na0y3"]
+
+[node name="Level" instance=ExtResource("1_na0y3")]
+current_mode = 2
+map = null
+
+[node name="StartUI" type="CanvasLayer" parent="." index="2"]

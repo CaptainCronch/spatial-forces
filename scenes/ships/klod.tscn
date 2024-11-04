@@ -35,7 +35,7 @@ attack_type = 1
 radius = 6.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7k5i"]
-size = Vector2(86, 36)
+size = Vector2(86, 48)
 
 [node name="Klod" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "punch_area", "stasis_bar", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
