@@ -7,10 +7,13 @@ class_name MultiTargetCamera
 @export var max_zoom := 1.0
 @export var margin := Vector2(350, 150)
 @export var smooth_speed := 50
+@export var constant_movement := Vector2(100, 100)
+@export var constant_turn_speed := TAU/64
 
 var targets : Array[Node2D] = []
 var zoom_scale := 1.0
 var desired_offset := Vector2()
+var constant_movement_angle := 0.0
 
 @onready var screen_size = get_viewport_rect().size
 
@@ -24,10 +27,13 @@ func remove_target(t):
 	targets.erase(t)
 
 
-func _process(_delta):
+func _process(delta: float):
 	offset = Global.decay_vec2_towards(offset, desired_offset, move_speed)
 
 	if !targets:
+		constant_movement_angle += constant_turn_speed * delta
+		global_position += constant_movement.rotated(constant_movement_angle) * delta
+		zoom = Vector2(max_zoom/2, max_zoom/2)
 		return
 
 	var p := Vector2.ZERO

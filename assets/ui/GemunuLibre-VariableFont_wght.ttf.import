@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://c6wdjj6fil2ng"
-path="res://.godot/imported/GemunuLibre-VariableFont_wght.ttf-842ab6db1d5a6bd5166d8882b5e8fa1a.fontdata"
+path="res://.godot/imported/GemunuLibre-VariableFont_wght.ttf-c2fc08acb8f2532407e5170a19a53dc4.fontdata"
 
 [deps]
 
-source_file="res://assets/GemunuLibre-VariableFont_wght.ttf"
-dest_files=["res://.godot/imported/GemunuLibre-VariableFont_wght.ttf-842ab6db1d5a6bd5166d8882b5e8fa1a.fontdata"]
+source_file="res://assets/ui/GemunuLibre-VariableFont_wght.ttf"
+dest_files=["res://.godot/imported/GemunuLibre-VariableFont_wght.ttf-c2fc08acb8f2532407e5170a19a53dc4.fontdata"]
 
 [params]
 

@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://bnq06uyl2njxi"]
 
-[ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://assets/GemunuLibre-VariableFont_wght.ttf" id="1_n1vxc"]
+[ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://assets/ui/GemunuLibre-VariableFont_wght.ttf" id="1_n1vxc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yl85v"]
 

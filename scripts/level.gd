@@ -38,12 +38,14 @@ enum Mode {GAME, DEMO, NONE}
 @export var number_holder: MarginContainer
 @export var camera: MultiTargetCamera
 @export var tilemap: TileMapLayer
-@export var map: Texture2D
-@export var UI: CanvasLayer
+@export var base_map: String
+@export var select_ui: CanvasLayer
 @export var fade_panel: Panel
 @export var color_overlay: ColorRect
 @export var padding := 50
 @export var fade_time := 1.0
+
+var current_map: Image
 
 var p1_spawns : Array[Vector2i]
 var p2_spawns : Array[Vector2i]
@@ -54,16 +56,22 @@ var p4_spawns : Array[Vector2i]
 func _ready() -> void:
 	color_overlay.material.set_shader_parameter("color_factor", Global.base_color)
 
-	if map: build(map.get_image())
-	else: build(Global.map.get_image())
-	camera.global_position = map.get_size() * 16
+	if base_map:
+		current_map = Global.maps[base_map]
+		build(current_map.get_image())
+		camera.global_position = current_map.get_size() * 16
+	elif current_mode == Mode.NONE:
+		start_setup()
+	else:
+		current_map = Global.current_map.get_image()
+		build(current_map)
+		camera.global_position = current_map.get_size() * 16
 
 	if current_mode == Mode.GAME: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()
-	elif current_mode == Mode.NONE: pass
 
 
-func game_spawn():
+func game_spawn() -> void:
 	fade_panel.modulate = Color(1, 1, 1, 1)
 	var fade_tween := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	fade_tween.tween_property(fade_panel, "modulate", Color(1, 1, 1, 0), fade_time)
@@ -98,7 +106,7 @@ func change_margin(amount: int, container: MarginContainer, which: String) -> vo
 	container.add_theme_constant_override(which, amount)
 
 
-func demo_spawn():
+func demo_spawn() -> void:
 	var spawns := p1_spawns.duplicate()
 	spawns.append_array(p2_spawns)
 	spawns.append_array(p3_spawns)
@@ -122,7 +130,11 @@ func demo_spawn():
 			#spawns.remove_at(rand)
 		new_ship.rotation = randf_range(0, TAU)
 
-		UI.ships.append(new_ship)
+		select_ui.ships.append(new_ship)
+
+
+func start_setup() -> void:
+	Global.current_map = null
 
 
 func build(img: Image) -> void:

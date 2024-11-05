@@ -44,12 +44,12 @@ const SHIP_INFO: Array[Dictionary] = [
 		"title": "Klod",
 		"subtitle": "Deflect and Reflect",
 		"max": 96,
-		"acc": 156,
+		"acc": 186,
 		"nrg": 120,
 		"clp": 3,
-		"passive": "Heavy implement",
+		"passive": "Weaponized weight",
 		"primary": "Impulse punch",
-		"secondary": "Stasis",
+		"secondary": "Stasis reflect",
 		"sprite": preload("res://assets/ships/klod.png")
 	},
 	{
@@ -79,10 +79,10 @@ const SHIP_INFO: Array[Dictionary] = [
 	{
 		"title": "Okla",
 		"subtitle": "Rotational Skillshots",
-		"max": 146,
+		"max": 256,
 		"acc": 32,
 		"nrg": 80,
-		"clp": 2,
+		"clp": 3,
 		"passive": "Stronger when spinning",
 		"primary": "Burstgun",
 		"secondary": "Cannon",
@@ -126,13 +126,26 @@ const SHIP_INFO: Array[Dictionary] = [
 	},
 ]
 
-var base_color := Color(1.0, 0.8, 0.6)
+const USER_MAPS_PATH := "user://maps"
+const INTERNAL_MAPS := {
+	"tst_corners.png": preload("res://assets/maps/tst_corners.png"),
+	"sel_original.png": preload("res://assets/maps/sel_original.png"),
+}
+const OG_MAPS := {
+	"dm2_cycle_3.png": preload("res://assets/maps/dm2_cycle_3.png"),
+}
+
+var user_maps := {}
+var maps := {}
+
+var base_color := Color(1.0, 0.85, 0.66)
 var p1_ship := Ships.KELU
 var p2_ship := Ships.KELU
-var map: Texture2D
+var current_map: Texture2D
 
 
-#func _ready():
+func _ready():
+	load_user_maps()
 	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	#Engine.max_fps = 60
 	#Input.use_accumulated_input = false
@@ -140,7 +153,7 @@ var map: Texture2D
 	#get_window().mode = Window.MODE_FULLSCREEN
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	#if Input.is_action_just_pressed("debug_key"):
 		#if Engine.max_fps == 60:
 			#Engine.max_fps = 0
@@ -157,17 +170,38 @@ func _process(_delta):
 			get_window().mode = Window.MODE_WINDOWED
 
 
-func mouse_switch(pos := Vector2(0, 0)) -> void :
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		get_window().warp_mouse(pos)
-	elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func load_user_maps() -> void:
+	user_maps.clear()
+	var dir := DirAccess.open("user://")
+
+	if not dir.dir_exists(USER_MAPS_PATH):
+		dir.make_dir(USER_MAPS_PATH)
+	dir.change_dir(USER_MAPS_PATH)
+
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir():
+				user_maps[file_name] = Image.load_from_file(file_name)
+			file_name = dir.get_next()
+	else:
+		push_error("Could not access the user map path for some reason...")
+
+	maps.merge(user_maps, true)
+
+
+#func mouse_switch(pos := Vector2(0, 0)) -> void :
+	#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#get_window().warp_mouse(pos)
+	#elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func decay_towards(value : float, target : float,
 			decay_power : float, delta : float = get_process_delta_time(),
-			round_threshold : float = 0.0) -> float :
+			round_threshold : float = 0.0) -> float:
 
 	var new_value := (value - target) * pow(2, -delta * decay_power) + target
 
@@ -179,7 +213,7 @@ func decay_towards(value : float, target : float,
 
 func decay_vec2_towards(value : Vector2, target : Vector2,
 			decay_power : float, delta : float = get_process_delta_time(),
-			round_threshold : float = 0.0) -> Vector2 :
+			round_threshold : float = 0.0) -> Vector2:
 
 	var new_value := (value - target) * pow(2, -delta * decay_power) + target
 
@@ -191,7 +225,7 @@ func decay_vec2_towards(value : Vector2, target : Vector2,
 
 func decay_angle_towards(value : float, target : float,
 			decay_power : float, delta : float = get_process_delta_time(),
-			round_threshold : float = 0.0) -> float :
+			round_threshold : float = 0.0) -> float:
 
 	var new_value := angle_difference(target, value) * pow(2, -delta * decay_power) + target
 

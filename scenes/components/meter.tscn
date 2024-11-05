@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxpxgsvcevmjt"]
 
-[ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://assets/1px-square.png" id="1_difyy"]
+[ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://assets/ui/1px-square.png" id="1_difyy"]
 [ext_resource type="Script" path="res://scripts/components/meter.gd" id="2_5q6ph"]
 
 [node name="Meter" type="TextureProgressBar"]

@@ -2,8 +2,8 @@ extends Node2D
 class_name InputComponent
 
 enum PlayerInputs {UP, RIGHT, DOWN, LEFT, PRIMARY, SECONDARY}
-const PLAYER1_INPUTS := ["p1_up", "p1_right", "p1_down", "p1_left", "p1_primary", "p1_secondary"]
-const PLAYER2_INPUTS := ["p2_up", "p2_right", "p2_down", "p2_left", "p2_primary", "p2_secondary"]
+const PLAYER1_INPUTS: PackedStringArray = ["p1_up", "p1_right", "p1_down", "p1_left", "p1_primary", "p1_secondary"]
+const PLAYER2_INPUTS: PackedStringArray = ["p2_up", "p2_right", "p2_down", "p2_left", "p2_primary", "p2_secondary"]
 var inputs := PLAYER1_INPUTS
 
 var disabled := false

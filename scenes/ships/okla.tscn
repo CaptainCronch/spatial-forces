@@ -26,6 +26,7 @@ script = ExtResource("1_xdcja")
 slugger_bar = NodePath("SluggerBar")
 engine = NodePath("Engine")
 clip_component = NodePath("ClipComponent")
+bullet_amount = 10
 hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
 rotation_speed = 720.0
@@ -40,7 +41,7 @@ target = NodePath("..")
 [node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("3_e7i6p")]
 position = Vector2(9, 0)
 clip_bar = NodePath("../ClipBar")
-max_clip = 2
+max_clip = 3
 reload_time = 0.7
 reload_delay = 0.7
 fire_delay = 0.2
