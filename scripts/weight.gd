@@ -6,7 +6,7 @@ class_name Weight
 @export var line: Line2D
 @export var pointer: Polygon2D
 @export var distance_threshold := 32.0
-@export var back_force := 32.0
+@export var back_force := 48.0
 @export var max_factor := 4.0
 
 var attack: Attack = null

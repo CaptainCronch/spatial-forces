@@ -24,6 +24,8 @@ opentype_features = {
 [resource]
 default_font = SubResource("FontVariation_vjb1h")
 default_font_size = 10
+Button/colors/font_color = Color(1, 1, 1, 1)
+LineEdit/colors/font_color = Color(1, 1, 1, 1)
 VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_yl85v")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_axwal")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_sp4ct")

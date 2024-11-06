@@ -30,6 +30,7 @@ var countdown_tween: Tween
 
 
 func _ready() -> void:
+	print(Global.current_map)
 	ship_select_p1.global_position = outside1
 	ship_select_p2.global_position = outside2
 	countdown_scroll.scroll_vertical = countdown_text_size * 3

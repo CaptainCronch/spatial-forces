@@ -19,6 +19,7 @@ mass = 0.5
 physics_material_override = ExtResource("1_fubq8")
 contact_monitor = true
 max_contacts_reported = 4
+linear_damp = 1.0
 script = ExtResource("1_b8hx3")
 imbued_particles = NodePath("Imbued")
 line = NodePath("Line2D")

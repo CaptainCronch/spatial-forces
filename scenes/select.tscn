@@ -10,9 +10,10 @@ bg_color = Color(0.06, 0.06, 0.06, 0.8)
 anti_aliasing = false
 anti_aliasing_size = 0.5
 
-[node name="Level" instance=ExtResource("1_y2iuu")]
+[node name="Level" node_paths=PackedStringArray("select_ui") instance=ExtResource("1_y2iuu")]
 current_mode = 1
 base_map = "sel_original.png"
+select_ui = NodePath("UI")
 padding = 30
 
 [node name="UI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("ship_select_p1", "ship_select_p2", "ship_1_line", "ship_2_line", "countdown_panel", "fade_panel", "countdown_scroll", "camera")]

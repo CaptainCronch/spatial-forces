@@ -10,13 +10,14 @@ const WEIGHT = preload("res://scenes/projectiles/weight.tscn")
 @export var debris_attack: Attack
 @export var weight_attack: Attack
 @export var punch_force := 256.0
-@export var punch_stasis_factor := 1.5
+@export var punch_weight_force := 300.0
+@export var punch_stasis_factor := 1.3
 @export var punch_air_force := 32.0
-@export var punch_wall_boost := -1.2
+#@export var punch_wall_boost := -1.2
 @export var stasis_damp := 10.0
-@export var stasis_counter := 6
+@export var stasis_counter := 3
 
-var stasis_count := 6
+var stasis_count := 3
 var stasing := false
 var weight: Weight
 
@@ -56,7 +57,8 @@ func primary():
 				body.add_attack(debris_attack, punch_force, self)
 				body.linear_velocity *= 1/body.size_multiplier
 			if body is Weight:
-				body.add_attack(weight_attack, punch_force)
+				body.add_attack(weight_attack, punch_weight_force)
+				body.linear_velocity = Vector2.RIGHT.rotated(rotation) * punch_weight_force
 
 	apply_central_impulse(Vector2.RIGHT.rotated(rotation) * punch_air_force)
 	#if hit_wall and not hit_something: # dont flip velocity if player meant to hit something else
@@ -86,6 +88,6 @@ func secondary_release():
 	if not stasing: return
 	stasing = false
 	weight.linear_damp = ProjectSettings.get_setting("physics/2d/default_linear_damp")
-	weight.linear_velocity = Vector2.RIGHT.rotated(rotation) * punch_force * punch_stasis_factor
-	weight.add_attack(debris_attack, punch_force)
+	weight.linear_velocity = Vector2.RIGHT.rotated(rotation) * punch_weight_force * punch_stasis_factor
+	weight.add_attack(debris_attack, punch_weight_force)
 	weight.pointer.hide()

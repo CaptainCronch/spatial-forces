@@ -144,7 +144,9 @@ var p2_ship := Ships.KELU
 var current_map: Texture2D
 
 
-func _ready():
+func _enter_tree() -> void:
+	maps = OG_MAPS.duplicate()
+	maps.merge(INTERNAL_MAPS)
 	load_user_maps()
 	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	#Engine.max_fps = 60
@@ -160,8 +162,8 @@ func _process(_delta) -> void:
 		#elif Engine.max_fps == 0:
 			#Engine.max_fps = 60
 
-	if Input.is_action_just_pressed("back"):
-		get_tree().quit() # temporary for testing
+	#if Input.is_action_just_pressed("back"):
+		#get_tree().quit() # temporary for testing
 
 	if Input.is_action_just_pressed("fullscreen"):
 		if get_window().mode != Window.MODE_FULLSCREEN:

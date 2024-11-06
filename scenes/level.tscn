@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2i211avmpf4e"]
+[gd_scene load_steps=11 format=3 uid="uid://b2i211avmpf4e"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_nh2c1"]
 [ext_resource type="Texture2D" uid="uid://cvg7pj3skkvap" path="res://assets/environment/1024-64-checkers.png" id="2_658j6"]
-[ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://assets/maps/dm2_cycle_3.png" id="2_i3yp2"]
 [ext_resource type="Texture2D" uid="uid://blxrfd002no4a" path="res://assets/environment/1024-128-checkers.png" id="3_xvt7x"]
 [ext_resource type="TileSet" uid="uid://dr53erg1ld30g" path="res://resources/tileset.tres" id="4_pwauv"]
 [ext_resource type="Script" path="res://scripts/multi_target_camera.gd" id="4_yream"]
@@ -21,14 +20,11 @@ shader_parameter/color_factor = Color(1, 0.85, 0.66, 1)
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("p1_label", "p2_label", "number_holder", "camera", "tilemap", "fade_panel", "color_overlay")]
 script = ExtResource("1_nh2c1")
-player_1 = 2
-player_2 = 0
 p1_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber")
 p2_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber2")
 number_holder = NodePath("Environment/ScreenEffects/PlayerNumbers")
 camera = NodePath("Camera2D")
 tilemap = NodePath("Environment/BaseTilemap")
-map = ExtResource("2_i3yp2")
 fade_panel = NodePath("Environment/ScreenEffects/FadePanel")
 color_overlay = NodePath("Environment/ScreenEffects/DarkMode")
 

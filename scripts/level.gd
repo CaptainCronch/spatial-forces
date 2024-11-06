@@ -56,14 +56,14 @@ var p4_spawns : Array[Vector2i]
 func _ready() -> void:
 	color_overlay.material.set_shader_parameter("color_factor", Global.base_color)
 
-	if base_map:
-		current_map = Global.maps[base_map]
-		build(current_map.get_image())
-		camera.global_position = current_map.get_size() * 16
-	elif current_mode == Mode.NONE:
-		start_setup()
-	else:
+	if current_mode == Mode.NONE:
+		pass
+	elif Global.current_map != null and current_mode == Mode.GAME:
 		current_map = Global.current_map.get_image()
+		build(current_map)
+		camera.global_position = current_map.get_size() * 16
+	elif base_map:
+		current_map = Global.maps[base_map].get_image()
 		build(current_map)
 		camera.global_position = current_map.get_size() * 16
 
@@ -131,10 +131,6 @@ func demo_spawn() -> void:
 		new_ship.rotation = randf_range(0, TAU)
 
 		select_ui.ships.append(new_ship)
-
-
-func start_setup() -> void:
-	Global.current_map = null
 
 
 func build(img: Image) -> void:

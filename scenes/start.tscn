@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8a2sbnrfw260"]
+[gd_scene load_steps=10 format=3 uid="uid://b8a2sbnrfw260"]
 
 [ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://scenes/level.tscn" id="1_na0y3"]
 [ext_resource type="Script" path="res://scripts/ui/start_ui.gd" id="2_2kvxb"]
@@ -32,17 +32,25 @@ content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2edqo"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+bg_color = Color(0.059, 0.059, 0.059, 0.8)
+anti_aliasing = false
+anti_aliasing_size = 0.5
+
 [node name="Level" instance=ExtResource("1_na0y3")]
 current_mode = 2
-player_1 = 9
-player_2 = 9
 
-[node name="StartUI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("inside", "outside", "focus_outside", "p1_focus", "p1_line", "p1_subline", "p2_focus", "p2_line", "p2_subline", "play_button", "map_up", "map_down", "map_container", "map_sprite", "map_sprite_holder")]
+[node name="StartUI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("inside", "outside", "focus_outside", "map_position", "map_above", "map_below", "p1_focus", "p1_line", "p1_subline", "p2_focus", "p2_line", "p2_subline", "play_button", "options_button", "map_up", "map_down", "map_box", "map_container", "map_sprite", "map_sprite_holder", "map_name", "map_type", "map_extra", "add_button", "filename_edit", "url_edit", "download_container", "http_request", "fade_panel")]
 layer = 98
 script = ExtResource("2_2kvxb")
 inside = NodePath("Inside")
 outside = NodePath("Outside")
 focus_outside = NodePath("FocusOutside")
+map_position = NodePath("MapPosition")
+map_above = NodePath("MapAbove")
+map_below = NodePath("MapBelow")
 p1_focus = NodePath("P1Focus")
 p1_line = NodePath("P1Focus/Line")
 p1_subline = NodePath("P1Focus/Line/Subline")
@@ -50,12 +58,23 @@ p2_focus = NodePath("P2Focus")
 p2_line = NodePath("P2Focus/Line")
 p2_subline = NodePath("P2Focus/Line/Subline")
 play_button = NodePath("InitialContainer/VBoxContainer/Play")
+options_button = NodePath("InitialContainer/VBoxContainer/Options")
 map_up = NodePath("MapContainer/HBoxContainer/Arrows/ButtonUp")
 map_down = NodePath("MapContainer/HBoxContainer/Arrows/ButtonDown")
+map_box = NodePath("MapContainer/HBoxContainer/MapBox")
 map_container = NodePath("MapContainer")
-map_sprite = NodePath("MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer/Control/Node2D/Sprite2D")
-map_sprite_holder = NodePath("MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer/Control/Node2D")
+map_sprite = NodePath("MapContainer/HBoxContainer/MapBox/VBoxContainer/Control/Node2D/Sprite2D")
+map_sprite_holder = NodePath("MapContainer/HBoxContainer/MapBox/VBoxContainer/Control/Node2D")
+map_name = NodePath("MapContainer/HBoxContainer/MapBox/VBoxContainer/Label")
+map_type = NodePath("MapContainer/HBoxContainer/MapBox/VBoxContainer/Label2")
+map_extra = NodePath("MapContainer/HBoxContainer/MapBox/VBoxContainer/Label3")
 map_scale = Vector2(2, 1)
+add_button = NodePath("MapContainer/HBoxContainer/VBoxContainer/Add")
+filename_edit = NodePath("MarginContainer/Download/FilenameEdit")
+url_edit = NodePath("MarginContainer/Download/URLEdit")
+download_container = NodePath("MarginContainer/Download")
+http_request = NodePath("HTTPRequest")
+fade_panel = NodePath("../Environment/ScreenEffects/FadePanel")
 
 [node name="TitleContainer" type="MarginContainer" parent="StartUI" index="0"]
 anchors_preset = 15
@@ -133,43 +152,44 @@ focus_neighbor_right = NodePath("../../VBoxContainer/Add")
 rotation = 3.14159
 polygon = PackedVector2Array(22, 10, 22, 12, -22, 12, -22, 10, -1, -11, 1, -11)
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="StartUI/MapContainer/HBoxContainer" index="1"]
-custom_minimum_size = Vector2(64, 64)
+[node name="MapBox" type="Control" parent="StartUI/MapContainer/HBoxContainer" index="1"]
+custom_minimum_size = Vector2(196, 180)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
+size_flags_vertical = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="StartUI/MapContainer/HBoxContainer/MapBox" index="0"]
 layout_mode = 2
+offset_right = 196.0
+offset_bottom = 180.0
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Control" type="Control" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer" index="0"]
+[node name="Control" type="Control" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer" index="0"]
 custom_minimum_size = Vector2(0, 136)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Node2D" type="Node2D" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer/Control" index="0"]
+[node name="Node2D" type="Node2D" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer/Control" index="0"]
 position = Vector2(0, 82)
 
-[node name="Sprite2D" type="Sprite2D" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer/Control/Node2D" index="0"]
+[node name="Sprite2D" type="Sprite2D" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer/Control/Node2D" index="0"]
 texture = ExtResource("5_7b0di")
 
-[node name="Label" type="Label" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer" index="1"]
+[node name="Label" type="Label" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer" index="1"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "dm2_cycle_3.png"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer" index="2"]
+[node name="Label2" type="Label" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer" index="2"]
 layout_mode = 2
 text = "2-player deathmatch"
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="StartUI/MapContainer/HBoxContainer/VBoxContainer2/VBoxContainer" index="3"]
+[node name="Label3" type="Label" parent="StartUI/MapContainer/HBoxContainer/MapBox/VBoxContainer" index="3"]
 layout_mode = 2
 text = "3 rounds
 "
@@ -234,10 +254,23 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 focus_neighbor_top = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Exit")
 focus_mode = 0
 theme_override_font_sizes/font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxEmpty_m0kjk")
 text = "OPTIONS"
+flat = true
+alignment = 0
+
+[node name="Exit" type="Button" parent="StartUI/InitialContainer/VBoxContainer" index="2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_neighbor_top = NodePath("../Options")
+focus_mode = 0
+theme_override_font_sizes/font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxEmpty_m0kjk")
+text = "EXIT"
 flat = true
 alignment = 0
 
@@ -261,9 +294,72 @@ offset_top = -128.0
 offset_right = -128.0
 offset_bottom = -128.0
 
-[node name="HTTPRequest" type="HTTPRequest" parent="StartUI" index="6"]
+[node name="MapPosition" type="Control" parent="StartUI" index="6"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 358.0
+offset_top = 90.0
+offset_right = 358.0
+offset_bottom = 90.0
 
-[node name="P2Focus" type="Node2D" parent="StartUI" index="7"]
+[node name="MapAbove" type="Control" parent="StartUI" index="7"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 358.0
+offset_top = -180.0
+offset_right = 358.0
+offset_bottom = -180.0
+
+[node name="MapBelow" type="Control" parent="StartUI" index="8"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 358.0
+offset_top = 400.0
+offset_right = 358.0
+offset_bottom = 400.0
+
+[node name="MarginContainer" type="MarginContainer" parent="StartUI" index="9"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -67.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 6
+
+[node name="Download" type="VBoxContainer" parent="StartUI/MarginContainer" index="0"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="FilenameEdit" type="LineEdit" parent="StartUI/MarginContainer/Download" index="0"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../URLEdit")
+focus_next = NodePath("../URLEdit")
+theme = ExtResource("2_nymuw")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_2edqo")
+placeholder_text = "Filename"
+caret_blink = true
+
+[node name="URLEdit" type="LineEdit" parent="StartUI/MarginContainer/Download" index="1"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+focus_neighbor_top = NodePath("../FilenameEdit")
+focus_previous = NodePath("../FilenameEdit")
+theme = ExtResource("2_nymuw")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_2edqo")
+placeholder_text = "Image URL"
+caret_blink = true
+
+[node name="HTTPRequest" type="HTTPRequest" parent="StartUI" index="10"]
+
+[node name="P2Focus" type="Node2D" parent="StartUI" index="11"]
 
 [node name="Line" type="Line2D" parent="StartUI/P2Focus" index="0"]
 points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
@@ -297,7 +393,7 @@ theme_override_font_sizes/font_size = 20
 text = "P2
 "
 
-[node name="P1Focus" type="Node2D" parent="StartUI" index="8"]
+[node name="P1Focus" type="Node2D" parent="StartUI" index="12"]
 
 [node name="Line" type="Line2D" parent="StartUI/P1Focus" index="0"]
 points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
@@ -330,4 +426,12 @@ theme = ExtResource("2_nymuw")
 theme_override_font_sizes/font_size = 20
 text = "P1"
 
+[connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/Arrows/ButtonUp" to="StartUI" method="_on_button_up_focus_entered"]
+[connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/Arrows/ButtonDown" to="StartUI" method="_on_button_down_focus_entered"]
+[connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/VBoxContainer/Go" to="StartUI" method="_on_go_focus_entered"]
+[connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/VBoxContainer/Add" to="StartUI" method="_on_add_focus_entered"]
+[connection signal="focus_entered" from="StartUI/InitialContainer/VBoxContainer/Play" to="StartUI" method="_on_play_focus_entered"]
+[connection signal="focus_entered" from="StartUI/InitialContainer/VBoxContainer/Exit" to="StartUI" method="_on_exit_focus_entered"]
+[connection signal="text_changed" from="StartUI/MarginContainer/Download/FilenameEdit" to="StartUI" method="_on_filename_edit_text_changed"]
+[connection signal="text_submitted" from="StartUI/MarginContainer/Download/URLEdit" to="StartUI" method="_on_url_edit_text_submitted"]
 [connection signal="request_completed" from="StartUI/HTTPRequest" to="StartUI" method="_on_http_request_request_completed"]
