@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://comvsnlpgu2r7"]
+
+[ext_resource type="Script" uid="uid://x1n206qw8yx0" path="res://scripts/plasma_ball.gd" id="1_1l541"]
+[ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://scripts/classes/attack.gd" id="2_id53a"]
+
+[sub_resource type="Resource" id="Resource_7yljt"]
+script = ExtResource("2_id53a")
+attack_damage = 5.0
+knockback_force = 10.0
+origin_name = "Apiv"
+attack_type = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o87k1"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_so4wf"]
+radius = 5.0
+
+[node name="PlasmaBall" type="RigidBody2D" node_paths=PackedStringArray("polygon", "hurtbox", "sprite", "death_timer")]
+collision_layer = 128
+collision_mask = 17
+mass = 0.2
+script = ExtResource("1_1l541")
+polygon = NodePath("Polygon2D")
+attack = SubResource("Resource_7yljt")
+hurtbox = NodePath("Hurtbox")
+sprite = NodePath("Polygon2D")
+death_timer = NodePath("Death")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o87k1")
+
+[node name="Death" type="Timer" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["Projectile"]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_so4wf")
+
+[connection signal="timeout" from="Death" to="." method="_on_death_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bg38iq5mogx6x"]
 
-[ext_resource type="Script" path="res://scripts/environment/gravity_well.gd" id="1_hel32"]
+[ext_resource type="Script" uid="uid://dcny4dvu1352g" path="res://scripts/environment/gravity_well.gd" id="1_hel32"]
 [ext_resource type="Texture2D" uid="uid://b7cx0jpe27nxr" path="res://assets/environment/force-particle.png" id="1_ogaqq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xoj0j"]

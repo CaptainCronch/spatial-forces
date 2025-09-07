@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://oydpl4apkhsb"
-path="res://.godot/imported/dm2_cycle_3.png-12e88538fd0d55e0bb32d477b0e54353.ctex"
+path="res://.godot/imported/dm2_cycle_2.png-daac99d93d14c1db2fefbb584c4d79ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/maps/dm2_cycle_3.png"
-dest_files=["res://.godot/imported/dm2_cycle_3.png-12e88538fd0d55e0bb32d477b0e54353.ctex"]
+source_file="res://assets/maps/dm2_cycle_2.png"
+dest_files=["res://.godot/imported/dm2_cycle_2.png-daac99d93d14c1db2fefbb584c4d79ae.ctex"]
 
 [params]
 

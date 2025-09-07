@@ -133,6 +133,10 @@ func demo_spawn() -> void:
 		select_ui.ships.append(new_ship)
 
 
+func end_round():
+	Global.pass_round()
+
+
 func build(img: Image) -> void:
 	if img.get_height() > 64 or img.get_width() > 64:
 		printerr("Map is too large! (> 64px in height or width)")

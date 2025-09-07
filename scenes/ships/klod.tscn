@@ -1,11 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://go4t48jpj83"]
 
-[ext_resource type="Script" path="res://scripts/ships/klod.gd" id="1_n03v7"]
+[ext_resource type="Script" uid="uid://c5x5wgaww3mj" path="res://scripts/ships/klod.gd" id="1_n03v7"]
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_remh7"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://scenes/components/clip_component.tscn" id="2_khom8"]
 [ext_resource type="Texture2D" uid="uid://cd8j4f10lxhvb" path="res://assets/ships/klod.png" id="2_ki1pp"]
 [ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://scenes/components/health_component.tscn" id="3_6p5mw"]
-[ext_resource type="Script" path="res://scripts/classes/attack.gd" id="3_41nwe"]
+[ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://scripts/classes/attack.gd" id="3_41nwe"]
 [ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://scenes/components/input_component.tscn" id="5_fwn0k"]
 [ext_resource type="PackedScene" uid="uid://o7oexbfw62cw" path="res://scenes/components/hitbox_component.tscn" id="6_teri8"]
 [ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://scenes/components/meter.tscn" id="8_qto0w"]

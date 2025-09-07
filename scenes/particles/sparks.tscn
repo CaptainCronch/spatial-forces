@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvv4udo8hfkun"]
 
-[ext_resource type="Script" path="res://scripts/self_destruct_particle.gd" id="1_fqi3g"]
+[ext_resource type="Script" uid="uid://brb73sy08yjk5" path="res://scripts/self_destruct_particle.gd" id="1_fqi3g"]
 
 [node name="Sparks" type="CPUParticles2D"]
 emitting = false

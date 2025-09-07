@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8a2sbnrfw260"]
+[gd_scene load_steps=11 format=3 uid="uid://b8a2sbnrfw260"]
 
 [ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://scenes/level.tscn" id="1_na0y3"]
-[ext_resource type="Script" path="res://scripts/ui/start_ui.gd" id="2_2kvxb"]
+[ext_resource type="Script" uid="uid://dj3qy5wvjw1dr" path="res://scripts/ui/start_ui.gd" id="2_2kvxb"]
 [ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="2_nymuw"]
 [ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://assets/ui/GemunuLibre-VariableFont_wght.ttf" id="3_yoanl"]
-[ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://assets/maps/dm2_cycle_3.png" id="5_7b0di"]
+[ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://assets/maps/dm2_cycle_2.png" id="5_7b0di"]
+[ext_resource type="PackedScene" uid="uid://ubj2iyrcimrv" path="res://scenes/ui/focus_selector.tscn" id="7_8itgj"]
 
 [sub_resource type="FontVariation" id="FontVariation_54lsi"]
 base_font = ExtResource("3_yoanl")
@@ -42,7 +43,7 @@ anti_aliasing_size = 0.5
 [node name="Level" instance=ExtResource("1_na0y3")]
 current_mode = 2
 
-[node name="StartUI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("inside", "outside", "focus_outside", "map_position", "map_above", "map_below", "p1_focus", "p1_line", "p1_subline", "p2_focus", "p2_line", "p2_subline", "play_button", "options_button", "map_up", "map_down", "map_box", "map_container", "map_sprite", "map_sprite_holder", "map_name", "map_type", "map_extra", "add_button", "filename_edit", "url_edit", "download_container", "http_request", "fade_panel")]
+[node name="StartUI" type="CanvasLayer" parent="." index="2" node_paths=PackedStringArray("inside", "outside", "focus_outside", "map_position", "map_above", "map_below", "p1_focus", "p2_focus", "play_button", "options_button", "map_up", "map_down", "map_box", "map_container", "map_sprite", "map_sprite_holder", "map_name", "map_type", "map_extra", "add_button", "filename_edit", "url_edit", "download_container", "http_request", "fade_panel")]
 layer = 98
 script = ExtResource("2_2kvxb")
 inside = NodePath("Inside")
@@ -51,12 +52,8 @@ focus_outside = NodePath("FocusOutside")
 map_position = NodePath("MapPosition")
 map_above = NodePath("MapAbove")
 map_below = NodePath("MapBelow")
-p1_focus = NodePath("P1Focus")
-p1_line = NodePath("P1Focus/Line")
-p1_subline = NodePath("P1Focus/Line/Subline")
-p2_focus = NodePath("P2Focus")
-p2_line = NodePath("P2Focus/Line")
-p2_subline = NodePath("P2Focus/Line/Subline")
+p1_focus = NodePath("FocusP1")
+p2_focus = NodePath("FocusP2")
 play_button = NodePath("InitialContainer/VBoxContainer/Play")
 options_button = NodePath("InitialContainer/VBoxContainer/Options")
 map_up = NodePath("MapContainer/HBoxContainer/Arrows/ButtonUp")
@@ -359,72 +356,11 @@ caret_blink = true
 
 [node name="HTTPRequest" type="HTTPRequest" parent="StartUI" index="10"]
 
-[node name="P2Focus" type="Node2D" parent="StartUI" index="11"]
+[node name="FocusP1" parent="StartUI" index="11" instance=ExtResource("7_8itgj")]
 
-[node name="Line" type="Line2D" parent="StartUI/P2Focus" index="0"]
-points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
-closed = true
-width = 1.0
-begin_cap_mode = 2
-end_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 1
-antialiased = true
-
-[node name="Subline" type="Line2D" parent="StartUI/P2Focus/Line" index="0"]
-rotation = 0.785398
-scale = Vector2(0.85, 0.85)
-points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
-closed = true
-width = 1.0
-begin_cap_mode = 2
-end_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 1
-antialiased = true
-
-[node name="Label" type="Label" parent="StartUI/P2Focus" index="1"]
-offset_left = 33.0
-offset_top = -52.0
-offset_right = 73.0
-offset_bottom = -29.0
-theme = ExtResource("2_nymuw")
-theme_override_font_sizes/font_size = 20
-text = "P2
-"
-
-[node name="P1Focus" type="Node2D" parent="StartUI" index="12"]
-
-[node name="Line" type="Line2D" parent="StartUI/P1Focus" index="0"]
-points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
-closed = true
-width = 1.0
-begin_cap_mode = 2
-end_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 1
-antialiased = true
-
-[node name="Subline" type="Line2D" parent="StartUI/P1Focus/Line" index="0"]
-rotation = 0.785398
-scale = Vector2(0.85, 0.85)
-points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
-closed = true
-width = 1.0
-begin_cap_mode = 2
-end_cap_mode = 2
-sharp_limit = 0.0
-round_precision = 1
-antialiased = true
-
-[node name="Label" type="Label" parent="StartUI/P1Focus" index="1"]
-offset_left = -53.0
-offset_top = -52.0
-offset_right = -13.0
-offset_bottom = -29.0
-theme = ExtResource("2_nymuw")
-theme_override_font_sizes/font_size = 20
-text = "P1"
+[node name="FocusP2" parent="StartUI" index="12" instance=ExtResource("7_8itgj")]
+player = 1
+desired_spin_speed = -0.785
 
 [connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/Arrows/ButtonUp" to="StartUI" method="_on_button_up_focus_entered"]
 [connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/Arrows/ButtonDown" to="StartUI" method="_on_button_down_focus_entered"]

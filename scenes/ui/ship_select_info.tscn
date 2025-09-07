@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="1_b7k42"]
 [ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://assets/ships/kelu.png" id="2_dcj1r"]
-[ext_resource type="Script" path="res://scripts/ui/ship_select_info.gd" id="2_oaaw2"]
+[ext_resource type="Script" uid="uid://b8h1ryffhx3ap" path="res://scripts/ui/ship_select_info.gd" id="2_oaaw2"]
 [ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://assets/ui/1px-square.png" id="3_myqy4"]
-[ext_resource type="Shader" path="res://resources/stripes.gdshader" id="5_2awx0"]
+[ext_resource type="Shader" uid="uid://ccaaprvmw3qpl" path="res://resources/stripes.gdshader" id="5_2awx0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_47t7x"]
 shader = ExtResource("5_2awx0")

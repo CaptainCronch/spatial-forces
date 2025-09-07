@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cwtxj55x5boyx"]
 
-[ext_resource type="Script" path="res://scripts/weight.gd" id="1_b8hx3"]
+[ext_resource type="Script" uid="uid://dfqx306admsu4" path="res://scripts/weight.gd" id="1_b8hx3"]
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_fubq8"]
 [ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://scenes/particles/imbued.tscn" id="2_jttn7"]
 [ext_resource type="Texture2D" uid="uid://ci1fxt1tc7vuv" path="res://assets/projectiles/weight.png" id="3_7rgwd"]

@@ -9,7 +9,7 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/klod.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
-	preload("res://scenes/ships/kelu.tscn"),
+	preload("res://scenes/ships/apiv.tscn"),
 	preload("res://scenes/ships/okla.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
 	preload("res://scenes/ships/kelu.tscn"),
@@ -65,16 +65,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("res://assets/ships/kelu.png")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
+		"title": "Apiv",
+		"subtitle": "Orb Shifter",
 		"max": 128,
 		"acc": 128,
 		"nrg": 100,
 		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("res://assets/ships/kelu.png")
+		"passive": "idk",
+		"primary": "Charge plasma ball",
+		"secondary": "Shift orbs",
+		"sprite": preload("res://assets/ships/apiv.png")
 	},
 	{
 		"title": "Okla",
@@ -132,7 +132,8 @@ const INTERNAL_MAPS := {
 	"sel_original.png": preload("res://assets/maps/sel_original.png"),
 }
 const OG_MAPS := {
-	"dm2_cycle_3.png": preload("res://assets/maps/dm2_cycle_3.png"),
+	"dm2_cycle_2.png": preload("res://assets/maps/dm2_cycle_2.png"),
+	"dm2_cramped_3.png": preload("res://assets/maps/dm2_cramped_3.png"),
 }
 
 var user_maps := {}
@@ -142,9 +143,13 @@ var base_color := Color(1.0, 0.85, 0.66)
 var p1_ship := Ships.KELU
 var p2_ship := Ships.KELU
 var current_map: Texture2D
+var rounds := 1
 
 
 func _enter_tree() -> void:
+	if rounds == 0:
+		current_map = null
+		get_tree().change_scene_to_file("res://scenes/start.tscn")
 	maps = OG_MAPS.duplicate()
 	maps.merge(INTERNAL_MAPS)
 	load_user_maps()
@@ -162,8 +167,8 @@ func _process(_delta) -> void:
 		#elif Engine.max_fps == 0:
 			#Engine.max_fps = 60
 
-	#if Input.is_action_just_pressed("back"):
-		#get_tree().quit() # temporary for testing
+	if Input.is_action_just_pressed("back"):
+		get_tree().quit() # temporary for testing
 
 	if Input.is_action_just_pressed("fullscreen"):
 		if get_window().mode != Window.MODE_FULLSCREEN:
@@ -185,12 +190,22 @@ func load_user_maps() -> void:
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir():
-				user_maps[file_name] = Image.load_from_file(file_name)
+				user_maps[file_name] = ImageTexture.create_from_image(Image.load_from_file(USER_MAPS_PATH+"/"+file_name))
 			file_name = dir.get_next()
 	else:
 		push_error("Could not access the user map path for some reason...")
 
 	maps.merge(user_maps, true)
+
+
+func pass_round():
+	rounds -= 1
+	if rounds <= 0:
+		current_map = null
+		rounds = 1
+		get_tree().change_scene_to_file("res://scenes/start.tscn")
+	else:
+		get_tree().reload_current_scene()
 
 
 #func mouse_switch(pos := Vector2(0, 0)) -> void :

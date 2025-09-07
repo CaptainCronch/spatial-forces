@@ -7,12 +7,8 @@ extends CanvasLayer
 @export var map_above: Control
 @export var map_below: Control
 
-@export var p1_focus: Node2D
-@export var p1_line: Line2D
-@export var p1_subline: Line2D
-@export var p2_focus: Node2D
-@export var p2_line: Line2D
-@export var p2_subline: Line2D
+@export var p1_focus: FocusSelector
+@export var p2_focus: FocusSelector
 
 @export var play_button: Button
 @export var options_button: Button
@@ -42,13 +38,9 @@ extends CanvasLayer
 
 @export var desired_p1_focus_speed := TAU / 8
 @export var desired_p2_focus_speed := -TAU / 8
-@export var focus_decay := 15.0
 
 @export var fade_panel: Panel
 @export var tween_time := 0.5
-
-var p1_focus_rotation_speed := 0.0
-var p2_focus_rotation_speed := 0.0
 
 var map_rotation_speed := 0.0
 var map_rotation_direction := 1
@@ -95,8 +87,8 @@ func get_input() -> void:
 			url_edit.grab_focus()
 
 	if frozen: return
-	if any_input_check(0): p1_focus_rotation_speed += TAU * 2
-	if any_input_check(1): p2_focus_rotation_speed -= TAU * 2
+	if any_input_check(0): p1_focus.spin_speed += TAU * 2
+	if any_input_check(1): p2_focus.spin_speed -= TAU * 2
 
 	if not p1_focused_node == null:
 		if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.RIGHT]):
@@ -126,19 +118,11 @@ func get_input() -> void:
 
 
 func move_focus(delta: float):
-	if p1_focused_node: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, p1_focused_node.global_position + (p1_focused_node.size/2), focus_decay)
-	else: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, focus_outside.global_position, focus_decay)
+	if p1_focused_node: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, p1_focused_node.global_position + (p1_focused_node.size/2), p1_focus.spin_decay)
+	else: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, focus_outside.global_position, p1_focus.spin_decay)
 
-	if p2_focused_node: p2_focus.global_position = Global.decay_vec2_towards(p2_focus.global_position, p2_focused_node.global_position + (p2_focused_node.size/2), focus_decay)
-	else: p2_focus.global_position = Global.decay_vec2_towards(p2_focus.global_position, focus_outside.global_position, focus_decay)
-
-	p1_focus_rotation_speed = Global.decay_towards(p1_focus_rotation_speed, desired_p1_focus_speed, focus_decay)
-	p2_focus_rotation_speed = Global.decay_towards(p2_focus_rotation_speed, desired_p2_focus_speed, focus_decay)
-
-	p1_line.rotate(p1_focus_rotation_speed * delta)
-	p1_subline.rotate(-p1_focus_rotation_speed/4 * delta)
-	p2_line.rotate(p2_focus_rotation_speed * delta)
-	p2_subline.rotate(-p2_focus_rotation_speed/4 * delta)
+	if p2_focused_node: p2_focus.global_position = Global.decay_vec2_towards(p2_focus.global_position, p2_focused_node.global_position + (p2_focused_node.size/2), p2_focus.spin_decay)
+	else: p2_focus.global_position = Global.decay_vec2_towards(p2_focus.global_position, focus_outside.global_position, p2_focus.spin_decay)
 
 
 func any_input_check(id: int) -> bool:
@@ -176,9 +160,6 @@ func _on_http_request_request_completed(result: int, response_code: int, _header
 	if not result == 0:
 		push_error("Problem on map response: ", result, " / ", response_code)
 		return
-	var new_map := Image.new()
-	new_map.load_png_from_buffer(body)
-	Global.user_maps[download_filename] = new_map
 	Global.load_user_maps()
 	reload_map_display()
 
@@ -213,6 +194,7 @@ func change_map(dir: int) -> void:
 			reload_map_display()
 	)
 	map_tween.set_ease(Tween.EASE_OUT).tween_property(map_box, "global_position", map_position.global_position, tween_time/2)
+	transform_map(get_process_delta_time())
 
 
 func reload_map_display() -> void:
@@ -229,12 +211,20 @@ func reload_map_display() -> void:
 		"dm2": map_type.text = "2-player deathmatch"
 	if selected_map_name.count("_") < 2: return
 	var extra := selected_map_name.split("_")[2].split(".")[0] # remove the .png file ending
-	match extra:
-		"1": map_extra.text = "1 round"
-		"2": map_extra.text = "2 rounds"
-		"3": map_extra.text = "3 rounds"
-		"4": map_extra.text = "4 rounds"
-		"5": map_extra.text = "5 rounds"
+	var plural := "" if extra.to_int() == 1 else "s"
+	map_extra.text = extra + "round" + plural
+	Global.rounds = extra.to_int()
+	#match extra:
+		#"1":
+			#map_extra.text = "1 round"
+		#"2":
+			#map_extra.text = "2 rounds"
+		#"3":
+			#map_extra.text = "3 rounds"
+		#"4":
+			#map_extra.text = "4 rounds"
+		#"5":
+			#map_extra.text = "5 rounds"
 
 
 func _on_button_up_focus_entered() -> void:

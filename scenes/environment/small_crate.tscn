@@ -2,7 +2,7 @@
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_a4xvj"]
 [ext_resource type="Texture2D" uid="uid://d103oxvl41jgx" path="res://assets/environment/small-box.png" id="1_b011w"]
-[ext_resource type="Script" path="res://scripts/environment/debris.gd" id="2_6rnif"]
+[ext_resource type="Script" uid="uid://c6ui6lmkgvk5m" path="res://scripts/environment/debris.gd" id="2_6rnif"]
 [ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://scenes/particles/imbued.tscn" id="4_jl20c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]

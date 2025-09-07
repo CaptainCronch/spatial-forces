@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qa02kvluhq2n"]
 
-[ext_resource type="Script" path="res://scripts/components/steering_component.gd" id="1_a72sv"]
+[ext_resource type="Script" uid="uid://crijer07r0qds" path="res://scripts/components/steering_component.gd" id="1_a72sv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onxk0"]
 radius = 64.0

@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://ubj2iyrcimrv"]
+
+[ext_resource type="Shader" uid="uid://c6ekdm3mxvda6" path="res://resources/negative.gdshader" id="1_5yapu"]
+[ext_resource type="Script" uid="uid://dpea8svrfio6d" path="res://scripts/ui/focus_selector.gd" id="2_61g40"]
+[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="2_c7v6a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61g40"]
+shader = ExtResource("1_5yapu")
+shader_parameter/color_factor = Color(1, 1, 1, 1)
+
+[node name="Focus" type="Node2D" node_paths=PackedStringArray("line", "subline", "p1_label", "p2_label", "p3_label", "p4_label")]
+material = SubResource("ShaderMaterial_61g40")
+script = ExtResource("2_61g40")
+line = NodePath("Line")
+subline = NodePath("Line/Subline")
+p1_label = NodePath("LabelP1")
+p2_label = NodePath("LabelP2")
+p3_label = NodePath("LabelP3")
+p4_label = NodePath("LabelP4")
+
+[node name="Line" type="Line2D" parent="."]
+use_parent_material = true
+points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
+closed = true
+width = 1.0
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 1
+antialiased = true
+
+[node name="Subline" type="Line2D" parent="Line"]
+use_parent_material = true
+rotation = 0.785398
+scale = Vector2(0.85, 0.85)
+points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
+closed = true
+width = 1.0
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 1
+antialiased = true
+
+[node name="LabelP1" type="Label" parent="."]
+visible = false
+use_parent_material = true
+offset_left = -54.0
+offset_top = -52.0
+offset_right = -14.0
+offset_bottom = -29.0
+theme = ExtResource("2_c7v6a")
+theme_override_font_sizes/font_size = 20
+text = "P1"
+
+[node name="LabelP2" type="Label" parent="."]
+visible = false
+use_parent_material = true
+offset_left = 33.0
+offset_top = -52.0
+offset_right = 73.0
+offset_bottom = -29.0
+theme = ExtResource("2_c7v6a")
+theme_override_font_sizes/font_size = 20
+text = "P2
+"
+
+[node name="LabelP3" type="Label" parent="."]
+visible = false
+use_parent_material = true
+offset_left = -53.0
+offset_top = 29.0
+offset_right = -13.0
+offset_bottom = 52.0
+theme = ExtResource("2_c7v6a")
+theme_override_font_sizes/font_size = 20
+text = "P3"
+
+[node name="LabelP4" type="Label" parent="."]
+visible = false
+use_parent_material = true
+offset_left = 33.0
+offset_top = 29.0
+offset_right = 73.0
+offset_bottom = 52.0
+theme = ExtResource("2_c7v6a")
+theme_override_font_sizes/font_size = 20
+text = "P4"

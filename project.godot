@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Spatial Forces"
 run/main_scene="res://scenes/level.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -25,6 +25,10 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/TileMapColliderGenerator-05ffa8eceb724194f2dda2331b8e1cd817581ada/plugin.cfg")
 
 [global_group]
 
@@ -156,9 +160,12 @@ fullscreen={
 
 [physics]
 
+common/physics_jitter_fix=0.0
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
+common/physics_interpolation=true
 common/enable_object_picking=false
+rapier/solver/max_ccd_substeps=5
 
 [rendering]
 

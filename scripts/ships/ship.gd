@@ -89,6 +89,8 @@ func die():
 	get_tree().current_scene.camera.zoom_scale = 2.0
 	await get_tree().create_timer(3.0).timeout
 	get_tree().current_scene.camera.zoom_scale = 1.0
+	await get_tree().create_timer(5.0).timeout
+	get_tree().current_scene.end_round()
 	#queue_free()
 
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dafrbpekm0rg8"]
 
 [ext_resource type="Texture2D" uid="uid://b7cx0jpe27nxr" path="res://assets/environment/force-particle.png" id="1_6yq7r"]
-[ext_resource type="Script" path="res://scripts/self_destruct_particle.gd" id="2_qd6yt"]
+[ext_resource type="Script" uid="uid://brb73sy08yjk5" path="res://scripts/self_destruct_particle.gd" id="2_qd6yt"]
 
 [node name="ForcePunch" type="CPUParticles2D"]
 top_level = true

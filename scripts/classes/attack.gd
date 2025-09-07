@@ -13,6 +13,7 @@ enum ATTACK_TYPE {
 	SHARP,
 	BLUNT,
 	EXPLOSIVE,
+	ENERGY,
 }
 
 
