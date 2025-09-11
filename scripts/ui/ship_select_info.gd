@@ -82,10 +82,10 @@ func _process(delta: float) -> void:
 	ship.rotation += ship_rotation_speed * delta
 	ship_holder.scale = ship_scale
 	ship.global_position = ship_holder.get_global_transform_with_canvas().get_origin() + Vector2(-4, 2)
-	max.text = str(roundf(max_value))
-	acc.text = str(roundf(acc_value))
-	nrg.text = str(roundf(nrg_value))
-	clp.text = str(roundf(clp_value))
+	max.text = str(roundi(max_value))
+	acc.text = str(roundi(acc_value))
+	nrg.text = str(roundi(nrg_value))
+	clp.text = str(roundi(clp_value))
 
 
 func update(ship_index: int, direction: int) -> void:

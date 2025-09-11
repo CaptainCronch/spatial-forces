@@ -54,7 +54,7 @@ func damage(attack: Attack) -> void:
 	health_changed.emit(-attack.attack_damage)
 	health_bar.value = health
 	#spawn_number_popup(str(roundf(attack.attack_damage)), default_color)
-	print(target.name + " WAS DAMAGED FOR " + str(attack.attack_damage) + " DAMAGE!")
+	#print(target.name + " WAS DAMAGED FOR " + str(attack.attack_damage) + " DAMAGE!")
 	if health <= 0:
 		die(attack)
 

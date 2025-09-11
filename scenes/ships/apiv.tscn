@@ -12,7 +12,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6ooc"]
 radius = 7.0
 
-[node name="Apiv" type="RigidBody2D" node_paths=PackedStringArray("clip_comp", "hitbox", "input")]
+[node name="Apiv" type="RigidBody2D" node_paths=PackedStringArray("clip_comp", "rotate_bar", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
 collision_mask = 41
 physics_material_override = ExtResource("1_874s1")
@@ -21,20 +21,23 @@ continuous_cd = 2
 angular_damp = 3.0
 script = ExtResource("1_bk13u")
 clip_comp = NodePath("ClipComponent")
+rotate_bar = NodePath("RotateBar")
 hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
+acceleration = 100.0
+top_speed = 170.0
 
 [node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("2_leayj")]
 position = Vector2(13, 0)
 clip_bar = NodePath("../ClipBar")
-max_clip = 50
+max_clip = 20
 reload_time = 0.1
 reload_delay = 0.1
-fire_delay = 0.2
+fire_delay = 0.01
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("3_lbs0n")]
 health_bar = NodePath("../HealthBar")
-max_health = 100.0
+max_health = 90.0
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -45,7 +48,7 @@ texture = ExtResource("4_5kh0j")
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_e6ooc")
 
-[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_comp", "target") instance=ExtResource("5_lj5ad")]
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"] instance=ExtResource("5_lj5ad")]
 collision_layer = 2
 collision_mask = 148
 health_comp = NodePath("../HealthComponent")
@@ -57,7 +60,7 @@ polygon = PackedVector2Array(-4, -6, 7, -4, 9, -2, 9, 2, 7, 4, -4, 6)
 [node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_mki62")]
 target = NodePath("..")
 
-[node name="TripBar" parent="." instance=ExtResource("7_3qh5j")]
+[node name="RotateBar" parent="." instance=ExtResource("7_3qh5j")]
 offset_left = -11.0
 offset_top = 8.0
 offset_right = -10.0

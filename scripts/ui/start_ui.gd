@@ -117,7 +117,7 @@ func get_input() -> void:
 	elif p2_focused_node == null and any_input_check(1): p2_focused_node = play_button
 
 
-func move_focus(delta: float):
+func move_focus(_delta: float):
 	if p1_focused_node: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, p1_focused_node.global_position + (p1_focused_node.size/2), p1_focus.spin_decay)
 	else: p1_focus.global_position = Global.decay_vec2_towards(p1_focus.global_position, focus_outside.global_position, p1_focus.spin_decay)
 

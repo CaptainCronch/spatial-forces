@@ -1,7 +1,7 @@
 class_name FocusSelector
 extends Node2D
 
-@export var player : PLAYER_NUMBER = 0
+@export var player : PLAYER_NUMBER = PLAYER_NUMBER.P1
 @export var desired_spin_speed := 0.785
 @export var spin_decay := 15.0
 @export var subline_factor := 0.25

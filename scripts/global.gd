@@ -66,14 +66,14 @@ const SHIP_INFO: Array[Dictionary] = [
 	},
 	{
 		"title": "Apiv",
-		"subtitle": "Orb Shifter",
-		"max": 128,
-		"acc": 128,
-		"nrg": 100,
-		"clp": 4,
-		"passive": "idk",
+		"subtitle": "Charge Shift",
+		"max": 170,
+		"acc": 100,
+		"nrg": 90,
+		"clp": 0,
+		"passive": "Boost while charging",
 		"primary": "Charge plasma ball",
-		"secondary": "Shift orbs",
+		"secondary": "Shift TAU/4 CCW",
 		"sprite": preload("res://assets/ships/apiv.png")
 	},
 	{

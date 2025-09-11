@@ -25,10 +25,11 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/size/mode.editor=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/TileMapColliderGenerator-05ffa8eceb724194f2dda2331b8e1cd817581ada/plugin.cfg")
+enabled=PackedStringArray()
 
 [global_group]
 
