@@ -25,7 +25,6 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
-window/size/mode.editor=0
 
 [editor_plugins]
 

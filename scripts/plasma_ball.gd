@@ -7,7 +7,7 @@ class_name PlasmaBall
 @export var collider_margin := 0.25 ##The difference between the environment collider and the hurtbox collider to the bullet's visuals.
 @export var hold_multiplier := 2.0 ##Bonus while charging bullet.
 @export var speed_size_factor := 100.0 ##This multiplied by the bullet's relative size is added to the speed.
-@export var damage_size_factor := 19.0 ##This multiplied by the bullet's relative size is added to the damage.
+@export var damage_size_factor := 14.0 ##This multiplied by the bullet's relative size is added to the damage.
 @export var knockback_size_factor := 70.0 ##This multiplied by the bullet's relative size is added to the knockback.
 @export var base_damage := 1.0
 @export var base_knockback := 10.0

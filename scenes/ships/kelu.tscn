@@ -40,7 +40,7 @@ fire_delay = 0.3
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("4_6o0ob")]
 health_bar = NodePath("../HealthBar")
-max_health = 100.0
+max_health = 80.0
 target = NodePath("..")
 
 [node name="LeftEngine" type="CPUParticles2D" parent="."]

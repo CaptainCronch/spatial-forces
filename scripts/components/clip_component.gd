@@ -32,8 +32,9 @@ func use(ammo : int, delay_multiplier := 1.0) -> void:
 	clip_bar.value = clip
 
 
-func hold(ammo : float) -> void:
+func hold(ammo : float, delay_multiplier := 1.0) -> void:
 	clip -= ammo
+	reload_delay_timer.start(reload_delay * delay_multiplier)
 	reload_timer.stop()
 	clip_bar.value = clip
 
