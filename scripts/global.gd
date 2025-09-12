@@ -73,7 +73,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"clp": 0,
 		"passive": "Boost while charging",
 		"primary": "Charge plasma ball",
-		"secondary": "Shift -TAU/4",
+		"secondary": "Shift momentum -TAU/4",
 		"sprite": preload("res://assets/ships/apiv.png")
 	},
 	{
