@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Spatial Forces"
-run/main_scene="res://scenes/level.tscn"
+run/main_scene="uid://b2i211avmpf4e"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+Global="*res://classes/global.gd"
 
 [display]
 

@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dafrbpekm0rg8"]
+
+[ext_resource type="Texture2D" uid="uid://b7cx0jpe27nxr" path="res://effects/particles/force/force-particle.png" id="1_xn4nq"]
+[ext_resource type="Script" uid="uid://brb73sy08yjk5" path="res://classes/self_destruct_particle.gd" id="2_i63k5"]
+
+[node name="ForcePunch" type="CPUParticles2D"]
+top_level = true
+emitting = false
+amount = 10
+texture = ExtResource("1_xn4nq")
+lifetime = 0.1
+one_shot = true
+explosiveness = 0.5
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(1, 24)
+particle_flag_align_y = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1250.0
+initial_velocity_max = 1250.0
+damping_min = 10000.0
+damping_max = 10000.0
+script = ExtResource("2_i63k5")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

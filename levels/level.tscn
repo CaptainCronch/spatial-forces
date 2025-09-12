@@ -1,0 +1,124 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2i211avmpf4e"]
+
+[ext_resource type="Script" uid="uid://cbmjn0x5d6rm3" path="res://levels/level.gd" id="1_d5x7l"]
+[ext_resource type="Texture2D" uid="uid://cvg7pj3skkvap" path="res://environment/background/1024-64-checkers.png" id="2_rtcij"]
+[ext_resource type="Texture2D" uid="uid://blxrfd002no4a" path="res://environment/background/1024-128-checkers.png" id="3_ukwr8"]
+[ext_resource type="TileSet" uid="uid://dr53erg1ld30g" path="res://resources/tileset.tres" id="4_pb8y7"]
+[ext_resource type="Shader" uid="uid://83k21sy4vr4k" path="res://effects/shaders/dark_mode.gdshader" id="5_d5x7l"]
+[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="6_mxp4k"]
+[ext_resource type="PackedScene" uid="uid://6vrxahpjwemn" path="res://ui/player_number/player_number.tscn" id="7_d7v53"]
+[ext_resource type="Script" uid="uid://dmqyjml2ho1y1" path="res://levels/multi_target_camera.gd" id="8_0qmeg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abqqv"]
+bg_color = Color(0.06, 0.06, 0.06, 1)
+anti_aliasing = false
+anti_aliasing_size = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dfffv"]
+shader = ExtResource("5_d5x7l")
+shader_parameter/color_factor = Color(1, 0.85, 0.66, 1)
+
+[node name="Level" type="Node2D" node_paths=PackedStringArray("p1_label", "p2_label", "number_holder", "camera", "tilemap", "fade_panel", "color_overlay")]
+script = ExtResource("1_d5x7l")
+p1_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber")
+p2_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber2")
+number_holder = NodePath("Environment/ScreenEffects/PlayerNumbers")
+camera = NodePath("Camera2D")
+tilemap = NodePath("Environment/BaseTilemap")
+base_map = "tst_corners.png"
+fade_panel = NodePath("Environment/ScreenEffects/FadePanel")
+color_overlay = NodePath("Environment/ScreenEffects/DarkMode")
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="SmallParallax" type="Parallax2D" parent="Environment"]
+z_index = -100
+scroll_scale = Vector2(0.3, 0.3)
+repeat_size = Vector2(1024, 1024)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/SmallParallax"]
+modulate = Color(0.0562916, 0.0562916, 0.0562916, 1)
+texture = ExtResource("2_rtcij")
+centered = false
+
+[node name="LargeParallax" type="Parallax2D" parent="Environment"]
+z_index = -100
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(1024, 1024)
+repeat_times = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/LargeParallax"]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("3_ukwr8")
+centered = false
+
+[node name="BaseTilemap" type="TileMapLayer" parent="Environment"]
+tile_set = ExtResource("4_pb8y7")
+
+[node name="ScreenEffects" type="CanvasLayer" parent="Environment"]
+layer = 100
+
+[node name="FadePanel" type="Panel" parent="Environment/ScreenEffects"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_abqqv")
+
+[node name="DarkMode" type="ColorRect" parent="Environment/ScreenEffects"]
+material = SubResource("ShaderMaterial_dfffv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerNumbers" type="MarginContainer" parent="Environment/ScreenEffects"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_mxp4k")
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="PlayerNumber" parent="Environment/ScreenEffects/PlayerNumbers" node_paths=PackedStringArray("player_line", "camera") instance=ExtResource("7_d7v53")]
+visible = false
+layout_mode = 2
+player_line = NodePath("../../PlayerLine1")
+camera = NodePath("../../../../Camera2D")
+
+[node name="PlayerNumber2" parent="Environment/ScreenEffects/PlayerNumbers" node_paths=PackedStringArray("player_line", "camera") instance=ExtResource("7_d7v53")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+text = "P2"
+player_line = NodePath("../../PlayerLine2")
+camera = NodePath("../../../../Camera2D")
+
+[node name="PlayerLine1" type="Line2D" parent="Environment/ScreenEffects"]
+width = 1.0
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 1
+antialiased = true
+
+[node name="PlayerLine2" type="Line2D" parent="Environment/ScreenEffects"]
+width = 1.0
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 0.0
+round_precision = 1
+antialiased = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("8_0qmeg")

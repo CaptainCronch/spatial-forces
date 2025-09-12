@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://vu6eebm6ech"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_o5lud"]
+[ext_resource type="Script" path="res://ships/kelu/kelu.gd" id="2_dg8em"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="3_k800c"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="4_6358y"]
+[ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://ships/kelu/kelu.png" id="5_3krgv"]
+[ext_resource type="Script" uid="uid://c0io7xj5ls7wb" path="res://components/hitbox_component/hitbox_component.gd" id="6_widl4"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="7_yu0eu"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="8_4ex1s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ql4xu"]
+radius = 192.0
+
+[node name="Kelu" type="RigidBody2D" node_paths=PackedStringArray("turbo_bar", "left_engine", "right_engine", "clip_component", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_o5lud")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("2_dg8em")
+turbo_bar = NodePath("TurboBar")
+left_engine = NodePath("LeftEngine")
+right_engine = NodePath("RightEngine")
+clip_component = NodePath("ClipComponent")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("3_k800c")]
+position = Vector2(9, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 4
+reload_time = 0.8
+reload_delay = 1.0
+fire_delay = 0.3
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("4_6358y")]
+health_bar = NodePath("../HealthBar")
+max_health = 80.0
+target = NodePath("..")
+
+[node name="LeftEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-5, -7)
+amount = 200
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="RightEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-5, 7)
+amount = 200
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_ommye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("5_3krgv")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"]]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 148
+script = ExtResource("6_widl4")
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-6, -6, -6, 6, 6, 0)
+
+[node name="Rushdown" type="Area2D" parent="."]
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rushdown"]
+visible = false
+shape = SubResource("CircleShape2D_ql4xu")
+
+[node name="TurboBar" parent="." instance=ExtResource("7_yu0eu")]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -7.0
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("7_yu0eu")]
+offset_left = 10.0
+offset_top = -3.0
+offset_right = 11.0
+offset_bottom = -2.0
+rotation = 3.66519
+
+[node name="ClipBar" parent="." instance=ExtResource("7_yu0eu")]
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 13.0
+offset_bottom = 7.0
+rotation = 2.61799
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_4ex1s")]
+target = NodePath("..")
+
+[connection signal="area_entered" from="Rushdown" to="." method="_on_rushdown_area_entered"]
+[connection signal="area_exited" from="Rushdown" to="." method="_on_rushdown_area_exited"]

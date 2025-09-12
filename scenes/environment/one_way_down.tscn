@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cs10byyf0kfse"]
-
-[ext_resource type="PackedScene" uid="uid://bho2earrnu7ct" path="res://scenes/environment/one_way_left.tscn" id="1_xm2tw"]
-
-[node name="OneWay" instance=ExtResource("1_xm2tw")]
-rotation = 4.71239

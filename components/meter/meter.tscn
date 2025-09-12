@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxpxgsvcevmjt"]
+
+[ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://ui/1px-square.png" id="1_difyy"]
+[ext_resource type="Script" uid="uid://carsjbmm358ko" path="res://components/meter/meter.gd" id="2_5q6ph"]
+
+[node name="Meter" type="TextureProgressBar"]
+offset_right = 1.0
+offset_bottom = 1.0
+scale = Vector2(16, 3)
+step = 0.1
+value = 100.0
+fill_mode = 1
+texture_progress = ExtResource("1_difyy")
+script = ExtResource("2_5q6ph")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="value_changed" from="." to="." method="_on_value_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

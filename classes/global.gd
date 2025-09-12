@@ -1,0 +1,252 @@
+extends Node
+
+const LEVEL := preload("res://levels/level.tscn")
+const SELECT := preload("res://levels/select.tscn")
+
+enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK, NONE}
+const SHIP_SCENES: Array[PackedScene] = [
+	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/klod/klod.tscn"),
+	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/apiv/apiv.tscn"),
+	preload("res://ships/okla/okla.tscn"),
+	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/kelu/kelu.tscn"),
+]
+const SHIP_INFO: Array[Dictionary] = [
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+	{
+		"title": "Klod",
+		"subtitle": "Deflect and Reflect",
+		"max": 96,
+		"acc": 186,
+		"nrg": 120,
+		"clp": 3,
+		"passive": "Weaponized weight",
+		"primary": "Impulse punch",
+		"secondary": "Stasis reflect",
+		"sprite": preload("res://ships/klod/klod.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+	{
+		"title": "Apiv",
+		"subtitle": "Charge Shift",
+		"max": 170,
+		"acc": 100,
+		"nrg": 90,
+		"clp": 0,
+		"passive": "Boost while charging",
+		"primary": "Charge plasma ball",
+		"secondary": "Shift momentum -TAU/4",
+		"sprite": preload("res://ships/apiv/apiv.png")
+	},
+	{
+		"title": "Okla",
+		"subtitle": "Rotational Skillshots",
+		"max": 256,
+		"acc": 32,
+		"nrg": 80,
+		"clp": 3,
+		"passive": "Stronger when spinning",
+		"primary": "Burstgun",
+		"secondary": "Cannon",
+		"sprite": preload("res://ships/okla/okla.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+	{
+		"title": "Kelu",
+		"subtitle": "Aggressive Acceleration",
+		"max": 128,
+		"acc": 128,
+		"nrg": 80,
+		"clp": 4,
+		"passive": "More acceleration when near enemy",
+		"primary": "Triple stars",
+		"secondary": "More max speed",
+		"sprite": preload("res://ships/kelu/kelu.png")
+	},
+]
+
+const USER_MAPS_PATH := "user://maps"
+const INTERNAL_MAPS := {
+	"tst_corners.png": preload("res://maps/tst_corners.png"),
+	"sel_original.png": preload("res://maps/sel_original.png"),
+}
+const OG_MAPS := {
+	"dm2_cycle_2.png": preload("res://maps/dm2_cycle_2.png"),
+	"dm2_cramped_3.png": preload("res://maps/dm2_cramped_3.png"),
+}
+
+var user_maps := {}
+var maps := {}
+
+var base_color := Color(1.0, 0.85, 0.66)
+var p1_ship := Ships.KELU
+var p2_ship := Ships.KELU
+var current_map: Texture2D
+var rounds := 1
+
+
+func _enter_tree() -> void:
+	if rounds == 0:
+		current_map = null
+		get_tree().change_scene_to_file("res://levels/start.tscn")
+	maps = OG_MAPS.duplicate()
+	maps.merge(INTERNAL_MAPS)
+	load_user_maps()
+	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	#Engine.max_fps = 60
+	#Input.use_accumulated_input = false
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#get_window().mode = Window.MODE_FULLSCREEN
+
+
+func _process(_delta) -> void:
+	#if Input.is_action_just_pressed("debug_key"):
+		#if Engine.max_fps == 60:
+			#Engine.max_fps = 0
+		#elif Engine.max_fps == 0:
+			#Engine.max_fps = 60
+
+	if Input.is_action_just_pressed("back"):
+		get_tree().quit() # temporary for testing
+
+	if Input.is_action_just_pressed("fullscreen"):
+		if get_window().mode != Window.MODE_FULLSCREEN:
+			get_window().mode = Window.MODE_FULLSCREEN
+		else:
+			get_window().mode = Window.MODE_WINDOWED
+
+
+func load_user_maps() -> void:
+	user_maps.clear()
+	var dir := DirAccess.open("user://")
+
+	if not dir.dir_exists(USER_MAPS_PATH):
+		dir.make_dir(USER_MAPS_PATH)
+	dir.change_dir(USER_MAPS_PATH)
+
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir():
+				user_maps[file_name] = ImageTexture.create_from_image(Image.load_from_file(USER_MAPS_PATH+"/"+file_name))
+			file_name = dir.get_next()
+	else:
+		push_error("Could not access the user map path for some reason...")
+
+	maps.merge(user_maps, true)
+
+
+func pass_round():
+	rounds -= 1
+	if rounds <= 0:
+		current_map = null
+		rounds = 1
+		get_tree().change_scene_to_file("res://levels/start.tscn")
+	else:
+		get_tree().reload_current_scene()
+
+
+#func mouse_switch(pos := Vector2(0, 0)) -> void :
+	#if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#get_window().warp_mouse(pos)
+	#elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func decay_towards(value : float, target : float,
+			decay_power : float, delta : float = get_process_delta_time(),
+			round_threshold : float = 0.0) -> float:
+
+	var new_value := (value - target) * pow(2, -delta * decay_power) + target
+
+	if absf(new_value - target) < round_threshold:
+		return target
+	else:
+		return new_value
+
+
+func decay_vec2_towards(value : Vector2, target : Vector2,
+			decay_power : float, delta : float = get_process_delta_time(),
+			round_threshold : float = 0.0) -> Vector2:
+
+	var new_value := (value - target) * pow(2, -delta * decay_power) + target
+
+	if (new_value - target).abs().length() < round_threshold:
+		return target
+	else:
+		return new_value
+
+
+func decay_angle_towards(value : float, target : float,
+			decay_power : float, delta : float = get_process_delta_time(),
+			round_threshold : float = 0.0) -> float:
+
+	var new_value := angle_difference(target, value) * pow(2, -delta * decay_power) + target
+
+	if absf(angle_difference(target, new_value)) < round_threshold:
+		return target
+	else:
+		return new_value

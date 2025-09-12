@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi35p88q2yiy4"]
+
+[ext_resource type="Script" uid="uid://worjucje0nvv" path="res://components/clip_component/clip_component.gd" id="1_m1i11"]
+
+[node name="ClipComponent" type="Node2D"]
+script = ExtResource("1_m1i11")
+
+[node name="ReloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ReloadDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FireDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
+[connection signal="timeout" from="ReloadDelayTimer" to="." method="_on_delay_timer_timeout"]
+[connection signal="timeout" from="FireDelayTimer" to="." method="_on_fire_delay_timer_timeout"]
