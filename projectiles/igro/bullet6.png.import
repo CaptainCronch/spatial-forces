@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsnno1mbs1hh"
-path="res://.godot/imported/bullet6.png-1fd97f722493b72db4aae388082d84ae.ctex"
+path="res://.godot/imported/bullet6.png-02d40ba5662417b3413226896282ba00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://unused_assets/projectiles/bullet6.png"
-dest_files=["res://.godot/imported/bullet6.png-1fd97f722493b72db4aae388082d84ae.ctex"]
+source_file="res://projectiles/igro/bullet6.png"
+dest_files=["res://.godot/imported/bullet6.png-02d40ba5662417b3413226896282ba00.ctex"]
 
 [params]
 

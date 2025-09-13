@@ -20,6 +20,7 @@ shader_parameter/color_factor = Color(1, 0.85, 0.66, 1)
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("p1_label", "p2_label", "number_holder", "camera", "tilemap", "fade_panel", "color_overlay")]
 script = ExtResource("1_d5x7l")
+player_1 = 7
 p1_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber")
 p2_label = NodePath("Environment/ScreenEffects/PlayerNumbers/PlayerNumber2")
 number_holder = NodePath("Environment/ScreenEffects/PlayerNumbers")

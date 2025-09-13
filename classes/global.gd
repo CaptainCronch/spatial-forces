@@ -12,7 +12,7 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("res://ships/apiv/apiv.tscn"),
 	preload("res://ships/okla/okla.tscn"),
 	preload("res://ships/kelu/kelu.tscn"),
-	preload("res://ships/kelu/kelu.tscn"),
+	preload("res://ships/igro/igro.tscn"),
 	preload("res://ships/kelu/kelu.tscn"),
 ]
 const SHIP_INFO: Array[Dictionary] = [
@@ -101,16 +101,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("res://ships/kelu/kelu.png")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
+		"title": "Igro",
+		"subtitle": "demoman tf2",
 		"max": 128,
 		"acc": 128,
 		"nrg": 80,
 		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"passive": "death",
+		"primary": "death",
+		"secondary": "death",
+		"sprite": preload("res://ships/igro/igro.png")
 	},
 	{
 		"title": "Kelu",

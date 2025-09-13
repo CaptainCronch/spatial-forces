@@ -66,7 +66,7 @@ func set_engines():
 
 
 func primary():
-	if clip_component.clip <= 0 or not clip_component.can_fire or	 block_tiles: return
+	if clip_component.clip <= 0 or not clip_component.can_fire or block_tiles: return
 	clip_component.use(1)
 
 	var bullet_instance : RigidBody2D

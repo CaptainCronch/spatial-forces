@@ -94,7 +94,7 @@ func die():
 	#queue_free()
 
 
-func set_projectile_player(projectile: Node2D) -> void:
+func set_projectile_player(projectile: CollisionObject2D) -> void:
 	if player_id == PlayerIDs.PLAYER_2:
 		projectile.set_collision_layer_value(2, false)
 		projectile.set_collision_layer_value(3, true)

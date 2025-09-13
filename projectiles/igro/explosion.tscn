@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsmm6h66s0rvn"]
+
+[ext_resource type="Script" uid="uid://33pxsr7qk3s5" path="res://projectiles/igro/explosion.gd" id="1_arvni"]
+[ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="2_arvni"]
+
+[sub_resource type="Resource" id="Resource_j0uca"]
+resource_local_to_scene = true
+script = ExtResource("2_arvni")
+attack_damage = 10.0
+knockback_force = 100.0
+origin_name = "Igro"
+attack_type = 2
+metadata/_custom_type_script = "uid://cuj2cdqgrpu2g"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u6iya"]
+radius = 30.0
+
+[sub_resource type="Gradient" id="Gradient_w7cal"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[node name="Explosion" type="Area2D" node_paths=PackedStringArray("collider", "particles") groups=["Player1", "Projectile"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource("1_arvni")
+collider = NodePath("CollisionShape2D")
+particles = NodePath("CPUParticles2D")
+attack = SubResource("Resource_j0uca")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u6iya")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+preprocess = 0.25
+explosiveness = 0.8
+emission_shape = 2
+emission_sphere_radius = 22.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+damping_min = 50.0
+damping_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_w7cal")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="finished" from="CPUParticles2D" to="." method="_on_cpu_particles_2d_finished"]
