@@ -1,6 +1,6 @@
 extends Ship
 
-const BULLET := preload("res://projectiles/kelu/kelu_bullet.tscn")
+const BULLET := preload("uid://bhlsjeqhvlcgy")
 
 @export var turbo_bar: Meter
 @export var left_engine: CPUParticles2D

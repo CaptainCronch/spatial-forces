@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsmm6h66s0rvn"]
+[gd_scene load_steps=7 format=3 uid="uid://dsmm6h66s0rvn"]
 
 [ext_resource type="Script" uid="uid://33pxsr7qk3s5" path="res://projectiles/igro/explosion.gd" id="1_arvni"]
 [ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="2_arvni"]
+[ext_resource type="Texture2D" uid="uid://dro4na76ofbw3" path="res://unused_assets/projectiles/bullet7.png" id="3_j0uca"]
 
 [sub_resource type="Resource" id="Resource_j0uca"]
 resource_local_to_scene = true
@@ -13,7 +14,7 @@ attack_type = 2
 metadata/_custom_type_script = "uid://cuj2cdqgrpu2g"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u6iya"]
-radius = 30.0
+radius = 60.0
 
 [sub_resource type="Gradient" id="Gradient_w7cal"]
 interpolation_mode = 1
@@ -34,20 +35,20 @@ shape = SubResource("CircleShape2D_u6iya")
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 50
+texture = ExtResource("3_j0uca")
 lifetime = 0.5
 one_shot = true
 preprocess = 0.25
 explosiveness = 0.8
 emission_shape = 2
-emission_sphere_radius = 22.5
+emission_sphere_radius = 45.0
+particle_flag_align_y = true
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 50.0
 initial_velocity_max = 50.0
 damping_min = 50.0
 damping_max = 100.0
-scale_amount_min = 5.0
-scale_amount_max = 5.0
 color_ramp = SubResource("Gradient_w7cal")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

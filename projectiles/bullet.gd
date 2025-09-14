@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Bullet
 
-const SPARKS := preload("res://effects/particles/sparks.tscn")
+const SPARKS := preload("uid://bvv4udo8hfkun")
 
 @export var attack: Attack
 @export var hurtbox: Area2D
@@ -10,12 +10,13 @@ const SPARKS := preload("res://effects/particles/sparks.tscn")
 @export var spark_scale := 2.0
 @export var death_time := 1.5
 @export var speed := 400.0
+@export var lifetime_randomness := 0.2
 
 
 func _ready() -> void:
 	linear_velocity = Vector2.RIGHT.rotated(rotation) * speed
 	sprite.global_position = global_position
-	death_timer.start(death_time + randf_range(-death_time/5, death_time/5))
+	death_timer.start(death_time + randf_range(-lifetime_randomness, lifetime_randomness))
 
 
 func _process(_delta: float) -> void:

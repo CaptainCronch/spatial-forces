@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddt346uq4fub1"]
 
-[ext_resource type="PackedScene" uid="uid://bg38iq5mogx6x" path="res://scenes/environment/gravity_well_right.tscn" id="1_jaqms"]
+[ext_resource type="PackedScene" uid="uid://bg38iq5mogx6x" path="res://environment/gravity_well/gravity_well_right.tscn" id="1_jaqms"]
 
 [node name="GravityWell" instance=ExtResource("1_jaqms")]
 rotation = 3.14159

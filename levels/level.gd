@@ -26,7 +26,7 @@ const SMALL_PLANK_ID := 19
 const SMALL_PILL_ID := 18
 #endregion
 
-const STEERING = preload("res://components/steering_component/steering_component.tscn")
+const STEERING = preload("uid://qa02kvluhq2n")
 
 enum Mode {GAME, DEMO, NONE}
 

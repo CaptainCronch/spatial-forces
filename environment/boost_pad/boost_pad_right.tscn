@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://237wh21ay2by"]
 
-[ext_resource type="Script" uid="uid://bl68p251reano" path="res://scripts/environment/bounce_pad.gd" id="1_sjl1p"]
-[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="2_jakvk"]
+[ext_resource type="Script" uid="uid://bl68p251reano" path="res://environment/boost_pad/bounce_pad.gd" id="1_sjl1p"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://environment/tiles/tileset.png" id="2_jakvk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ll8vb"]
 size = Vector2(16, 28)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bho2earrnu7ct"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_m34s7"]
-[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="2_7b21h"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://environment/tiles/tileset.png" id="2_7b21h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ta0tt"]
 size = Vector2(32, 4)

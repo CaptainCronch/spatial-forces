@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://laax53spsxoa"]
 
-[ext_resource type="PackedScene" uid="uid://bho2earrnu7ct" path="res://scenes/environment/one_way_left.tscn" id="1_sa3e7"]
+[ext_resource type="PackedScene" uid="uid://bho2earrnu7ct" path="res://environment/one_way/one_way_left.tscn" id="1_sa3e7"]
 
 [node name="OneWay" instance=ExtResource("1_sa3e7")]
 rotation = 3.14159

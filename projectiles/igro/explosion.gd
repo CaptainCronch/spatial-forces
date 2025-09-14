@@ -14,6 +14,10 @@ func _ready() -> void:
 	particles.emission_sphere_radius = radius*0.75
 	particles.emitting = true
 	
+	await get_tree().create_timer(0.1).timeout
+	#monitoring = false #explosions should last as little time as possible!
+	$CollisionShape2D.disabled = true
+	
 	#for area in get_overlapping_areas():
 		#if area.is_in_group("Player") and area is HitboxComponent:
 			#attack.attack_position = global_position
@@ -38,7 +42,7 @@ func _on_area_entered(area: Area2D) -> void:
 			area.damage(attack)
 
 
-func _on_body_entered(body: RigidBody2D) -> void:
+func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D:
 		if ((is_in_group("Player1") and body.is_in_group("Player2")) #dont impulse enemy player
 		or (is_in_group("Player2") and body.is_in_group("Player1"))): return

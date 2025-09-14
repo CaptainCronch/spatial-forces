@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dt1vv05vn56k3"]
 
-[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://assets/environment/tileset.png" id="1_6fr4f"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://environment/tiles/tileset.png" id="1_6fr4f"]
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_f3alr"]
-[ext_resource type="Script" uid="uid://c6ui6lmkgvk5m" path="res://scripts/environment/debris.gd" id="2_x7dxg"]
-[ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://scenes/particles/imbued.tscn" id="4_byj0a"]
+[ext_resource type="Script" uid="uid://c6ui6lmkgvk5m" path="res://environment/debris/debris.gd" id="2_x7dxg"]
+[ext_resource type="PackedScene" uid="uid://bc6yo4lnw2s5k" path="res://effects/particles/imbued.tscn" id="4_byj0a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjek7"]
 size = Vector2(32, 32)

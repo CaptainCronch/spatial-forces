@@ -1,6 +1,6 @@
 extends Bullet
 
-const EXPLOSION := preload("res://projectiles/igro/explosion.tscn")
+const EXPLOSION := preload("uid://dsmm6h66s0rvn")
 
 var player_id: Ship.PlayerIDs
 var previous_hits: Array[Ship] = []

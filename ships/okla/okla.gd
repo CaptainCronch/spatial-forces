@@ -1,7 +1,7 @@
 extends Ship
 
-const BULLET := preload("res://projectiles/okla/okla_bullet.tscn")
-const SLUG := preload("res://projectiles/okla/okla_bullet_slug.tscn")
+const BULLET := preload("uid://dgop8vuj76xwn")
+const SLUG := preload("uid://dat4gc7q4lckn")
 
 @export var slugger_bar: Meter
 @export var engine: CPUParticles2D

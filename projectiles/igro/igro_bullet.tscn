@@ -36,6 +36,7 @@ sprite = NodePath("Sprite2D")
 death_timer = NodePath("Death")
 death_time = 1.0
 speed = 600.0
+lifetime_randomness = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 top_level = true

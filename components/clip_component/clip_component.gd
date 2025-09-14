@@ -19,22 +19,23 @@ func _ready() -> void:
 	clip = max_clip
 	reload_timer.wait_time = reload_time
 	reload_delay_timer.wait_time = reload_delay
+	fire_delay_timer.wait_time = fire_delay
 	clip_bar.max_value = max_clip
 	clip_bar.value = clip
 
 
-func use(ammo : int, delay_multiplier := 1.0) -> void:
+func use(ammo : int, delay_multiplier := 1.0, delay_addend := 0.0) -> void:
 	can_fire = false
 	clip -= ammo
-	reload_delay_timer.start(reload_delay * delay_multiplier)
-	fire_delay_timer.start(fire_delay) # maybe only start reload delay after fire delay?
+	reload_delay_timer.start(maxf(0.0, (reload_delay * delay_multiplier) + delay_addend))
+	fire_delay_timer.start(maxf(0.0, fire_delay)) # maybe only start reload delay after fire delay?
 	reload_timer.stop()
 	clip_bar.value = clip
 
 
 func hold(ammo : float, delay_multiplier := 1.0) -> void:
 	clip -= ammo
-	reload_delay_timer.start(reload_delay * delay_multiplier)
+	reload_delay_timer.start(maxf(0.0, reload_delay * delay_multiplier))
 	reload_timer.stop()
 	clip_bar.value = clip
 
@@ -42,7 +43,7 @@ func hold(ammo : float, delay_multiplier := 1.0) -> void:
 func reload(ammo : int):
 	clip += ammo
 	if clip < max_clip:
-		reload_timer.start(reload_time)
+		reload_timer.start(maxf(0.0, reload_time))
 	clip_bar.value = clip
 
 

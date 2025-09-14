@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dat4gc7q4lckn"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_rty5g"]
-[ext_resource type="Script" path="res://projectiles/bullet.gd" id="2_56qdc"]
+[ext_resource type="Script" uid="uid://ckn3hlraoouod" path="res://projectiles/bullet.gd" id="2_56qdc"]
 [ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="3_h816q"]
 [ext_resource type="Texture2D" uid="uid://b4hx8bfaufoh6" path="res://projectiles/okla/bulletoklafat.png" id="4_t2ym5"]
 

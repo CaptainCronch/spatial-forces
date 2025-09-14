@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cydy5qjuigfp3"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_a2vn4"]
-[ext_resource type="Script" path="res://ships/okla/okla.gd" id="2_ytotd"]
+[ext_resource type="Script" uid="uid://bibtl0ssmgbkn" path="res://ships/okla/okla.gd" id="2_ytotd"]
 [ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="3_sh22i"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="4_vw24p"]
 [ext_resource type="Texture2D" uid="uid://b4aj43mwsjri8" path="res://ships/okla/okla.png" id="5_mc31v"]

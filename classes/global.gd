@@ -1,19 +1,19 @@
 extends Node
 
-const LEVEL := preload("res://levels/level.tscn")
-const SELECT := preload("res://levels/select.tscn")
+const LEVEL := preload("uid://b2i211avmpf4e")
+const SELECT := preload("uid://clovy12w6brxj")
 
 enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK, NONE}
 const SHIP_SCENES: Array[PackedScene] = [
-	preload("res://ships/kelu/kelu.tscn"),
-	preload("res://ships/kelu/kelu.tscn"),
-	preload("res://ships/klod/klod.tscn"),
-	preload("res://ships/kelu/kelu.tscn"),
-	preload("res://ships/apiv/apiv.tscn"),
-	preload("res://ships/okla/okla.tscn"),
-	preload("res://ships/kelu/kelu.tscn"),
-	preload("res://ships/igro/igro.tscn"),
-	preload("res://ships/kelu/kelu.tscn"),
+	preload("uid://vu6eebm6ech"), #kelu
+	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://cadc7ajjrypd3"), #klod
+	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://blaxqtocj6y1y"), #apiv
+	preload("uid://cydy5qjuigfp3"), #okla
+	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://bewmw7u4yhoju"), #igro
+	preload("uid://vu6eebm6ech"), #kelu ~
 ]
 const SHIP_INFO: Array[Dictionary] = [
 	{
@@ -26,7 +26,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "More acceleration when near enemy",
 		"primary": "Triple stars",
 		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
 		"title": "Kelu",
@@ -38,7 +38,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "More acceleration when near enemy",
 		"primary": "Triple stars",
 		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
 		"title": "Klod",
@@ -50,7 +50,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "Weaponized weight",
 		"primary": "Impulse punch",
 		"secondary": "Stasis reflect",
-		"sprite": preload("res://ships/klod/klod.png")
+		"sprite": preload("uid://cd8j4f10lxhvb")
 	},
 	{
 		"title": "Kelu",
@@ -62,7 +62,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "More acceleration when near enemy",
 		"primary": "Triple stars",
 		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
 		"title": "Apiv",
@@ -73,8 +73,8 @@ const SHIP_INFO: Array[Dictionary] = [
 		"clp": 0,
 		"passive": "Boost while charging",
 		"primary": "Charge plasma ball",
-		"secondary": "Shift momentum -TAU/4",
-		"sprite": preload("res://ships/apiv/apiv.png")
+		"secondary": "Shift momentum counterclockwise",
+		"sprite": preload("uid://daytpdegbvc55")
 	},
 	{
 		"title": "Okla",
@@ -86,7 +86,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "Stronger when spinning",
 		"primary": "Burstgun",
 		"secondary": "Cannon",
-		"sprite": preload("res://ships/okla/okla.png")
+		"sprite": preload("uid://b4aj43mwsjri8")
 	},
 	{
 		"title": "Kelu",
@@ -98,19 +98,19 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "More acceleration when near enemy",
 		"primary": "Triple stars",
 		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
 		"title": "Igro",
-		"subtitle": "demoman tf2",
-		"max": 128,
-		"acc": 128,
-		"nrg": 80,
-		"clp": 4,
-		"passive": "death",
-		"primary": "death",
-		"secondary": "death",
-		"sprite": preload("res://ships/igro/igro.png")
+		"subtitle": "Precise Explosives",
+		"max": 140,
+		"acc": 48,
+		"nrg": 90,
+		"clp": 1,
+		"passive": "More damage on double hit",
+		"primary": "Impact ordinance",
+		"secondary": "Brake",
+		"sprite": preload("uid://crx7tc8lm6202")
 	},
 	{
 		"title": "Kelu",
@@ -122,18 +122,18 @@ const SHIP_INFO: Array[Dictionary] = [
 		"passive": "More acceleration when near enemy",
 		"primary": "Triple stars",
 		"secondary": "More max speed",
-		"sprite": preload("res://ships/kelu/kelu.png")
+		"sprite": preload("uid://bw870adibwubn")
 	},
 ]
 
 const USER_MAPS_PATH := "user://maps"
 const INTERNAL_MAPS := {
-	"tst_corners.png": preload("res://maps/tst_corners.png"),
-	"sel_original.png": preload("res://maps/sel_original.png"),
+	"tst_corners.png": preload("uid://bift0vsgonrot"),
+	"sel_original.png": preload("uid://q7e1savtg7ga"),
 }
 const OG_MAPS := {
-	"dm2_cycle_2.png": preload("res://maps/dm2_cycle_2.png"),
-	"dm2_cramped_3.png": preload("res://maps/dm2_cramped_3.png"),
+	"dm2_cycle_2.png": preload("uid://oydpl4apkhsb"),
+	"dm2_cramped_3.png": preload("uid://c4ve4lnrxwqe6"),
 }
 
 var user_maps := {}

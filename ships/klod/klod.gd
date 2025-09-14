@@ -1,7 +1,7 @@
 extends Ship
 
-const PUNCH_PARTICLES = preload("res://effects/particles/force/force_punch.tscn")
-const WEIGHT = preload("res://projectiles/weight/weight.tscn")
+const PUNCH_PARTICLES = preload("uid://dafrbpekm0rg8")
+const WEIGHT = preload("uid://cwtxj55x5boyx")
 
 @export var clip_component: ClipComponent
 @export var punch_area: Area2D

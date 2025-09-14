@@ -1,6 +1,6 @@
 extends Ship
 
-const PLASMA_BALL = preload("res://projectiles/plasma_ball/plasma_ball.tscn")
+const PLASMA_BALL = preload("uid://comvsnlpgu2r7")
 
 @export var clip_comp: ClipComponent
 @export var rotate_bar: Meter
