@@ -28,7 +28,7 @@ const SMALL_PILL_ID := 18
 
 const STEERING = preload("uid://qa02kvluhq2n")
 
-enum Mode {GAME, DEMO, NONE}
+enum Mode {GAME, DEMO, NONE, TEST}
 
 @export var current_mode: Mode
 @export var player_1 : Global.Ships = Global.Ships.NONE
@@ -58,7 +58,7 @@ func _ready() -> void:
 
 	if current_mode == Mode.NONE:
 		pass
-	elif Global.current_map != null and current_mode == Mode.GAME:
+	elif Global.current_map != null and (current_mode == Mode.GAME or current_mode == Mode.TEST):
 		current_map = Global.current_map.get_image()
 		build(current_map)
 		camera.global_position = current_map.get_size() * 16
@@ -67,7 +67,7 @@ func _ready() -> void:
 		build(current_map)
 		camera.global_position = current_map.get_size() * 16
 
-	if current_mode == Mode.GAME: game_spawn()
+	if current_mode == Mode.GAME or current_mode == Mode.TEST: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()
 
 
@@ -86,6 +86,13 @@ func game_spawn() -> void:
 	var p2 : Ship = Global.SHIP_SCENES[player_2].instantiate()
 	p2.player_id = Ship.PlayerIDs.PLAYER_2
 	p2.global_translate(p2_spawns[randi_range(0, p2_spawns.size() - 1)])
+	if current_mode == Mode.TEST:
+		var new_steering: SteeringComponent = STEERING.instantiate()
+		p2.add_child(new_steering)
+		new_steering.target = p2
+		p2.steering = new_steering
+		p2.demo = true
+		p2.rotation = randf_range(0, TAU)
 	add_child(p2)
 
 	p1_label.ship = p1

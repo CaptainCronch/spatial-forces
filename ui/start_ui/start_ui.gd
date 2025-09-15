@@ -185,7 +185,7 @@ func _on_play_focus_entered() -> void:
 
 func change_map(dir: int) -> void:
 	if is_instance_valid(map_tween): map_tween.kill()
-	var map_tween := create_tween().set_trans(Tween.TRANS_CUBIC)
+	map_tween = create_tween().set_trans(Tween.TRANS_CUBIC)
 	map_tween.tween_property(map_sprite, "modulate", Color(1, 1, 1, 0), 0)
 	#var first := map_above.global_position if dir == -1 else map_below.global_position
 	#map_tween.set_ease(Tween.EASE_IN).tween_property(map_box, "global_position", first, tween_time/2)

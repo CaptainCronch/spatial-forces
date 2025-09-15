@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kw7yo31ujqgl"
-path="res://.godot/imported/aris.png-201d45744e88056784203e2e8fd3a1fe.ctex"
+path="res://.godot/imported/aris.png-9531f47d9fac0d78f5d4532752c93f71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://unused_assets/ships/aris.png"
-dest_files=["res://.godot/imported/aris.png-201d45744e88056784203e2e8fd3a1fe.ctex"]
+source_file="res://ships/aris/aris.png"
+dest_files=["res://.godot/imported/aris.png-9531f47d9fac0d78f5d4532752c93f71.ctex"]
 
 [params]
 

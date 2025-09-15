@@ -4,6 +4,11 @@ const PLASMA_BALL = preload("uid://comvsnlpgu2r7")
 
 @export var clip_comp: ClipComponent
 @export var rotate_bar: Meter
+@export var trail_right: Trail
+@export var trail_left: Trail
+@export var trail_max_size := 4.0
+@export var trail_min_size := 2.0
+@export var trail_length := 20
 @export var bullet_grow_speed := 5.0
 @export var ammo_consumption_speed := 5.0
 @export var min_ammo_consumption := 2
@@ -29,6 +34,21 @@ func _process(delta: float) -> void:
 			rotate_timer = 0.0
 			rotate_charges += 1
 			rotate_bar.value = rotate_charges
+
+
+func _physics_process(delta: float) -> void:
+	super(delta)
+	trail_left.width = trail_min_size
+	trail_right.width = trail_min_size
+	if signf(rotation_dir) < 0.0: trail_left.width = trail_max_size
+	elif signf(rotation_dir) > 0.0: trail_right.width = trail_max_size
+	
+	if move_dir == Vector2():
+		trail_left.max_length = 0
+		trail_right.max_length = 0
+	else:
+		trail_left.max_length = trail_length
+		trail_right.max_length = trail_length
 
 
 func primary() -> void:

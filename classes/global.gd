@@ -8,7 +8,7 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("uid://vu6eebm6ech"), #kelu
 	preload("uid://vu6eebm6ech"), #kelu ~
 	preload("uid://cadc7ajjrypd3"), #klod
-	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://cqqfpihgkt1wr"), #aris
 	preload("uid://blaxqtocj6y1y"), #apiv
 	preload("uid://cydy5qjuigfp3"), #okla
 	preload("uid://vu6eebm6ech"), #kelu ~
@@ -53,16 +53,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://cd8j4f10lxhvb")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
+		"title": "Aris",
+		"subtitle": "Joust Lance",
 		"max": 128,
 		"acc": 128,
 		"nrg": 80,
 		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("uid://bw870adibwubn")
+		"passive": "Boost off of walls",
+		"primary": "Thrust forward",
+		"secondary": "Reflect projectiles",
+		"sprite": preload("uid://kw7yo31ujqgl")
 	},
 	{
 		"title": "Apiv",
@@ -154,7 +154,11 @@ func _enter_tree() -> void:
 	maps.merge(INTERNAL_MAPS)
 	load_user_maps()
 	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-	#Engine.max_fps = 60
+	var rand := randi_range(1, 4)
+	if rand == 1: Engine.max_fps = 240
+	elif rand == 2: Engine.max_fps = 120
+	elif rand == 3: Engine.max_fps = 60
+	elif rand == 4: Engine.max_fps = 30
 	#Input.use_accumulated_input = false
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#get_window().mode = Window.MODE_FULLSCREEN

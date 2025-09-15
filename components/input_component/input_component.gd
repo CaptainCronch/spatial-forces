@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed(inputs[PlayerInputs.UP]):
 		target.move_dir += Vector2(target.acceleration * target.acceleration_boost, 0)
 	if Input.is_action_pressed(inputs[PlayerInputs.DOWN]):
-		target.move_dir += Vector2(-target.back_acceleration * target.acceleration_boost, 0)
+		target.move_dir += Vector2(-target.back_acceleration, 0)# * target.acceleration_boost, 0)?
 
 	if Input.is_action_just_pressed(inputs[PlayerInputs.PRIMARY]):
 		target.primary()
