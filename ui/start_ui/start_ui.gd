@@ -261,7 +261,6 @@ func _on_add_focus_entered() -> void:
 
 
 func _on_url_edit_text_submitted(new_text: String) -> void:
-	print("submitted")
 	if download_filename == "" or new_text == "":
 		frozen = false
 		filename_edit.text = ""

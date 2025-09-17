@@ -363,7 +363,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = SubResource("FontVariation_8i3e1")
 theme_override_font_sizes/font_size = 24
-text = "wow guys this is really crazy"
 horizontal_alignment = 1
 
 [node name="Subtitle" type="Label" parent="StartUI/Toast" index="1"]
@@ -372,7 +371,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_fonts/font = SubResource("FontVariation_8i3e1")
 theme_override_font_sizes/font_size = 16
-text = "hey bitchez"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="StartUI" index="5"]

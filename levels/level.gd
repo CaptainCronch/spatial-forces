@@ -42,7 +42,7 @@ enum Mode {GAME, DEMO, NONE, TEST}
 @export var select_ui: CanvasLayer
 @export var fade_panel: Panel
 @export var color_overlay: ColorRect
-@export var padding := 50
+@export var padding := 50 ##Size of frame around level
 @export var fade_time := 1.0
 
 var current_map: Image
@@ -145,9 +145,14 @@ func end_round():
 
 
 func build(img: Image) -> void:
-	if img.get_height() > 64 or img.get_width() > 64:
-		printerr("Map is too large! (> 64px in height or width)")
-		return
+	if img.get_height() > 64 and img.get_width() > 64:
+		#printerr("Map is too large! (> 64px in height or width)")
+		#return
+		img.resize(64, 64)
+	elif img.get_height() > 64:
+		img.resize(img.get_width(), 64)
+	elif img.get_width() > 64:
+		img.resize(64, img.get_height())
 
 	for x in img.get_width(): # check colors and place correct tile
 		for y in img.get_height():
@@ -236,3 +241,8 @@ func build(img: Image) -> void:
 		for y in img.get_height() + padding * 2:
 			if not rect.has_point(Vector2i(x - padding, y - padding)):
 				tilemap.set_cell(Vector2i(x - padding, y - padding), BASE_TILES_SOURCE_ID, BOUNCY_COORDS)
+	
+	if p1_spawns.size() == 0: p1_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
+	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
+	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
+	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))

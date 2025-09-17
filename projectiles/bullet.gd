@@ -12,6 +12,8 @@ const SPARKS := preload("uid://bvv4udo8hfkun")
 @export var speed := 400.0
 @export var lifetime_randomness := 0.2
 
+var disabled := false
+
 
 func _ready() -> void:
 	linear_velocity = Vector2.RIGHT.rotated(rotation) * speed
@@ -33,7 +35,7 @@ func _on_death_timeout() -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Player") and area is HitboxComponent:
+	if area.is_in_group("Player") and area is HitboxComponent and not disabled:
 		attack.attack_position = global_position
 		if linear_velocity.length_squared() != 0.0:
 			attack.attack_direction = linear_velocity.normalized()

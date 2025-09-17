@@ -22,18 +22,19 @@ var rotation_dir := 0
 var move_dir := Vector2()
 var block_tiles: Array[RID] = []
 var demo := false
+var dead := false
 #var timer = 0
 
 #@onready var bullet_spawn
 
 
-func _ready():
+func _ready() -> void:
 	call_deferred("initialize")
 	hitbox.body_shape_entered.connect(_on_hitbox_body_shape_entered)
 	hitbox.body_shape_exited.connect(_on_hitbox_body_shape_exited)
 
 
-func initialize():
+func initialize() -> void:
 	if not demo: get_tree().current_scene.camera.add_target(self)
 
 	if player_id == PlayerIDs.PLAYER_2:
@@ -48,7 +49,7 @@ func initialize():
 		hitbox.add_to_group("Player2")
 
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	apply_torque(rotation_dir * rotation_speed * rotational_boost) # spin
 	apply_central_force(move_dir.rotated(rotation)) # move
 
@@ -60,27 +61,28 @@ func _physics_process(_delta):
 	apply_central_force(linear_velocity.normalized() * -1 * back_factor) # drag
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	pass
 	#$Label.text = str(roundf(linear_velocity.length())) # debug
 
 
-func _integrate_forces(state): # if ship_going_faster_than_speed_limit: dont()
+func _integrate_forces(state) -> void: # if ship_going_faster_than_speed_limit: dont()
 	if state.linear_velocity.length() > SPEED_LIMIT:
 		state.linear_velocity = state.linear_velocity.normalized() * SPEED_LIMIT
 
 
-func primary(): pass
-func primary_release(): pass
-func primary_hold(): pass
+func primary() -> void: pass
+func primary_release() -> void: pass
+func primary_hold() -> void: pass
 
-func secondary(): pass
-func secondary_release(): pass
-func secondary_hold(): pass
+func secondary() -> void: pass
+func secondary_release() -> void: pass
+func secondary_hold() -> void: pass
 
 
-func die():
+func die() -> void:
 	if demo: return
+	dead = true
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
 

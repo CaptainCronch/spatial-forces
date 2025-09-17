@@ -41,3 +41,4 @@ func _on_area_entered(area: Area2D) -> void:
 			attack.attack_direction = Vector2.RIGHT.rotated(global_rotation)
 			hit.emit(area)
 			area.damage(attack)
+			flash_timer = 0.0
