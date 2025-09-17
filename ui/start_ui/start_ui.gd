@@ -35,6 +35,11 @@ extends CanvasLayer
 @export var url_edit: LineEdit
 @export var download_container: VBoxContainer
 @export var http_request: HTTPRequest
+@export var toast_container: VBoxContainer
+@export var toast_title: Label
+@export var toast_subtitle: Label
+@export var toast_in_pos: Control
+@export var toast_out_pos: Control
 
 @export var desired_p1_focus_speed := TAU / 8
 @export var desired_p2_focus_speed := -TAU / 8
@@ -45,6 +50,7 @@ extends CanvasLayer
 var map_rotation_speed := 0.0
 var map_rotation_direction := 1
 var download_filename := ""
+var toast_tween: Tween
 
 var selected_map := 0
 
@@ -64,6 +70,7 @@ func _ready() -> void:
 	map_box.position = map_position.position
 	p1_focus.position = focus_outside.position
 	p2_focus.position = focus_outside.position
+	toast_container.position.y = toast_out_pos.position.y
 
 	var largest: float = map_sprite.texture.get_height() if map_sprite.texture.get_height() >= map_sprite.texture.get_width() else map_sprite.texture.get_width()
 	map_sprite.scale = Vector2(1.0/(largest / 64.0), 1.0/(largest / 64.0))
@@ -152,19 +159,6 @@ func transform_map(delta: float) -> void:
 	map_sprite.scale = Vector2(1.0/(largest / 64.0), 1.0/(largest / 64.0))
 
 
-func _on_http_request_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	frozen = false
-	download_container.hide()
-	focus_outside.grab_focus()
-	filename_edit.text = ""
-	url_edit.text = ""
-	if not result == 0:
-		push_error("Problem on map response: ", result, " / ", response_code)
-		return
-	Global.load_user_maps()
-	reload_map_display()
-
-
 func _on_play_focus_entered() -> void:
 	var play_tween := create_tween().set_trans(Tween.TRANS_CUBIC)
 	if not map_shown:
@@ -231,6 +225,19 @@ func reload_map_display() -> void:
 			#map_extra.text = "5 rounds"
 
 
+func toast(title: String, subtitle := "") -> void:
+	toast_subtitle.show()
+	if subtitle == "": toast_subtitle.hide()
+	toast_title.text = title
+	toast_subtitle.text = subtitle
+	toast_container.position.y = toast_out_pos.position.y
+	if is_instance_valid(toast_tween): toast_tween.kill()
+	toast_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	toast_tween.tween_property(toast_container, "position:y", toast_in_pos.position.y, tween_time)
+	toast_tween.tween_interval(tween_time*4)
+	toast_tween.tween_property(toast_container, "position:y", toast_out_pos.position.y, tween_time)
+
+
 func _on_button_up_focus_entered() -> void:
 	change_map(-1)
 
@@ -254,18 +261,65 @@ func _on_add_focus_entered() -> void:
 
 
 func _on_url_edit_text_submitted(new_text: String) -> void:
-	if download_filename == "": return
+	print("submitted")
+	if download_filename == "" or new_text == "":
+		frozen = false
+		filename_edit.text = ""
+		url_edit.text = ""
+		download_container.hide()
+		focus_outside.grab_focus()
+		return
+	if not download_filename.substr(download_filename.length() - 4) == ".png":
+		toast("Make sure the filename ends with \".png\"")
+		frozen = false
+		download_container.hide()
+		filename_edit.text = ""
+		url_edit.text = ""
+		focus_outside.grab_focus()
+		return
 	http_request.download_file = "user://maps/" + download_filename
 	var result := http_request.request(new_text)
 	if not result == 0:
 		frozen = false
 		download_container.hide()
-		focus_outside.grab_focus()
 		filename_edit.text = ""
 		url_edit.text = ""
-		push_error("Problem with map request: ", result)
+		push_error("HTTP request error: " + str(result))
+		match result:
+			3: toast("If you see this error something has gone royally wrong", "I hope you're ready for the consequences")
+			44: toast("Still processing previous request", "Wait a while")
+			31: toast("Invalid URL format", "Make sure the link is formatted as \"https://www.example.com/[original filename].png\"")
+			25: toast("Could not connect to server", "This is an internet issue")
 	url_edit.editable = false
 	filename_edit.editable = false
+	focus_outside.grab_focus()
+
+
+func _on_http_request_request_completed(result: int, response_code: int, _headers: PackedStringArray, _body: PackedByteArray) -> void:
+	frozen = false
+	download_container.hide()
+	filename_edit.text = ""
+	url_edit.text = ""
+	if not result == 0:
+		push_error("Problem on map response: ", result, " / ", response_code)
+		match result:
+			1: toast("Chunked body size mismatch error", "Possible causes include network errors, server misconfiguration, or issues with chunked encoding")
+			2: toast("Could not connect to server", "Request failed while connecting")
+			3: toast("Could not resolve hostname", "Your DNS is messed up")
+			4: toast("Connection error", "It's a read/write thing")
+			5: toast("TLS handshake error", "Maybe the server's TLS certificate is expired")
+			6: toast("No response", "Server quiet")
+			7: toast("Request body size limit exceeded", "You should not get this error as the request body should be empty")
+			8: toast("Response decompression failed", "Could be caused by unsupported or incorrect compression format, corrupted data, or incomplete transfer")
+			9: toast("Request failed", "For some reason (9)")
+			10: toast("Could not open the download file", "This is an HTTPRequest issue")
+			11: toast("Could not write to the download file", "This is an HTTPRequest issue")
+			12: toast("Maximum redirects reached", "Tell the server to stop playing ring around the rosie")
+			13: toast("Connection timeout", "It should not take so long to download an extremely small png file")
+		return
+	toast("Downloaded new map", "to " + ProjectSettings.globalize_path("user://maps/") + download_filename)
+	Global.load_user_maps()
+	reload_map_display()
 
 
 func _on_filename_edit_text_changed(new_text: String) -> void:

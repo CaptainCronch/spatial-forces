@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://blaxqtocj6y1y"]
+[gd_scene load_steps=13 format=3 uid="uid://blaxqtocj6y1y"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_874s1"]
 [ext_resource type="Script" uid="uid://b6pcb56i6pxuf" path="res://ships/apiv/apiv.gd" id="1_bk13u"]
@@ -14,6 +14,11 @@
 radius = 7.0
 
 [sub_resource type="Curve" id="Curve_fbmrq"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_texew"]
 resource_local_to_scene = true
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -100,7 +105,7 @@ randomness_range = 0.5
 
 [node name="TrailLeft" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_texew")]
 width = 2.0
-width_curve = SubResource("Curve_fbmrq")
+width_curve = SubResource("Curve_texew")
 target = NodePath("../Left")
 deletion_factor = 10
 randomness_range = 0.5

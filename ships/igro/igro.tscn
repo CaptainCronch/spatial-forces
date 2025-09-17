@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bewmw7u4yhoju"]
+[gd_scene load_steps=13 format=3 uid="uid://bewmw7u4yhoju"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_o4s32"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="2_oqu1v"]
@@ -13,6 +13,11 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
 radius = 7.0
+
+[sub_resource type="Curve" id="Curve_r1n1w"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
 
 [node name="Igro" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "brake_bar", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
@@ -101,7 +106,7 @@ target = NodePath("..")
 
 [node name="Trail" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_r1n1w")]
 width = 2.0
-begin_cap_mode = 2
+width_curve = SubResource("Curve_r1n1w")
 target = NodePath("../TrailPos")
 resolution_factor = 5
 
