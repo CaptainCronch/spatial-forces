@@ -41,6 +41,11 @@ func _ready() -> void:
 	lance.attack.attack_damage = lance_damage
 	lance.attack.knockback_force = lance_damage * damage_knockback_ratio
 	lance.hit.connect(hit)
+	if player_id == PlayerIDs.PLAYER_2:
+		lance.set_collision_layer_value(2, false)
+		lance.set_collision_layer_value(3, true)
+		lance.set_collision_mask_value(2, true)
+		lance.set_collision_mask_value(3, false)
 	
 	if demo:
 		lance.enabled = false

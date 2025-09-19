@@ -98,8 +98,8 @@ func die() -> void:
 
 func set_projectile_player(projectile: CollisionObject2D) -> void:
 	if player_id == PlayerIDs.PLAYER_2:
-		projectile.set_collision_layer_value(2, false)
-		projectile.set_collision_layer_value(3, true)
+		#projectile.set_collision_layer_value(2, false)
+		#projectile.set_collision_layer_value(3, true)
 		projectile.hurtbox.set_collision_layer_value(2, false)
 		projectile.hurtbox.set_collision_layer_value(3, true)
 		projectile.hurtbox.set_collision_mask_value(2, true)
@@ -108,13 +108,9 @@ func set_projectile_player(projectile: CollisionObject2D) -> void:
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body is TileMapLayer:
-		var coords : Vector2i = body.get_coords_for_body_rid(body_rid)
-		if body.get_cell_tile_data(coords).get_custom_data("Type") == "player_pass":
-			block_tiles.append(body_rid)
+		block_tiles.append(body_rid)
 
 
 func _on_hitbox_body_shape_exited(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body is TileMapLayer:
-		var coords : Vector2i = body.get_coords_for_body_rid(body_rid)
-		if body.get_cell_tile_data(coords).get_custom_data("Type") == "player_pass":
-			block_tiles.erase(body_rid)
+		block_tiles.erase(body_rid)

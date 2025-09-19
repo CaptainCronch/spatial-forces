@@ -6,7 +6,7 @@ const SELECT := preload("uid://clovy12w6brxj")
 enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK, NONE}
 const SHIP_SCENES: Array[PackedScene] = [
 	preload("uid://vu6eebm6ech"), #kelu
-	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://0238oq2l73lm"), #eski
 	preload("uid://cadc7ajjrypd3"), #klod
 	preload("uid://cqqfpihgkt1wr"), #aris
 	preload("uid://blaxqtocj6y1y"), #apiv
@@ -29,16 +29,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
-		"max": 128,
-		"acc": 128,
-		"nrg": 80,
-		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("uid://bw870adibwubn")
+		"title": "Eski",
+		"subtitle": "Bullet Heaven",
+		"max": 80,
+		"acc": 64,
+		"nrg": 110,
+		"clp": 3,
+		"passive": "Low bullets bonus",
+		"primary": "Spitter",
+		"secondary": "Hook",
+		"sprite": preload("uid://cv6cge1r1471o")
 	},
 	{
 		"title": "Klod",

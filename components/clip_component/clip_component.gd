@@ -24,11 +24,11 @@ func _ready() -> void:
 	clip_bar.value = clip
 
 
-func use(ammo : int, delay_multiplier := 1.0, delay_addend := 0.0) -> void:
+func use(ammo : int, delay_multiplier := 1.0, delay_addend := 0.0, fire_delay_addend := 0.0) -> void:
 	can_fire = false
 	clip -= ammo
 	reload_delay_timer.start(maxf(0.0, (reload_delay * delay_multiplier) + delay_addend))
-	fire_delay_timer.start(maxf(0.0, fire_delay)) # maybe only start reload delay after fire delay?
+	fire_delay_timer.start(maxf(0.0, fire_delay + fire_delay_addend)) # maybe only start reload delay after fire delay?
 	reload_timer.stop()
 	clip_bar.value = clip
 

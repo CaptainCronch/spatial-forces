@@ -3,6 +3,8 @@ class_name Bullet
 
 const SPARKS := preload("uid://bvv4udo8hfkun")
 
+signal hit(pos: Vector2)
+
 @export var attack: Attack
 @export var hurtbox: Area2D
 @export var sprite: Node2D
@@ -11,6 +13,7 @@ const SPARKS := preload("uid://bvv4udo8hfkun")
 @export var death_time := 1.5
 @export var speed := 400.0
 @export var lifetime_randomness := 0.2
+@export var spin_speed := 0.0
 
 var disabled := false
 
@@ -18,15 +21,19 @@ var disabled := false
 func _ready() -> void:
 	linear_velocity = Vector2.RIGHT.rotated(rotation) * speed
 	sprite.global_position = global_position
+	sprite.rotation = rotation
 	death_timer.start(death_time + randf_range(-lifetime_randomness, lifetime_randomness))
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	sprite.global_position = global_position
+	if spin_speed != 0.0:
+		sprite.rotation += spin_speed * delta
 
 
 func _physics_process(_delta: float) -> void:
-	sprite.rotation = linear_velocity.angle()
+	if spin_speed == 0.0:
+		sprite.rotation = linear_velocity.angle()
 
 
 func _on_death_timeout() -> void:
@@ -42,6 +49,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		else:
 			attack.attack_direction = Vector2.RIGHT.rotated(rotation)
 		area.damage(attack)
+		hit.emit(global_position)
 		#OS.delay_msec(100)
 	#spark()
 	if not area.is_in_group("Projectile"): queue_free()

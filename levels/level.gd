@@ -26,7 +26,48 @@ const SMALL_PLANK_ID := 19
 const SMALL_PILL_ID := 18
 #endregion
 
-const STEERING = preload("uid://qa02kvluhq2n")
+const STEERING := preload("uid://qa02kvluhq2n")
+const VALID_COLORS: Array[Color] = [
+		Color8(255, 255, 255), #ffffff
+		Color8(0, 0, 0), #000000
+		Color8(0, 0, 0, 0), #000000 transparent
+		Color8(255, 255, 255, 0), #ffffff transparent
+		Color8(204, 255, 255), #ccffff
+		Color8(153, 255, 255), #99ffff
+		Color8(255, 255, 85), #ffff55
+		Color8(255, 255, 204), #ffffcc
+		Color8(85, 85, 85), #555555
+		Color8(255, 0, 255), #ff00ff
+		Color8(255, 85, 255), #ff55ff
+		Color8(255, 204, 255), #ffccff
+		Color8(153, 0, 0), #990000
+		Color8(153, 34, 34), #992222
+		Color8(153, 68, 68), #994444
+		Color8(153, 102, 102), #996666
+		Color8(153, 153, 0), #999900
+		Color8(153, 153, 34), #999922
+		Color8(153, 153, 68), #999944
+		Color8(153, 153, 102), #999966
+		Color8(0, 153, 0), #009900
+		Color8(34, 153, 34), #229922
+		Color8(68, 153, 68), #449944
+		Color8(102, 153, 102), #669966
+		Color8(0, 0, 153), #000099
+		Color8(34, 34, 153), #222299
+		Color8(68, 68, 153), #444499
+		Color8(102, 102, 153), #666699
+		Color8(255, 85, 85), #ff5555
+		Color8(0, 204, 0), #00cc00
+		Color8(0, 204, 34), #00cc22
+		Color8(0, 204, 68), #00cc44
+		Color8(0, 204, 102), #00cc66
+		Color8(0, 204, 136), #00cc88
+		Color8(0, 204, 170), #00ccaa
+		Color8(0, 0, 255), #0000ff
+		Color8(255, 0, 0), #ff0000
+		Color8(0, 255, 0), #00ff00
+		Color8(255, 255, 0), #ffff00
+]
 
 enum Mode {GAME, DEMO, NONE, TEST}
 
@@ -148,93 +189,32 @@ func build(img: Image) -> void:
 	if img.get_height() > 64 and img.get_width() > 64:
 		#printerr("Map is too large! (> 64px in height or width)")
 		#return
-		img.resize(64, 64)
+		img.resize(64, 64, Image.Interpolation.INTERPOLATE_NEAREST)
 	elif img.get_height() > 64:
-		img.resize(img.get_width(), 64)
+		img.resize(img.get_width(), 64, Image.Interpolation.INTERPOLATE_NEAREST)
 	elif img.get_width() > 64:
-		img.resize(64, img.get_height())
-
+		img.resize(64, img.get_height(), Image.Interpolation.INTERPOLATE_NEAREST)
+	
+	var unplaced_pixels: Array[Vector2i]
 	for x in img.get_width(): # check colors and place correct tile
 		for y in img.get_height():
-			match img.get_pixelv(Vector2i(x, y)):
-				Color8(255, 255, 255): #ffffff
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, BOUNCY_COORDS)
-				Color8(0, 0, 0): #000000
-					pass
-				Color8(0, 0, 0, 0): #000000 transparent
-					pass
-				Color8(1, 1, 1, 0): #ffffff transparent
-					pass
-				Color8(204, 255, 255): #ccffff
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, ABSORBENT_COORDS)
-				Color8(153, 255, 255): #99ffff
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, SMOOTH_COORDS)
-				Color8(255, 255, 85): #ffff55
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, PLAYER_PASS_COORDS)
-				Color8(255, 255, 204): #ffffcc
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, PROJECTILE_PASS_COORDS)
-				Color8(85, 85, 85): #555555
-					tilemap.set_cell(Vector2i(x, y), BASE_TILES_SOURCE_ID, BACKGROUND_COORDS)
-				Color8(255, 0, 255): #ff00ff
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, DIAMOND_DISPENSER_ID)
-				Color8(255, 85, 255): #ff55ff
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, CROSS_DISPENSER_ID)
-				Color8(255, 204, 255): #ffccff
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SQUARE_DISPENSER_ID)
-				Color8(153, 0, 0): #990000
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[0])
-				Color8(153, 34, 34): #992222
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[1])
-				Color8(153, 68, 68): #994444
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[2])
-				Color8(153, 102, 102): #996666
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[3])
-				Color8(153, 153, 0): #999900
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[0])
-				Color8(153, 153, 34): #999922
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[1])
-				Color8(153, 153, 68): #999944
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[2])
-				Color8(153, 153, 102): #999966
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[3])
-				Color8(0, 153, 0): #009900
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[0])
-				Color8(34, 153, 34): #229922
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[1])
-				Color8(68, 153, 68): #449944
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[2])
-				Color8(102, 153, 102): #669966
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[3])
-				Color8(0, 0, 153): #000099
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[0])
-				Color8(34, 34, 153): #222299
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[1])
-				Color8(68, 68, 153): #444499
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[2])
-				Color8(102, 102, 153): #666699
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[3])
-				Color8(255, 85, 85): #ff5555
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, PINWHEEL_ID)
-				Color8(0, 204, 0): #00cc00
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BIG_CRATE_ID)
-				Color8(0, 204, 34): #00cc22
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, BIG_BALL_ID)
-				Color8(0, 204, 68): #00cc44
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SMALL_CRATE_ID)
-				Color8(0, 204, 102): #00cc66
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SMALL_BALL_ID)
-				Color8(0, 204, 136): #00cc88
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SMALL_PLANK_ID)
-				Color8(0, 204, 170): #00ccaa
-					tilemap.set_cell(Vector2i(x, y), SCENE_TILES_SOURCE_ID, NONE, SMALL_PILL_ID)
-				Color8(0, 0, 255): #0000ff
-					p1_spawns.append(Vector2i(x, y) * 32)
-				Color8(255, 0, 0): #ff0000
-					p2_spawns.append(Vector2i(x, y) * 32)
-				Color8(0, 255, 0): #00ff00
-					p3_spawns.append(Vector2i(x, y) * 32)
-				Color8(255, 255, 0): #ffff00
-					p4_spawns.append(Vector2i(x, y) * 32)
+			var result = match_colors(img, Vector2i(x, y))
+			if not result == Vector2i(-1, -1): unplaced_pixels.append(result)
+	
+	if unplaced_pixels.size() > 0: #basically quantizing the image to fit the map palette
+		for coords in unplaced_pixels:
+			var pixel := img.get_pixelv(coords)
+			var unplaced_vec := Vector3(pixel.r, pixel.g, pixel.b)
+			var differences: Array[float] = []
+			for color in VALID_COLORS:
+				differences.append(unplaced_vec.angle_to(Vector3(color.r, color.g, color.b)))
+			var smallest := [TAU, 0]
+			for i in differences.size() - 1:
+				if differences[i] < smallest[0]:
+					smallest[0] = differences[i]
+					smallest[1] = i
+			img.set_pixelv(coords, VALID_COLORS[smallest[1]])
+			match_colors(img, coords)
 
 	var rect := Rect2i(Vector2i(0, 0), Vector2i(img.get_width(), img.get_height()))
 	for x in img.get_width() + padding * 2: # fill out empty space around map
@@ -246,3 +226,88 @@ func build(img: Image) -> void:
 	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
 	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
 	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
+
+
+func match_colors(img: Image, coords: Vector2i) -> Vector2i:
+	match img.get_pixelv(coords):
+		Color8(255, 255, 255): #ffffff
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, BOUNCY_COORDS)
+		Color8(0, 0, 0): #000000
+			pass
+		Color8(0, 0, 0, 0): #000000 transparent
+			pass
+		Color8(255, 255, 255, 0): #ffffff transparent
+			pass
+		Color8(204, 255, 255): #ccffff
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, ABSORBENT_COORDS)
+		Color8(153, 255, 255): #99ffff
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, SMOOTH_COORDS)
+		Color8(255, 255, 85): #ffff55
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, PLAYER_PASS_COORDS)
+		Color8(255, 255, 204): #ffffcc
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, PROJECTILE_PASS_COORDS)
+		Color8(85, 85, 85): #555555
+			tilemap.set_cell(coords, BASE_TILES_SOURCE_ID, BACKGROUND_COORDS)
+		Color8(255, 0, 255): #ff00ff
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, DIAMOND_DISPENSER_ID)
+		Color8(255, 85, 255): #ff55ff
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, CROSS_DISPENSER_ID)
+		Color8(255, 204, 255): #ffccff
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SQUARE_DISPENSER_ID)
+		Color8(153, 0, 0): #990000
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[0])
+		Color8(153, 34, 34): #992222
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[1])
+		Color8(153, 68, 68): #994444
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[2])
+		Color8(153, 102, 102): #996666
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SPIKES_ID[3])
+		Color8(153, 153, 0): #999900
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[0])
+		Color8(153, 153, 34): #999922
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[1])
+		Color8(153, 153, 68): #999944
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[2])
+		Color8(153, 153, 102): #999966
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, ONE_WAY_ID[3])
+		Color8(0, 153, 0): #009900
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[0])
+		Color8(34, 153, 34): #229922
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[1])
+		Color8(68, 153, 68): #449944
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[2])
+		Color8(102, 153, 102): #669966
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BOOST_PAD_ID[3])
+		Color8(0, 0, 153): #000099
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[0])
+		Color8(34, 34, 153): #222299
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[1])
+		Color8(68, 68, 153): #444499
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[2])
+		Color8(102, 102, 153): #666699
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, GRAVITY_WELL_ID[3])
+		Color8(255, 85, 85): #ff5555
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, PINWHEEL_ID)
+		Color8(0, 204, 0): #00cc00
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BIG_CRATE_ID)
+		Color8(0, 204, 34): #00cc22
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, BIG_BALL_ID)
+		Color8(0, 204, 68): #00cc44
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SMALL_CRATE_ID)
+		Color8(0, 204, 102): #00cc66
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SMALL_BALL_ID)
+		Color8(0, 204, 136): #00cc88
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SMALL_PLANK_ID)
+		Color8(0, 204, 170): #00ccaa
+			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SMALL_PILL_ID)
+		Color8(0, 0, 255): #0000ff
+			p1_spawns.append(coords * 32)
+		Color8(255, 0, 0): #ff0000
+			p2_spawns.append(coords * 32)
+		Color8(0, 255, 0): #00ff00
+			p3_spawns.append(coords * 32)
+		Color8(255, 255, 0): #ffff00
+			p4_spawns.append(coords * 32)
+		_:
+			return coords
+	return Vector2i(-1, -1)
