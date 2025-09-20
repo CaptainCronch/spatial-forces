@@ -27,46 +27,46 @@ const SMALL_PILL_ID := 18
 #endregion
 
 const STEERING := preload("uid://qa02kvluhq2n")
-const VALID_COLORS: Array[Color] = [
-		Color8(255, 255, 255), #ffffff
-		Color8(0, 0, 0), #000000
-		Color8(0, 0, 0, 0), #000000 transparent
-		Color8(255, 255, 255, 0), #ffffff transparent
-		Color8(204, 255, 255), #ccffff
-		Color8(153, 255, 255), #99ffff
-		Color8(255, 255, 85), #ffff55
-		Color8(255, 255, 204), #ffffcc
-		Color8(85, 85, 85), #555555
-		Color8(255, 0, 255), #ff00ff
-		Color8(255, 85, 255), #ff55ff
-		Color8(255, 204, 255), #ffccff
-		Color8(153, 0, 0), #990000
-		Color8(153, 34, 34), #992222
-		Color8(153, 68, 68), #994444
-		Color8(153, 102, 102), #996666
-		Color8(153, 153, 0), #999900
-		Color8(153, 153, 34), #999922
-		Color8(153, 153, 68), #999944
-		Color8(153, 153, 102), #999966
-		Color8(0, 153, 0), #009900
-		Color8(34, 153, 34), #229922
-		Color8(68, 153, 68), #449944
-		Color8(102, 153, 102), #669966
-		Color8(0, 0, 153), #000099
-		Color8(34, 34, 153), #222299
-		Color8(68, 68, 153), #444499
-		Color8(102, 102, 153), #666699
-		Color8(255, 85, 85), #ff5555
-		Color8(0, 204, 0), #00cc00
-		Color8(0, 204, 34), #00cc22
-		Color8(0, 204, 68), #00cc44
-		Color8(0, 204, 102), #00cc66
-		Color8(0, 204, 136), #00cc88
-		Color8(0, 204, 170), #00ccaa
-		Color8(0, 0, 255), #0000ff
-		Color8(255, 0, 0), #ff0000
-		Color8(0, 255, 0), #00ff00
-		Color8(255, 255, 0), #ffff00
+const VALID_COLORS: Array[Vector3i] = [
+		Vector3(255, 255, 255), #ffffff
+		Vector3(1, 1, 1), #000000
+		#Vector3(0, 0, 0, 0), #000000 transparent
+		#Vector3(255, 255, 255, 0), #ffffff transparent
+		Vector3(204, 255, 255), #ccffff
+		Vector3(153, 255, 255), #99ffff
+		Vector3(255, 255, 85), #ffff55
+		Vector3(255, 255, 204), #ffffcc
+		Vector3(85, 85, 85), #555555
+		Vector3(255, 0, 255), #ff00ff
+		Vector3(255, 85, 255), #ff55ff
+		Vector3(255, 204, 255), #ffccff
+		Vector3(153, 0, 0), #990000
+		Vector3(153, 34, 34), #992222
+		Vector3(153, 68, 68), #994444
+		Vector3(153, 102, 102), #996666
+		Vector3(153, 153, 0), #999900
+		Vector3(153, 153, 34), #999922
+		Vector3(153, 153, 68), #999944
+		Vector3(153, 153, 102), #999966
+		Vector3(0, 153, 0), #009900
+		Vector3(34, 153, 34), #229922
+		Vector3(68, 153, 68), #449944
+		Vector3(102, 153, 102), #669966
+		Vector3(0, 0, 153), #000099
+		Vector3(34, 34, 153), #222299
+		Vector3(68, 68, 153), #444499
+		Vector3(102, 102, 153), #666699
+		Vector3(255, 85, 85), #ff5555
+		Vector3(0, 204, 0), #00cc00
+		Vector3(0, 204, 34), #00cc22
+		Vector3(0, 204, 68), #00cc44
+		Vector3(0, 204, 102), #00cc66
+		Vector3(0, 204, 136), #00cc88
+		Vector3(0, 204, 170), #00ccaa
+		Vector3(0, 0, 255), #0000ff
+		Vector3(255, 0, 0), #ff0000
+		Vector3(0, 255, 0), #00ff00
+		Vector3(255, 255, 0), #ffff00
 ]
 
 enum Mode {GAME, DEMO, NONE, TEST}
@@ -85,6 +85,7 @@ enum Mode {GAME, DEMO, NONE, TEST}
 @export var color_overlay: ColorRect
 @export var padding := 50 ##Size of frame around level
 @export var fade_time := 1.0
+@export var black_threshold := 0.4
 
 var current_map: Image
 
@@ -102,11 +103,11 @@ func _ready() -> void:
 	elif Global.current_map != null and (current_mode == Mode.GAME or current_mode == Mode.TEST):
 		current_map = Global.current_map.get_image()
 		build(current_map)
-		camera.global_position = current_map.get_size() * 16
+		camera.global_position = current_map.get_size() * 32
 	elif base_map:
 		current_map = Global.maps[base_map].get_image()
 		build(current_map)
-		camera.global_position = current_map.get_size() * 16
+		camera.global_position = current_map.get_size() * 32
 
 	if current_mode == Mode.GAME or current_mode == Mode.TEST: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()
@@ -195,26 +196,51 @@ func build(img: Image) -> void:
 	elif img.get_width() > 64:
 		img.resize(64, img.get_height(), Image.Interpolation.INTERPOLATE_NEAREST)
 	
+	if Input.is_action_pressed("flip_horz"):
+		img.flip_x()
+	if Input.is_action_pressed("flip_vert"):
+		img.flip_y()
+	if Input.is_action_pressed("rotate_270"):
+		img.rotate_180()
+		img.rotate_90(COUNTERCLOCKWISE)
+	elif Input.is_action_pressed("rotate_180"):
+		img.rotate_180()
+	elif Input.is_action_pressed("rotate_90"):
+		img.rotate_90(COUNTERCLOCKWISE)
+	
 	var unplaced_pixels: Array[Vector2i]
 	for x in img.get_width(): # check colors and place correct tile
 		for y in img.get_height():
 			var result = match_colors(img, Vector2i(x, y))
 			if not result == Vector2i(-1, -1): unplaced_pixels.append(result)
 	
+	var corner_spawn := false
 	if unplaced_pixels.size() > 0: #basically quantizing the image to fit the map palette
 		for coords in unplaced_pixels:
 			var pixel := img.get_pixelv(coords)
 			var unplaced_vec := Vector3(pixel.r, pixel.g, pixel.b)
+			if unplaced_vec.length() < black_threshold:
+				img.set_pixelv(coords, Color8(0, 0, 0))
+				match_colors(img, coords)
+				continue
 			var differences: Array[float] = []
 			for color in VALID_COLORS:
-				differences.append(unplaced_vec.angle_to(Vector3(color.r, color.g, color.b)))
-			var smallest := [TAU, 0]
-			for i in differences.size() - 1:
-				if differences[i] < smallest[0]:
-					smallest[0] = differences[i]
-					smallest[1] = i
-			img.set_pixelv(coords, VALID_COLORS[smallest[1]])
+				differences.append(cos(unplaced_vec.angle_to(color)))
+			var biggest := [-1.0, 0]
+			#var difference_index := 0
+			for i in differences.size():
+				if differences[i] > biggest[0]:
+					biggest[0] = differences[i]
+					biggest[1] = i
+					#difference_index = i
+			#for i in differences.size():
+				#differences[i] = snappedf(differences[i], 0.1)
+			#print(str(differences))
+			#print("pixel at "+str(coords)+" of color "+str(pixel)+" had "+str(differences[difference_index])+" of difference with color "+str(VALID_COLORS[smallest[1]]))
+			var vec_to_color := Color8(VALID_COLORS[biggest[1]].x,VALID_COLORS[biggest[1]].y,VALID_COLORS[biggest[1]].z)
+			img.set_pixelv(coords, vec_to_color)
 			match_colors(img, coords)
+		#corner_spawn = true
 
 	var rect := Rect2i(Vector2i(0, 0), Vector2i(img.get_width(), img.get_height()))
 	for x in img.get_width() + padding * 2: # fill out empty space around map
@@ -222,11 +248,16 @@ func build(img: Image) -> void:
 			if not rect.has_point(Vector2i(x - padding, y - padding)):
 				tilemap.set_cell(Vector2i(x - padding, y - padding), BASE_TILES_SOURCE_ID, BOUNCY_COORDS)
 	
-	if p1_spawns.size() == 0: p1_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
-	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
-	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
-	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(0, img.get_width()), randi_range(0, img.get_height())))
-
+	if p1_spawns.size() == 0: p1_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
+	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
+	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
+	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
+	
+	if corner_spawn:
+		p1_spawns = [Vector2i(32, 32)]
+		p2_spawns = [Vector2i((img.get_width()*32)-32, (img.get_height()*32)-32)]
+		p3_spawns = [Vector2i(32, (img.get_height()*32)-32)]
+		p4_spawns = [Vector2i((img.get_width()*32)-32, 32)]
 
 func match_colors(img: Image, coords: Vector2i) -> Vector2i:
 	match img.get_pixelv(coords):

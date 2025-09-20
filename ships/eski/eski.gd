@@ -8,18 +8,22 @@ const HOOK := preload("uid://c2iayqdq07ppw")
 @export var barrel_left: Marker2D
 @export var hook_bar: Meter
 @export var rope: Line2D
+@export var left_engine: CPUParticles2D
+@export var right_engine: CPUParticles2D
 @export var bullet_angle_variance := 0.05
 @export var min_fire_delay := 0.05
 @export var max_fire_delay := 0.1
 @export var rampup: Curve
 @export var recoil_force := 5.0
-@export var min_hook_force := 20.0
+@export var min_hook_force := 50.0
 @export var max_hook_force := 100.0
 @export var max_hook_distance := 256.0
-@export var shots_to_hook := 3
+@export var shots_to_hook := 30
 @export var rope_decay := 20.0
+@export var min_emit_scale := 0.2
+@export var max_emit_scale := 3.0
 
-var shot_counter := 3
+var shot_counter := shots_to_hook
 var current_hook: Bullet
 
 @onready var current_barrel := barrel_right
@@ -38,6 +42,7 @@ func _process(delta) -> void:
 		rope.set_point_position(1, rope.to_local(current_hook.global_position))
 	else:
 		rope.set_point_position(1, Global.decay_vec2_towards(rope.get_point_position(1), Vector2.ZERO, rope_decay))
+	set_engines()
 
 
 func primary_hold() -> void:
@@ -50,11 +55,14 @@ func primary_hold() -> void:
 	bullet_instance.position = current_barrel.get_global_position()
 	bullet_instance.sprite.global_position = current_barrel.get_global_position()
 	bullet_instance.rotation = rotation + randfn(0.0, bullet_angle_variance)
-	bullet_instance.hit.connect(hit)
+	#bullet_instance.hit.connect(hit)
 	set_projectile_player(bullet_instance)
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
 	
 	apply_central_impulse(Vector2.RIGHT.rotated(rotation + PI) * recoil_force)
+	
+	shot_counter += 1
+	hook_bar.value = shot_counter
 	
 	if current_barrel == barrel_left: current_barrel = barrel_right
 	elif current_barrel == barrel_right: current_barrel = barrel_left
@@ -79,9 +87,25 @@ func secondary() -> void:
 	apply_central_impulse(Vector2.RIGHT.rotated(rotation + PI) * recoil_force * 5.0)
 
 
-func hit(_pos: Vector2) -> void:
-	shot_counter += 1
-	hook_bar.value = shot_counter
+func set_engines():
+	var new_scale := remap(linear_velocity.length(), 0.0, SPEED_LIMIT, min_emit_scale, max_emit_scale)
+	left_engine.speed_scale = new_scale
+	right_engine.speed_scale = new_scale
+	#left_engine.speed_scale = 0
+	#right_engine.speed_scale = 0
+	#if move_dir.x > 0:
+		#left_engine.speed_scale += emit_scale
+		#right_engine.speed_scale += emit_scale
+	#if rotation_dir > 0:
+		#left_engine.speed_scale += emit_scale
+	#if rotation_dir < 0:
+		#right_engine.speed_scale += emit_scale
+	#left_engine.speed_scale *= top_speed_boost
+	#right_engine.speed_scale *= top_speed_boost
+
+
+#func hit(_pos: Vector2) -> void:
+	#pass
 
 
 func hook_hit(pos: Vector2) -> void:

@@ -34,7 +34,7 @@ attack = SubResource("Resource_15r3d")
 hurtbox = NodePath("Hurtbox")
 sprite = NodePath("Sprite2D")
 death_timer = NodePath("Death")
-speed = 600.0
+speed = 700.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 top_level = true

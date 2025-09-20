@@ -17,7 +17,7 @@ metadata/_snap_enabled = true
 [sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
 radius = 7.0
 
-[node name="Eski" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "barrel_right", "barrel_left", "hook_bar", "rope", "hitbox", "input") groups=["Player", "Player1"]]
+[node name="Eski" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "barrel_right", "barrel_left", "hook_bar", "rope", "left_engine", "right_engine", "hitbox", "input") groups=["Player", "Player1"]]
 collision_layer = 8
 collision_mask = 41
 physics_material_override = ExtResource("1_hr8wq")
@@ -30,6 +30,8 @@ barrel_right = NodePath("BarrelRight")
 barrel_left = NodePath("BarrelLeft")
 hook_bar = NodePath("HookBar")
 rope = NodePath("Rope")
+left_engine = NodePath("LeftEngine")
+right_engine = NodePath("RightEngine")
 max_fire_delay = 0.2
 rampup = SubResource("Curve_hr8wq")
 hitbox = NodePath("HitboxComponent")
@@ -101,3 +103,22 @@ position = Vector2(5, 3)
 
 [node name="BarrelLeft" type="Marker2D" parent="."]
 position = Vector2(5, -3)
+
+[node name="LeftEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-3, -3)
+amount = 100
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="RightEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-3, 3)
+amount = 100
+lifetime = 20.0
+preprocess = 0.1
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
