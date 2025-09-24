@@ -13,7 +13,7 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("uid://cydy5qjuigfp3"), #okla
 	preload("uid://vu6eebm6ech"), #kelu ~
 	preload("uid://bewmw7u4yhoju"), #igro
-	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://neahjxl7621p"), #plak
 ]
 const SHIP_INFO: Array[Dictionary] = [
 	{
@@ -34,7 +34,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"max": 80,
 		"acc": 64,
 		"nrg": 110,
-		"clp": 3,
+		"clp": 0,
 		"passive": "Low bullets bonus",
 		"primary": "Spitter",
 		"secondary": "Hook",
@@ -58,7 +58,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"max": 128,
 		"acc": 128,
 		"nrg": 80,
-		"clp": 4,
+		"clp": 2,
 		"passive": "Boost off of walls",
 		"primary": "Thrust forward",
 		"secondary": "Reflect projectiles",
@@ -113,16 +113,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://crx7tc8lm6202")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
-		"max": 128,
-		"acc": 128,
-		"nrg": 80,
-		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("uid://bw870adibwubn")
+		"title": "Plak",
+		"subtitle": "Beam Strike",
+		"max": 94,
+		"acc": 76,
+		"nrg": 100,
+		"clp": 0,
+		"passive": "Recharge on hit",
+		"primary": "Laser tunnel",
+		"secondary": "Evade",
+		"sprite": preload("uid://bomre3wkxr5tb")
 	},
 ]
 

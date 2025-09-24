@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Spatial Forces"
+config/name="Spatial Forces DX"
+config/description="awesome space video game"
 run/main_scene="uid://b2i211avmpf4e"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -18,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://classes/global.gd"
+DiscordRPCLoader="*res://addons/discord-rpc-gd/nodes/discord_autoload.gd"
 
 [display]
 
@@ -25,6 +27,9 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/mode=3
 window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/description="awesome space video game"
+window/name="Spatial Forces DX"
 
 [editor]
 
@@ -33,7 +38,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg")
 
 [global_group]
 
@@ -230,4 +235,5 @@ rapier/solver/max_ccd_substeps=5
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/quality/msaa_2d=2
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

@@ -52,6 +52,25 @@ health_bar = NodePath("../HealthBar")
 max_health = 110.0
 target = NodePath("..")
 
+[node name="LeftEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-3, -3)
+amount = 100
+lifetime = 20.0
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="RightEngine" type="CPUParticles2D" parent="."]
+position = Vector2(-3, 3)
+amount = 100
+lifetime = 20.0
+preprocess = 0.1
+spread = 0.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ommye")
 
@@ -103,22 +122,3 @@ position = Vector2(5, 3)
 
 [node name="BarrelLeft" type="Marker2D" parent="."]
 position = Vector2(5, -3)
-
-[node name="LeftEngine" type="CPUParticles2D" parent="."]
-position = Vector2(-3, -3)
-amount = 100
-lifetime = 20.0
-spread = 0.0
-gravity = Vector2(0, 0)
-scale_amount_min = 2.0
-scale_amount_max = 2.0
-
-[node name="RightEngine" type="CPUParticles2D" parent="."]
-position = Vector2(-3, 3)
-amount = 100
-lifetime = 20.0
-preprocess = 0.1
-spread = 0.0
-gravity = Vector2(0, 0)
-scale_amount_min = 2.0
-scale_amount_max = 2.0

@@ -1,0 +1,161 @@
+[gd_scene load_steps=15 format=3 uid="uid://neahjxl7621p"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_t6ml4"]
+[ext_resource type="Script" uid="uid://cnab8skgfsyad" path="res://ships/plak/plak.gd" id="2_t6ml4"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="3_i8c37"]
+[ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="3_x4wn3"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="4_g6d27"]
+[ext_resource type="Texture2D" uid="uid://bomre3wkxr5tb" path="res://ships/plak/plak.png" id="5_x4wn3"]
+[ext_resource type="Script" uid="uid://c0io7xj5ls7wb" path="res://components/hitbox_component/hitbox_component.gd" id="6_8o6no"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="7_50etu"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="8_od53f"]
+[ext_resource type="PackedScene" uid="uid://bgtd7ctsjqlh6" path="res://effects/trail/trail.tscn" id="10_i8c37"]
+
+[sub_resource type="Resource" id="Resource_i8c37"]
+script = ExtResource("3_x4wn3")
+attack_damage = 2.0
+knockback_force = 10.0
+origin_name = "Plak"
+attack_type = 3
+metadata/_custom_type_script = "uid://cuj2cdqgrpu2g"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t6ml4"]
+
+[sub_resource type="Curve" id="Curve_g6d27"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="Plak" type="RigidBody2D" node_paths=PackedStringArray("clip_component", "raycast", "shapecast", "laser_line", "dodge_arrow", "dodge_bar", "trail_left", "trail_right", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_t6ml4")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("2_t6ml4")
+clip_component = NodePath("ClipComponent")
+raycast = NodePath("RayCast2D")
+shapecast = NodePath("ShapeCast2D")
+laser_line = NodePath("Laser")
+attack = SubResource("Resource_i8c37")
+dodge_arrow = NodePath("DodgeArrow")
+dodge_bar = NodePath("DodgeBar")
+trail_left = NodePath("TrailLeft")
+trail_right = NodePath("TrailRight")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+rotation_speed = 260.0
+acceleration = 76.0
+back_acceleration = 80.0
+top_speed = 94.0
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("3_i8c37")]
+position = Vector2(9, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 50
+reload_time = 0.02
+reload_delay = 0.3
+fire_delay = 1.0
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("4_g6d27")]
+position = Vector2(-7, 0)
+health_bar = NodePath("../HealthBar")
+max_health = 100.0
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_ommye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("5_x4wn3")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"]]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 148
+script = ExtResource("6_8o6no")
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-7, -7, -7, 7, 8, 1, 8, -1)
+
+[node name="DodgeBar" parent="." instance=ExtResource("7_50etu")]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -7.0
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("7_50etu")]
+offset_left = 9.0
+offset_top = -6.0000005
+offset_right = 10.0
+offset_bottom = -5.0000005
+rotation = 3.403387
+
+[node name="ClipBar" parent="." instance=ExtResource("7_50etu")]
+offset_left = 9.999999
+offset_top = 9.0
+offset_right = 10.999999
+offset_bottom = 10.0
+rotation = 2.879789
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_od53f")]
+target = NodePath("..")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1000, 0)
+collision_mask = 25
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+shape = SubResource("CircleShape2D_t6ml4")
+target_position = Vector2(0, 0)
+collision_mask = 5
+collide_with_areas = true
+
+[node name="Laser" type="Line2D" parent="."]
+position = Vector2(-1, 0)
+points = PackedVector2Array(0, 0, 0, 0)
+width = 8.0
+end_cap_mode = 2
+
+[node name="DodgeArrow" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(14, 3, 14, -3, 20, 0)
+
+[node name="ThrusterLeft" type="Line2D" parent="."]
+visible = false
+position = Vector2(-5, -5)
+points = PackedVector2Array(0, 0, -16.915, 0)
+width = 3.0
+end_cap_mode = 2
+
+[node name="ThrusterRight" type="Line2D" parent="."]
+visible = false
+position = Vector2(-5, 5)
+points = PackedVector2Array(0, 0, 0, 0)
+width = 3.0
+end_cap_mode = 2
+
+[node name="TrailLeft" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_i8c37")]
+width = 3.0
+width_curve = SubResource("Curve_g6d27")
+target = NodePath("../MarkerLeft")
+
+[node name="MarkerLeft" type="Marker2D" parent="."]
+position = Vector2(-6, -5)
+
+[node name="TrailRight" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_i8c37")]
+width = 3.0
+width_curve = SubResource("Curve_g6d27")
+target = NodePath("../MarkerRight")
+
+[node name="MarkerRight" type="Marker2D" parent="."]
+position = Vector2(-6, 5)

@@ -9,6 +9,7 @@ extends HBoxContainer
 @export var underline: Line2D
 @export var subtitle: Label
 
+@warning_ignore("shadowed_global_identifier")
 @export var max: Label
 @export var max_bar: TextureRect
 
