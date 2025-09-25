@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dsr38of5gww7r"]
 
 [ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="1_b7k42"]
-[ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://ships/kelu/kelu.png" id="2_dcj1r"]
+[ext_resource type="Texture2D" uid="uid://bw870adibwubn" path="res://ships/loop/loop.png" id="2_dcj1r"]
 [ext_resource type="Script" uid="uid://b8h1ryffhx3ap" path="res://ui/ship_select_info/ship_select_info.gd" id="2_oaaw2"]
 [ext_resource type="Texture2D" uid="uid://cw4rii28hp4es" path="res://ui/1px-square.png" id="3_myqy4"]
 [ext_resource type="Shader" uid="uid://ccaaprvmw3qpl" path="res://effects/shaders/stripes.gdshader" id="5_2awx0"]

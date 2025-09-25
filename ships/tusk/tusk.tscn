@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://cqqfpihgkt1wr"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://bs7m4cxi00fws" path="res://resources/smooth.tres" id="1_f6141"]
+[ext_resource type="Script" uid="uid://w7boowcjjobw" path="res://ships/tusk/tusk.gd" id="2_dqo8k"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="3_1meeo"]
+[ext_resource type="PackedScene" uid="uid://cgqo6lgsy38j3" path="res://ships/tusk/lance.tscn" id="4_f6141"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="4_jh18v"]
+[ext_resource type="Texture2D" uid="uid://kw7yo31ujqgl" path="res://ships/tusk/tusk.png" id="5_dqo8k"]
+[ext_resource type="Script" uid="uid://c0io7xj5ls7wb" path="res://components/hitbox_component/hitbox_component.gd" id="6_dsixd"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="7_5cdas"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="8_dfbmx"]
+[ext_resource type="PackedScene" uid="uid://bgtd7ctsjqlh6" path="res://effects/trail/trail.tscn" id="10_1meeo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
+radius = 6.0
+
+[sub_resource type="Curve" id="Curve_jh18v"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[node name="Tusk" type="RigidBody2D" node_paths=PackedStringArray("lance", "clip_component", "parry_bar", "raycast", "trail", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_f6141")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("2_dqo8k")
+lance = NodePath("ClipComponent/Lance")
+clip_component = NodePath("ClipComponent")
+parry_bar = NodePath("ParryBar")
+raycast = NodePath("RayCast2D")
+trail = NodePath("Trail")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+rotation_speed = 430.0
+back_acceleration = 64.0
+top_speed = 160.0
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("3_1meeo")]
+position = Vector2(10, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 2
+reload_time = 1.0
+reload_delay = 3.0
+fire_delay = 0.5
+
+[node name="Lance" parent="ClipComponent" instance=ExtResource("4_f6141")]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("4_jh18v")]
+health_bar = NodePath("../HealthBar")
+max_health = 110.0
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ommye")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 0)
+texture = ExtResource("5_dqo8k")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"]]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 148
+script = ExtResource("6_dsixd")
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-9, -4, -9, 4, -5, 7, 6, 2, 6, -2, -5, -7)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-4, 0)
+target_position = Vector2(-100, 0)
+collision_mask = 169
+
+[node name="ParryBar" parent="." instance=ExtResource("7_5cdas")]
+offset_left = -9.0
+offset_top = -8.0
+offset_right = -8.0
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("7_5cdas")]
+offset_left = 8.0
+offset_top = -5.0
+offset_right = 9.0
+offset_bottom = -4.0
+rotation = 3.66519
+
+[node name="ClipBar" parent="." instance=ExtResource("7_5cdas")]
+offset_left = 10.0
+offset_top = 7.0
+offset_right = 11.0
+offset_bottom = 8.0
+rotation = 2.61799
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("8_dfbmx")]
+target = NodePath("..")
+
+[node name="Trail" parent="." node_paths=PackedStringArray("target") instance=ExtResource("10_1meeo")]
+width_curve = SubResource("Curve_jh18v")
+target = NodePath("../RayCast2D")

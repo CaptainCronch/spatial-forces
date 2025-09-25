@@ -3,21 +3,21 @@ extends Node
 const LEVEL := preload("uid://b2i211avmpf4e")
 const SELECT := preload("uid://clovy12w6brxj")
 
-enum Ships {KELU, ESKI, KLOD, ARIS, APIV, OKLA, UVIX, IGRO, PLAK, NONE}
+enum Ships {LOOP, SPUR, BELL, TUSK, HIVE, LUTE, MARK, POND, WAVE, NONE}
 const SHIP_SCENES: Array[PackedScene] = [
-	preload("uid://vu6eebm6ech"), #kelu
-	preload("uid://0238oq2l73lm"), #eski
-	preload("uid://cadc7ajjrypd3"), #klod
-	preload("uid://cqqfpihgkt1wr"), #aris
-	preload("uid://blaxqtocj6y1y"), #apiv
-	preload("uid://cydy5qjuigfp3"), #okla
-	preload("uid://0tjjme8oyy7g"), #uvix
-	preload("uid://bewmw7u4yhoju"), #igro
-	preload("uid://neahjxl7621p"), #plak
+	preload("uid://vu6eebm6ech"), #loop
+	preload("uid://0238oq2l73lm"), #spur
+	preload("uid://cadc7ajjrypd3"), #bell
+	preload("uid://cqqfpihgkt1wr"), #tusk
+	preload("uid://blaxqtocj6y1y"), #hive
+	preload("uid://cydy5qjuigfp3"), #lute
+	preload("uid://0tjjme8oyy7g"), #mark
+	preload("uid://bewmw7u4yhoju"), #pond
+	preload("uid://neahjxl7621p"), #wave
 ]
 const SHIP_INFO: Array[Dictionary] = [
 	{
-		"title": "Kelu",
+		"title": "Loop",
 		"subtitle": "Aggressive Acceleration",
 		"max": 128,
 		"acc": 128,
@@ -29,7 +29,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://bw870adibwubn")
 	},
 	{
-		"title": "Eski",
+		"title": "Spur",
 		"subtitle": "Bullet Heaven",
 		"max": 80,
 		"acc": 64,
@@ -41,7 +41,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://cv6cge1r1471o")
 	},
 	{
-		"title": "Klod",
+		"title": "Bell",
 		"subtitle": "Deflect and Reflect",
 		"max": 96,
 		"acc": 186,
@@ -53,7 +53,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://cd8j4f10lxhvb")
 	},
 	{
-		"title": "Aris",
+		"title": "Tusk",
 		"subtitle": "Joust Lance",
 		"max": 128,
 		"acc": 128,
@@ -65,7 +65,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://kw7yo31ujqgl")
 	},
 	{
-		"title": "Apiv",
+		"title": "Hive",
 		"subtitle": "Charge Shift",
 		"max": 170,
 		"acc": 100,
@@ -77,7 +77,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://daytpdegbvc55")
 	},
 	{
-		"title": "Okla",
+		"title": "Lute",
 		"subtitle": "Rotational Skillshots",
 		"max": 256,
 		"acc": 32,
@@ -89,7 +89,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://b4aj43mwsjri8")
 	},
 	{
-		"title": "Uvix",
+		"title": "Mark",
 		"subtitle": "Stack and Strafe",
 		"max": 80,
 		"acc": 72,
@@ -101,7 +101,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://dvcb4q1tfhjyo")
 	},
 	{
-		"title": "Igro",
+		"title": "Pond",
 		"subtitle": "Precise Explosives",
 		"max": 140,
 		"acc": 48,
@@ -113,7 +113,7 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://crx7tc8lm6202")
 	},
 	{
-		"title": "Plak",
+		"title": "Wave",
 		"subtitle": "Beam Strike",
 		"max": 94,
 		"acc": 76,
@@ -140,8 +140,8 @@ var user_maps := {}
 var maps := {}
 
 var base_color := Color(1.0, 0.85, 0.66)
-var p1_ship := Ships.KELU
-var p2_ship := Ships.KELU
+var p1_ship := Ships.LOOP
+var p2_ship := Ships.LOOP
 var current_map: Texture2D
 var rounds := 1
 

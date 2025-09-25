@@ -1,0 +1,117 @@
+[gd_scene load_steps=13 format=3 uid="uid://blaxqtocj6y1y"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_874s1"]
+[ext_resource type="Script" uid="uid://b6pcb56i6pxuf" path="res://ships/hive/hive.gd" id="1_bk13u"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="2_leayj"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="3_lbs0n"]
+[ext_resource type="Texture2D" uid="uid://daytpdegbvc55" path="res://ships/hive/hive.png" id="4_5kh0j"]
+[ext_resource type="PackedScene" uid="uid://o7oexbfw62cw" path="res://components/hitbox_component/hitbox_component.tscn" id="5_lj5ad"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="6_mki62"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="7_3qh5j"]
+[ext_resource type="PackedScene" uid="uid://bgtd7ctsjqlh6" path="res://effects/trail/trail.tscn" id="9_texew"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e6ooc"]
+radius = 7.0
+
+[sub_resource type="Curve" id="Curve_fbmrq"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_texew"]
+resource_local_to_scene = true
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Hive" type="RigidBody2D" node_paths=PackedStringArray("clip_comp", "rotate_bar", "trail_right", "trail_left", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_874s1")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("1_bk13u")
+clip_comp = NodePath("ClipComponent")
+rotate_bar = NodePath("RotateBar")
+trail_right = NodePath("TrailRight")
+trail_left = NodePath("TrailLeft")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+acceleration = 100.0
+top_speed = 170.0
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("2_leayj")]
+position = Vector2(13, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 20
+reload_time = 0.1
+reload_delay = 0.2
+fire_delay = 0.01
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("3_lbs0n")]
+health_bar = NodePath("../HealthBar")
+max_health = 90.0
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 0)
+texture = ExtResource("4_5kh0j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_e6ooc")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"] instance=ExtResource("5_lj5ad")]
+collision_layer = 2
+collision_mask = 148
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-4, -6, 7, -4, 9, -2, 9, 2, 7, 4, -4, 6)
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_mki62")]
+target = NodePath("..")
+
+[node name="RotateBar" parent="." instance=ExtResource("7_3qh5j")]
+offset_left = -11.0
+offset_top = 8.0
+offset_right = -10.0
+offset_bottom = 9.0
+rotation = -1.5708
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("7_3qh5j")]
+offset_left = -4.0
+offset_top = -14.0
+offset_right = -3.0
+offset_bottom = -13.0
+rotation = 0.261799
+
+[node name="ClipBar" parent="." instance=ExtResource("7_3qh5j")]
+offset_left = -5.0
+offset_top = 11.0
+offset_right = -4.0
+offset_bottom = 12.0
+rotation = -0.261799
+fill_mode = 0
+
+[node name="TrailRight" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_texew")]
+width = 2.0
+width_curve = SubResource("Curve_fbmrq")
+target = NodePath("../Right")
+deletion_factor = 10
+randomness_range = 0.5
+
+[node name="TrailLeft" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_texew")]
+width = 2.0
+width_curve = SubResource("Curve_texew")
+target = NodePath("../Left")
+deletion_factor = 10
+randomness_range = 0.5
+
+[node name="Right" type="Marker2D" parent="."]
+position = Vector2(-5, -6)
+
+[node name="Left" type="Marker2D" parent="."]
+position = Vector2(-5, 6)

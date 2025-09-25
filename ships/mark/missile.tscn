@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsye47gtl6ebh"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_lshf6"]
+[ext_resource type="Script" uid="uid://df2m53lau2ete" path="res://ships/mark/missile.gd" id="2_ai1tl"]
+[ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="3_vu7gx"]
+[ext_resource type="Texture2D" uid="uid://cl0uks47qri2p" path="res://ships/mark/missile.png" id="4_jwr2y"]
+
+[sub_resource type="Resource" id="Resource_bbn46"]
+resource_local_to_scene = true
+script = ExtResource("3_vu7gx")
+attack_damage = 5.0
+knockback_force = 20.0
+origin_name = "Mark"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0qg2o"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1llka"]
+radius = 8.0
+
+[node name="Missile" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite", "death_timer") groups=["Projectile"]]
+collision_layer = 128
+collision_mask = 17
+mass = 0.05
+physics_material_override = ExtResource("1_lshf6")
+can_sleep = false
+continuous_cd = 1
+max_contacts_reported = 1
+linear_damp = 1.0
+script = ExtResource("2_ai1tl")
+stack_multiplier = 2.5
+attack = SubResource("Resource_bbn46")
+hurtbox = NodePath("Hurtbox")
+sprite = NodePath("Sprite2D")
+death_timer = NodePath("Death")
+speed = 600.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+top_level = true
+texture = ExtResource("4_jwr2y")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0qg2o")
+
+[node name="Death" type="Timer" parent="."]
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["Projectile"]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_1llka")
+
+[connection signal="timeout" from="Death" to="." method="_on_death_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
