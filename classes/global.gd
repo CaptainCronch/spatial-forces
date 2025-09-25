@@ -230,6 +230,8 @@ func decay_towards(value : float, target : float,
 		return target
 	else:
 		return new_value
+	
+	
 
 
 func decay_vec2_towards(value : Vector2, target : Vector2,

@@ -95,6 +95,8 @@ offset_top = -8.0
 offset_right = -7.0
 offset_bottom = -7.0
 rotation = 1.57079
+max_value = 1.0
+value = 0.0
 fill_mode = 6
 
 [node name="HealthBar" parent="." instance=ExtResource("7_yu0eu")]

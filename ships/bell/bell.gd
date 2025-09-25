@@ -17,15 +17,15 @@ const WEIGHT = preload("uid://cwtxj55x5boyx")
 @export var stasis_damp := 10.0
 @export var stasis_counter := 3
 
-var stasis_count := 3
+var stasis_count := stasis_counter
 var stasing := false
 var weight: Weight
 
 
 func _ready() -> void:
 	super()
-	stasis_bar.max_value = stasis_counter
-	stasis_bar.value = stasis_count
+	#stasis_bar.max_value = stasis_counter
+	#stasis_bar.value = stasis_count
 	if player_id == PlayerIDs.PLAYER_2:
 		punch_area.set_collision_mask_value(2, true)
 		punch_area.set_collision_mask_value(3, false)

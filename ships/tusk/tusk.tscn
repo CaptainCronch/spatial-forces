@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cqqfpihgkt1wr"]
+[gd_scene load_steps=15 format=3 uid="uid://cqqfpihgkt1wr"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://bs7m4cxi00fws" path="res://resources/smooth.tres" id="1_f6141"]
 [ext_resource type="Script" uid="uid://w7boowcjjobw" path="res://ships/tusk/tusk.gd" id="2_dqo8k"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="3_1meeo"]
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="3_pt6ol"]
 [ext_resource type="PackedScene" uid="uid://cgqo6lgsy38j3" path="res://ships/tusk/lance.tscn" id="4_f6141"]
 [ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="4_jh18v"]
 [ext_resource type="Texture2D" uid="uid://kw7yo31ujqgl" path="res://ships/tusk/tusk.png" id="5_dqo8k"]
@@ -10,6 +11,14 @@
 [ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="7_5cdas"]
 [ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="8_dfbmx"]
 [ext_resource type="PackedScene" uid="uid://bgtd7ctsjqlh6" path="res://effects/trail/trail.tscn" id="10_1meeo"]
+
+[sub_resource type="Resource" id="Resource_wvwqc"]
+script = ExtResource("3_pt6ol")
+velocity_inherit = 0.1
+amount = 1
+scale_range = 2.0
+loops = 2
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
 radius = 6.0
@@ -32,6 +41,7 @@ clip_component = NodePath("ClipComponent")
 parry_bar = NodePath("ParryBar")
 raycast = NodePath("RayCast2D")
 trail = NodePath("Trail")
+bounce_settings = SubResource("Resource_wvwqc")
 hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
 rotation_speed = 430.0

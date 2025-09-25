@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ParticleSettings" load_steps=2 format=3 uid="uid://da77n10kueu4x"]
+
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="1_av51g"]
+
+[resource]
+script = ExtResource("1_av51g")
+velocity_inherit = 0.01
+amount = 1
+scale_range = 2.0
+loops = 2
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"

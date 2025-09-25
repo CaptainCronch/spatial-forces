@@ -21,6 +21,15 @@ var size := min_size
 
 
 func _ready() -> void:
+	linear_velocity = Vector2.RIGHT.rotated(rotation) * speed
+	sprite.global_position = global_position
+	#sprite.rotation = rotation
+	#death_timer.start(death_time + randf_range(-lifetime_randomness, lifetime_randomness))
+	body_entered.connect(_on_body_entered)
+	contact_monitor = true
+	max_contacts_reported = 1
+	spawn_settings.target = origin.get_path()
+	
 	increase_size(0.0)
 	#because we have started holding the bullet
 	#linear_velocity = Vector2.RIGHT.rotated(rotation) * speed
@@ -52,6 +61,7 @@ func increase_size(amount: float) -> void:
 
 func shoot() -> void:
 	shot = true
+	particulate(BOUNCE_DUST, spawn_settings)
 	death_timer.start(death_time + randf_range(-death_time/5, death_time/5))
 	var size_multiplier := inverse_lerp(min_size, max_size, size)
 	linear_velocity = Vector2.RIGHT.rotated(rotation) * (speed + (size_multiplier * speed_size_factor))
