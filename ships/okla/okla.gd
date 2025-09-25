@@ -18,6 +18,7 @@ var emit_scale := 1.0
 var slugging := false
 var slug_charging := false
 var slug_charge_timer := 0.0
+var rot_factor := 0.0
 
 
 func _ready() -> void:
@@ -30,10 +31,15 @@ func _ready() -> void:
 		engine.amount = 20
 
 
-func _process(_delta: float) -> void:
-	super(_delta)
-	slugger(_delta)
+func _process(delta: float) -> void:
+	super(delta)
+	slugger(delta)
 	set_engine()
+
+
+func _physics_process(delta) -> void:
+	super(delta)
+	rot_factor = 1/((inverse_lerp(0, 10, absf(angular_velocity)) + 0.5) * 3) # spin faster to shoot tighter cones
 
 
 func secondary():
@@ -54,9 +60,9 @@ func slugger(delta: float) -> void:
 
 func set_engine() -> void:
 	engine.speed_scale = 0
-	if move_dir.x > 0:
-		engine.speed_scale += emit_scale
-	engine.speed_scale *= top_speed_boost
+	#if move_dir.x > 0:
+	engine.speed_scale += emit_scale
+	engine.speed_scale *= 5/rot_factor
 
 
 func primary() -> void:
@@ -66,7 +72,7 @@ func primary() -> void:
 		return
 	clip_component.use(1)
 
-	var rot_factor := 1/((inverse_lerp(0, 10, absf(angular_velocity)) + 0.5) * 3) # spin faster to shoot tighter cones
+	
 	var bullet_instance: RigidBody2D
 	for i in bullet_amount:
 		bullet_instance = BULLET.instantiate()

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dljn2fgomcayr"]
+
+[ext_resource type="Texture2D" uid="uid://es3wmh3si03n" path="res://ships/uvix/ring_thick.png" id="1_tb0up"]
+[ext_resource type="Script" uid="uid://b6q1dbv8kuxew" path="res://ships/uvix/rings.gd" id="2_y4f1o"]
+
+[node name="Rings" type="CPUParticles2D" groups=["Rings"]]
+amount = 3
+texture = ExtResource("1_tb0up")
+lifetime = 0.4
+emission_shape = 2
+emission_sphere_radius = 8.0
+particle_flag_align_y = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+damping_min = 100.0
+damping_max = 100.0
+script = ExtResource("2_y4f1o")

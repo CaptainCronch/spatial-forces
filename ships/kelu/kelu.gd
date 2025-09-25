@@ -69,7 +69,7 @@ func primary():
 	if clip_component.clip <= 0 or not clip_component.can_fire or block_tiles: return
 	clip_component.use(1)
 
-	var bullet_instance : RigidBody2D
+	var bullet_instance : Bullet
 	for i in 3:
 		bullet_instance = BULLET.instantiate()
 		bullet_instance.position = clip_component.get_global_position()

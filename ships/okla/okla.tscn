@@ -48,8 +48,8 @@ fire_delay = 0.2
 
 [node name="Engine" type="CPUParticles2D" parent="."]
 position = Vector2(-4, 0)
-amount = 400
-lifetime = 20.0
+amount = 50
+lifetime = 80.0
 spread = 0.0
 gravity = Vector2(0, 0)
 scale_amount_min = 2.0
@@ -77,7 +77,6 @@ collision_mask = 6
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SlugArea"]
-visible = false
 shape = SubResource("CircleShape2D_7tnc7")
 
 [node name="SluggerBar" parent="." instance=ExtResource("7_d5y3j")]

@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://0tjjme8oyy7g"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_b571x"]
+[ext_resource type="Script" uid="uid://c7dlwr1f1v7ws" path="res://ships/uvix/uvix.gd" id="2_r45m4"]
+[ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="4_bokrb"]
+[ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="5_hekev"]
+[ext_resource type="Texture2D" uid="uid://dvcb4q1tfhjyo" path="res://ships/uvix/uvix.png" id="5_kt6s2"]
+[ext_resource type="Script" uid="uid://c0io7xj5ls7wb" path="res://components/hitbox_component/hitbox_component.gd" id="7_3s8hs"]
+[ext_resource type="PackedScene" uid="uid://cxpxgsvcevmjt" path="res://components/meter/meter.tscn" id="8_35gol"]
+[ext_resource type="PackedScene" uid="uid://b2oi0bk733qru" path="res://components/input_component/input_component.tscn" id="9_4e80p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ommye"]
+radius = 6.0
+
+[node name="Uvix" type="RigidBody2D" node_paths=PackedStringArray("thrust_left", "thrust_right", "barrel_left", "barrel_right", "clip_component", "clip_component_special", "hitbox", "input") groups=["Player", "Player1"]]
+collision_layer = 8
+collision_mask = 41
+physics_material_override = ExtResource("1_b571x")
+inertia = 18.0
+continuous_cd = 2
+angular_damp = 3.0
+script = ExtResource("2_r45m4")
+thrust_left = NodePath("ThrustLeft")
+thrust_right = NodePath("ThrustRight")
+barrel_left = NodePath("BarrelLeft")
+barrel_right = NodePath("BarrelRight")
+clip_component = NodePath("ClipComponent")
+clip_component_special = NodePath("ClipComponentSpecial")
+hitbox = NodePath("HitboxComponent")
+input = NodePath("InputComponent")
+acceleration = 72.0
+back_acceleration = 72.0
+top_speed = 80.0
+
+[node name="ClipComponent" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("4_bokrb")]
+position = Vector2(9, 0)
+clip_bar = NodePath("../ClipBar")
+max_clip = 4
+reload_time = 0.5
+reload_delay = 1.0
+fire_delay = 0.2
+
+[node name="ClipComponentSpecial" parent="." node_paths=PackedStringArray("clip_bar") instance=ExtResource("4_bokrb")]
+position = Vector2(9, 0)
+clip_bar = NodePath("../SpecialBar")
+max_clip = 3
+reload_time = 0.3
+reload_delay = 2.0
+fire_delay = 0.5
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("5_hekev")]
+position = Vector2(-7, 0)
+health_bar = NodePath("../HealthBar")
+max_health = 100.0
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+texture = ExtResource("5_kt6s2")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ommye")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_comp", "target") groups=["Player", "Player1"]]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 148
+script = ExtResource("7_3s8hs")
+health_comp = NodePath("../HealthComponent")
+target = NodePath("..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(-7, -8, -7, 8, 8, 1, 8, -1)
+
+[node name="SpecialBar" parent="." instance=ExtResource("8_35gol")]
+offset_left = -7.000001
+offset_top = -8.0
+offset_right = -6.000001
+offset_bottom = -7.0
+rotation = 1.57079
+fill_mode = 6
+
+[node name="HealthBar" parent="." instance=ExtResource("8_35gol")]
+offset_left = 10.0
+offset_top = -6.0000005
+offset_right = 11.0
+offset_bottom = -5.0000005
+rotation = 3.403387
+
+[node name="ClipBar" parent="." instance=ExtResource("8_35gol")]
+offset_left = 11.000001
+offset_top = 9.000001
+offset_right = 12.000001
+offset_bottom = 10.000001
+rotation = 2.879789
+
+[node name="InputComponent" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_4e80p")]
+target = NodePath("..")
+
+[node name="ThrustLeft" type="CPUParticles2D" parent="."]
+position = Vector2(-5, -7)
+amount = 100
+lifetime = 20.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="ThrustRight" type="CPUParticles2D" parent="."]
+position = Vector2(-5, 7)
+amount = 100
+lifetime = 20.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+
+[node name="BarrelLeft" type="Marker2D" parent="."]
+position = Vector2(3, -5)
+
+[node name="BarrelRight" type="Marker2D" parent="."]
+position = Vector2(16, 6)

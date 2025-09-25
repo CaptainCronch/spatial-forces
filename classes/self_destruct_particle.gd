@@ -4,7 +4,7 @@ extends CPUParticles2D
 
 
 func _process(_delta: float) -> void:
-	if target: global_position = target.global_position
+	if is_instance_valid(target): global_position = target.global_position
 
 
 func _on_finished() -> void:

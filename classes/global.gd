@@ -11,7 +11,7 @@ const SHIP_SCENES: Array[PackedScene] = [
 	preload("uid://cqqfpihgkt1wr"), #aris
 	preload("uid://blaxqtocj6y1y"), #apiv
 	preload("uid://cydy5qjuigfp3"), #okla
-	preload("uid://vu6eebm6ech"), #kelu ~
+	preload("uid://0tjjme8oyy7g"), #uvix
 	preload("uid://bewmw7u4yhoju"), #igro
 	preload("uid://neahjxl7621p"), #plak
 ]
@@ -89,16 +89,16 @@ const SHIP_INFO: Array[Dictionary] = [
 		"sprite": preload("uid://b4aj43mwsjri8")
 	},
 	{
-		"title": "Kelu",
-		"subtitle": "Aggressive Acceleration",
-		"max": 128,
-		"acc": 128,
-		"nrg": 80,
+		"title": "Uvix",
+		"subtitle": "Stack and Strafe",
+		"max": 80,
+		"acc": 72,
+		"nrg": 100,
 		"clp": 4,
-		"passive": "More acceleration when near enemy",
-		"primary": "Triple stars",
-		"secondary": "More max speed",
-		"sprite": preload("uid://bw870adibwubn")
+		"passive": "Perpendicular movement boost",
+		"primary": "Trigger missile",
+		"secondary": "Potential buildup projectile",
+		"sprite": preload("uid://dvcb4q1tfhjyo")
 	},
 	{
 		"title": "Igro",

@@ -9,7 +9,6 @@ extends Ship
 @export var dodge_bar: Meter
 @export var trail_left: Trail
 @export var trail_right: Trail
-@export var boost_range := [1.0, 3.0]
 @export var laser_range := 1000.0
 @export var laser_rotation_boost := 0.1
 @export var laser_tick_time := 0.1
@@ -73,12 +72,6 @@ func _process(delta) -> void:
 
 func _physics_process(delta: float) -> void:
 	super(delta)
-	#if sign(move_dir.x) > 0.0: #the closer the difference between the angles is to 90 the higher the boost is
-		#var strafe := absf(Vector2.RIGHT.rotated(rotation).dot(linear_velocity.normalized()))
-		#var boost := clampf(remap(strafe, 1.0, 0.0, boost_range[0], boost_range[1]), boost_range[0], boost_range[1])
-		#top_speed_boost = boost
-		#acceleration_boost = boost
-	
 	set_laser(delta)
 	
 	if laser_tick_timer < laser_tick_time:

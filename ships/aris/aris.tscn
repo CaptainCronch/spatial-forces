@@ -3,7 +3,7 @@
 [ext_resource type="PhysicsMaterial" uid="uid://bs7m4cxi00fws" path="res://resources/smooth.tres" id="1_f6141"]
 [ext_resource type="Script" uid="uid://w7boowcjjobw" path="res://ships/aris/aris.gd" id="2_dqo8k"]
 [ext_resource type="PackedScene" uid="uid://bi35p88q2yiy4" path="res://components/clip_component/clip_component.tscn" id="3_1meeo"]
-[ext_resource type="PackedScene" uid="uid://cgqo6lgsy38j3" path="res://projectiles/aris/lance.tscn" id="4_f6141"]
+[ext_resource type="PackedScene" uid="uid://cgqo6lgsy38j3" path="res://ships/aris/lance.tscn" id="4_f6141"]
 [ext_resource type="PackedScene" uid="uid://ddy4kejr8vdr3" path="res://components/health_component/health_component.tscn" id="4_jh18v"]
 [ext_resource type="Texture2D" uid="uid://kw7yo31ujqgl" path="res://ships/aris/aris.png" id="5_dqo8k"]
 [ext_resource type="Script" uid="uid://c0io7xj5ls7wb" path="res://components/hitbox_component/hitbox_component.gd" id="6_dsixd"]
