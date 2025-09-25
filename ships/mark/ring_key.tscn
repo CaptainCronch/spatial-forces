@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqg06swewr3u3"]
+[gd_scene load_steps=9 format=3 uid="uid://cqg06swewr3u3"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_njses"]
 [ext_resource type="Script" uid="uid://e5nnn4mwqhrc" path="res://ships/mark/ring_key.gd" id="2_cgo6o"]
@@ -17,6 +17,19 @@ radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1llka"]
 radius = 16.0
+
+[sub_resource type="GDScript" id="GDScript_jpowf"]
+resource_name = "follow_rotation"
+script/source = "extends CPUParticles2D
+
+@export var target: Sprite2D
+@export var offset := Vector2()
+
+
+func _process(_delta: float) -> void:
+	rotation = target.rotation
+	position = target.position + offset.rotated(rotation)
+"
 
 [node name="RingKey" type="RigidBody2D" node_paths=PackedStringArray("hurtbox", "sprite", "death_timer") groups=["Projectile"]]
 collision_layer = 128
@@ -53,5 +66,24 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_1llka")
 
+[node name="Dust" type="CPUParticles2D" parent="." node_paths=PackedStringArray("target")]
+top_level = true
+position = Vector2(-6, 0)
+amount = 3
+lifetime = 0.5
+particle_flag_align_y = true
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+damping_min = 200.0
+damping_max = 300.0
+scale_amount_min = 2.5
+scale_amount_max = 5.0
+script = SubResource("GDScript_jpowf")
+target = NodePath("../Sprite2D")
+offset = Vector2(-6, 0)
+
 [connection signal="timeout" from="Death" to="." method="_on_death_timeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="finished" from="Dust" to="Dust" method="_on_finished"]

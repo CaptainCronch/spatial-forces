@@ -23,8 +23,8 @@ var rot_factor := 0.0
 
 func _ready() -> void:
 	super()
-	slugger_bar.max_value = slug_charge_time
-	slugger_bar.value = slug_charge_timer
+	#slugger_bar.max_value = slug_charge_time
+	#slugger_bar.value = slug_charge_timer
 	if demo:
 		emit_scale = 0.2
 		engine.lifetime = 0.4
@@ -73,13 +73,14 @@ func primary() -> void:
 	clip_component.use(1)
 
 	
-	var bullet_instance: RigidBody2D
+	var bullet_instance: Bullet
 	for i in bullet_amount:
 		bullet_instance = BULLET.instantiate()
 		bullet_instance.position = clip_component.get_global_position()
 		bullet_instance.sprite.global_position = clip_component.get_global_position()
 		var rand := randfn(0, bullet_angle_variance * rot_factor)
 		bullet_instance.rotation = rotation + rand
+		bullet_instance.origin = self
 		#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(bullet_instance.rotation))
 		get_tree().current_scene.call_deferred("add_child", bullet_instance)
 
@@ -90,12 +91,13 @@ func primary() -> void:
 
 func slug() -> void:
 	clip_component.use(1, 2.0)
-	var bullet_instance: RigidBody2D
+	var bullet_instance: Bullet
 	bullet_instance = SLUG.instantiate()
 	#var pos_var := absf(randfn(0, bullet_position_variance * mult))
 	bullet_instance.position = clip_component.get_global_position()
 	bullet_instance.sprite.global_position = clip_component.get_global_position()
 	bullet_instance.rotation = rotation
+	bullet_instance.origin = self
 	#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(bullet_instance.rotation))
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
 

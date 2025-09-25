@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd0fhwk16qj7i"]
+
+[ext_resource type="Script" uid="uid://brb73sy08yjk5" path="res://classes/self_destruct_particle.gd" id="1_qa243"]
+
+[node name="Dust" type="CPUParticles2D"]
+emitting = false
+amount = 3
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+damping_min = 300.0
+damping_max = 400.0
+scale_amount_max = 2.0
+script = ExtResource("1_qa243")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

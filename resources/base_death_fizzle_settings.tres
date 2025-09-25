@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ParticleSettings" load_steps=4 format=3 uid="uid://c0gsf88jb66kr"]
+
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="1_vt5mo"]
+[ext_resource type="PackedScene" uid="uid://bw0lp7lixpqbg" path="res://effects/particles/death_explosion.tscn" id="2_fq2jw"]
+[ext_resource type="Resource" uid="uid://d3u1j0udrop20" path="res://resources/base_death_explosion_settings.tres" id="3_aj8v7"]
+
+[resource]
+script = ExtResource("1_vt5mo")
+velocity_inherit = 0.0
+amount = 30
+angle_random = 3.142
+subparticle = ExtResource("2_fq2jw")
+subparticle_settings = ExtResource("3_aj8v7")
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"

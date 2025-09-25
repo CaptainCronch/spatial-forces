@@ -1,10 +1,13 @@
 extends Ship
 
+const BOUNCE_DUST = preload("uid://bjsrwbu6ty1bh")
+
 @export var lance: Lance
 @export var clip_component: ClipComponent
 @export var parry_bar: Meter
 @export var raycast: RayCast2D
 @export var trail: Trail
+@export var bounce_settings: ParticleSettings
 @export var trail_min_width := 5.0
 @export var trail_max_width := 10.0
 @export var trail_length := 20
@@ -59,6 +62,8 @@ func _physics_process(delta: float) -> void:
 	if raycast.is_colliding():
 		acceleration_boost = 1.0 + (inverse_lerp(-raycast.target_position.x, 0.0,
 			raycast.global_position.distance_to(raycast.get_collision_point())) * max_wall_boost)
+		bounce_settings.spawn_position = raycast.get_collision_point()
+		particulate(BOUNCE_DUST, bounce_settings)
 	else:
 		acceleration_boost = 1.0
 	top_speed_boost = acceleration_boost / 2

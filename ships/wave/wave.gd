@@ -1,5 +1,8 @@
 extends Ship
 
+const SPARKS = preload("uid://bvv4udo8hfkun")
+const BOUNCE_DUST = preload("uid://bjsrwbu6ty1bh")
+
 @export var clip_component: ClipComponent
 @export var raycast: RayCast2D
 @export var shapecast: ShapeCast2D
@@ -9,6 +12,8 @@ extends Ship
 @export var dodge_bar: Meter
 @export var trail_left: Trail
 @export var trail_right: Trail
+@export var spark_settings: ParticleSettings
+@export var bounce_settings: ParticleSettings
 @export var laser_range := 1000.0
 @export var laser_rotation_boost := 0.1
 @export var laser_tick_time := 0.1
@@ -34,8 +39,8 @@ var trail_tween: Tween
 
 func _ready() -> void:
 	super()
-	dodge_bar.max_value = dodge_time
-	dodge_bar.value = dodge_timer
+	#dodge_bar.max_value = dodge_time
+	#dodge_bar.value = dodge_timer
 	if demo:
 		dodge_arrow.hide()
 
@@ -99,6 +104,8 @@ func set_laser(delta: float) -> void:
 		if laser_distance > shapecast.target_position.x:
 			laser_distance = minf(laser_distance, shapecast.target_position.x + (laser_speed * delta))
 		
+		bounce_settings.spawn_position = global_position + shapecast.target_position.rotated(rotation)
+		particulate(BOUNCE_DUST, bounce_settings)
 		laser_line.set_point_position(1, Vector2(laser_distance, 0))
 		shapecast.target_position.x = laser_distance
 	else:

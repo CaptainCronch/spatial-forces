@@ -46,7 +46,7 @@ clip_bar = NodePath("../SpecialBar")
 max_clip = 3
 reload_time = 0.3
 reload_delay = 2.0
-fire_delay = 0.5
+fire_delay = 0.4
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "target") instance=ExtResource("4_163my")]
 position = Vector2(-7, 0)

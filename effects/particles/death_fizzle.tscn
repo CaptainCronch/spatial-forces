@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://7ff2833gs4p3"]
+
+[ext_resource type="Script" uid="uid://brb73sy08yjk5" path="res://classes/self_destruct_particle.gd" id="1_6b7wd"]
+
+[node name="DeathFizzle" type="CPUParticles2D"]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 0.1
+emission_shape = 1
+emission_sphere_radius = 5.0
+particle_flag_align_y = true
+direction = Vector2(-1, 0)
+spread = 15.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+damping_min = 150.0
+damping_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+script = ExtResource("1_6b7wd")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

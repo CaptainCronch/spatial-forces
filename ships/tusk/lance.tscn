@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgqo6lgsy38j3"]
+[gd_scene load_steps=8 format=3 uid="uid://cgqo6lgsy38j3"]
 
 [ext_resource type="PackedScene" uid="uid://dlge8k4qynkiy" path="res://components/hurt_area_component/hurt_area_component.tscn" id="1_1ivh0"]
 [ext_resource type="Script" uid="uid://ckdfs57q6kb0j" path="res://ships/tusk/lance.gd" id="2_v2fln"]
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="3_mqmiw"]
 [ext_resource type="Script" uid="uid://cuj2cdqgrpu2g" path="res://classes/attack.gd" id="3_v2fln"]
+
+[sub_resource type="Resource" id="Resource_rgvdu"]
+script = ExtResource("3_mqmiw")
+velocity_inherit = 0.2
+amount = 5
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"
 
 [sub_resource type="Resource" id="Resource_4v3nk"]
 script = ExtResource("3_v2fln")
@@ -20,6 +27,7 @@ collision_mask = 4
 monitorable = false
 script = ExtResource("2_v2fln")
 polygon = NodePath("Polygon2D")
+spark_settings = SubResource("Resource_rgvdu")
 reflection_strength = 400.0
 collider = NodePath("CollisionShape2D")
 attack = SubResource("Resource_4v3nk")
