@@ -41,6 +41,9 @@ func _ready() -> void:
 	super()
 	#dodge_bar.max_value = dodge_time
 	#dodge_bar.value = dodge_timer
+	if player_id == PlayerIDs.PLAYER_2:
+		shapecast.set_collision_mask_value(3, false)
+		shapecast.set_collision_mask_value(2, true)
 	if demo:
 		dodge_arrow.hide()
 
@@ -89,7 +92,11 @@ func _physics_process(delta: float) -> void:
 			if hit_node is HitboxComponent:
 				attack.attack_position = shapecast.collision_result[i].point.project(raycast.target_position.rotated(rotation))
 				attack.attack_direction = Vector2.RIGHT.rotated(rotation)
+				attack.attack_damage *= damage_boost
+				attack.knockback_force *= damage_boost
 				hit_node.damage(attack)
+				attack.attack_damage /= damage_boost
+				attack.knockback_force /= damage_boost
 				laser_tick_timer = 0.0
 				clip_component.clip = minf(clip_component.clip + hit_reload_amount, clip_component.max_clip)
 			elif hit_node is Debris:

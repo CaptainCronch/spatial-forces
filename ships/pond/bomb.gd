@@ -23,6 +23,7 @@ func _on_death_timeout() -> void:
 	explosion_instance.global_position = get_global_position()
 	explosion_instance.rotation = rotation
 	explosion_instance.previous_hits = previous_hits
+	explosion_instance.ship = ship
 	get_tree().current_scene.call_deferred("add_child", explosion_instance)
 
 	if player_id == Ship.PlayerIDs.PLAYER_2:

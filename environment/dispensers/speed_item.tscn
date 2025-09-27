@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd7t8qpwg6vr"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_d4w0e"]
+[ext_resource type="Script" uid="uid://dswqtmn7u6c0m" path="res://environment/dispensers/speed_item.gd" id="2_fvf6s"]
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="3_fvf6s"]
+[ext_resource type="Texture2D" uid="uid://ca4dmow720gyw" path="res://unused_assets/projectiles/bullet8.png" id="3_xa2e6"]
+
+[sub_resource type="Resource" id="Resource_xa2e6"]
+script = ExtResource("3_fvf6s")
+amount = 5
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqxmy"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_11nof"]
+radius = 15.0
+
+[node name="SpeedItem" type="RigidBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 256
+collision_mask = 97
+mass = 0.2
+physics_material_override = ExtResource("1_d4w0e")
+linear_damp_mode = 1
+linear_damp = 1.0
+angular_damp_mode = 1
+angular_damp = 1.0
+script = ExtResource("2_fvf6s")
+spark_settings = SubResource("Resource_xa2e6")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_xa2e6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eqxmy")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_11nof")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

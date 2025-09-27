@@ -47,6 +47,10 @@ func _on_body_entered(body: Node) -> void:
 	if body is Ship and not attack == null and not body == target:
 		attack.attack_position = global_position
 		attack.attack_direction = linear_velocity.normalized()
+		attack.attack_damage *= target.damage_boost
+		attack.knockback_force *= target.damage_boost
 		body.hitbox.damage(attack)
+		attack.attack_damage /= target.damage_boost
+		attack.knockback_force /= target.damage_boost
 		attack = null
 		imbued_particles.emitting = false

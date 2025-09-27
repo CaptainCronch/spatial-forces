@@ -41,7 +41,8 @@ func primary_release() -> void:
 	bullet_instance.rotation = rotation
 	bullet_instance.player_id = player_id
 	bullet_instance.death_time = maxf(charge_timer, 0.0)
-	bullet_instance.origin = self
+	bullet_instance.origin = clip_component
+	bullet_instance.ship = self
 	charge_timer = charge_time
 	#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)

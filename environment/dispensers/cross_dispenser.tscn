@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://uj26272g5g33"]
+
+[ext_resource type="Script" uid="uid://hmo08g0wmw6i" path="res://environment/dispensers/dispenser.gd" id="1_nvi3j"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://environment/tiles/tileset.png" id="2_s676e"]
+
+[node name="CrossDispenser" type="Node2D" node_paths=PackedStringArray("particles", "timer")]
+script = ExtResource("1_nvi3j")
+dispensed_scene = 1
+particles = NodePath("CPUParticles2D")
+timer = NodePath("Timer")
+spawn_time = 15.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_s676e")
+region_enabled = true
+region_rect = Rect2(32, 32, 32, 32)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 2.0
+one_shot = true
+particle_flag_align_y = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 60.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.5
+damping_min = 50.0
+damping_max = 50.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

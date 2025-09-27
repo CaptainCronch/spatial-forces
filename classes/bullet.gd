@@ -27,6 +27,7 @@ signal hit(pos: Vector2)
 
 var disabled := false
 var origin: Node2D
+var ship: Ship
 
 
 func _ready() -> void:
@@ -91,7 +92,11 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			attack.attack_direction = linear_velocity.normalized()
 		else:
 			attack.attack_direction = Vector2.RIGHT.rotated(rotation)
+		attack.attack_damage *= ship.damage_boost
+		attack.knockback_force *= ship.damage_boost
 		area.damage(attack)
+		attack.attack_damage /= ship.damage_boost
+		attack.knockback_force /= ship.damage_boost
 		hit.emit(global_position)
 		particulate(SPARKS, hit_settings)
 	if not area.is_in_group("Projectile"): queue_free()

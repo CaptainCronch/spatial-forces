@@ -16,6 +16,7 @@ var hitter: Node2D = null
 func _ready() -> void:
 	linear_velocity += Vector2(randfn(0, spawn_speed), randfn(0, spawn_speed))
 	angular_velocity += randfn(0, spawn_rotation)
+	@warning_ignore("narrowing_conversion")
 	imbued_particles.amount *= size_multiplier
 
 
@@ -43,7 +44,11 @@ func _on_body_entered(body: Node) -> void:
 	if body is Ship and not attack == null and not body == hitter:
 		attack.attack_position = global_position
 		attack.attack_direction = linear_velocity.normalized()
+		attack.attack_damage *= hitter.damage_boost
+		attack.knockback_force *= hitter.damage_boost
 		body.hitbox.damage(attack)
+		attack.attack_damage /= hitter.damage_boost
+		attack.knockback_force /= hitter.damage_boost
 		attack = null
 		hitter = null
 		imbued_particles.emitting = false

@@ -5,6 +5,7 @@
 [ext_resource type="Resource" uid="uid://d3u1j0udrop20" path="res://resources/base_death_explosion_settings.tres" id="3_aj8v7"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_vt5mo")
 velocity_inherit = 0.0
 amount = 30

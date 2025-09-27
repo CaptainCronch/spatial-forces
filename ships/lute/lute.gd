@@ -80,7 +80,8 @@ func primary() -> void:
 		bullet_instance.sprite.global_position = clip_component.get_global_position()
 		var rand := randfn(0, bullet_angle_variance * rot_factor)
 		bullet_instance.rotation = rotation + rand
-		bullet_instance.origin = self
+		bullet_instance.origin = clip_component
+		bullet_instance.ship = self
 		#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(bullet_instance.rotation))
 		get_tree().current_scene.call_deferred("add_child", bullet_instance)
 
@@ -97,7 +98,8 @@ func slug() -> void:
 	bullet_instance.position = clip_component.get_global_position()
 	bullet_instance.sprite.global_position = clip_component.get_global_position()
 	bullet_instance.rotation = rotation
-	bullet_instance.origin = self
+	bullet_instance.origin = clip_component
+	bullet_instance.ship = self
 	#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(bullet_instance.rotation))
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
 

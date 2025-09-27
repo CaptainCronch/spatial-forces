@@ -57,10 +57,11 @@ func primary() -> void:
 	var bullet_instance: PlasmaBall = (PLASMA_BALL.instantiate() as PlasmaBall)
 	bullet_instance.global_position = clip_comp.get_global_position()
 	bullet_instance.rotation = rotation
-	bullet_instance.origin = self
-	get_tree().current_scene.call_deferred("add_child", bullet_instance)
-
+	bullet_instance.origin = clip_comp
+	bullet_instance.ship = self
+	#get_tree().current_scene.call_deferred("add_child", bullet_instance)
 	set_projectile_player(bullet_instance)
+	get_tree().current_scene.add_child(bullet_instance)
 	bullets.push_front(bullet_instance)
 	
 	acceleration_boost = hold_acceleration_boost

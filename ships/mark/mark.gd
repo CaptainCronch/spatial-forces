@@ -64,7 +64,8 @@ func primary() -> void:
 	bullet_instance.sprite.global_position = barrel_left.get_global_position()
 	bullet_instance.rotation = rotation
 	bullet_instance.sprite.global_rotation = barrel_left.get_global_rotation()
-	bullet_instance.origin = self
+	bullet_instance.origin = clip_component
+	bullet_instance.ship = self
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
 
 	set_projectile_player(bullet_instance)
@@ -81,7 +82,8 @@ func secondary() -> void:
 	bullet_instance.sprite.global_position = barrel_right.get_global_position()
 	bullet_instance.rotation = rotation
 	bullet_instance.sprite.global_rotation = barrel_right.get_global_rotation()
-	bullet_instance.origin = self
+	bullet_instance.origin = clip_component_special
+	bullet_instance.ship = self
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
 
 	set_projectile_player(bullet_instance)

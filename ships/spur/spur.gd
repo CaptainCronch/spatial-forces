@@ -55,7 +55,8 @@ func primary_hold() -> void:
 	bullet_instance.position = current_barrel.get_global_position()
 	bullet_instance.sprite.global_position = current_barrel.get_global_position()
 	bullet_instance.rotation = rotation + randfn(0.0, bullet_angle_variance)
-	bullet_instance.origin = self
+	bullet_instance.origin = clip_component
+	bullet_instance.ship = self
 	#bullet_instance.hit.connect(hit)
 	set_projectile_player(bullet_instance)
 	get_tree().current_scene.call_deferred("add_child", bullet_instance)
@@ -78,7 +79,8 @@ func secondary() -> void:
 	hook_instance.sprite.global_position = clip_component.get_global_position()
 	hook_instance.rotation = rotation
 	hook_instance.hit.connect(hook_hit)
-	hook_instance.origin = self
+	hook_instance.origin = clip_component
+	hook_instance.ship = self
 	set_projectile_player(hook_instance)
 	if player_id == PlayerIDs.PLAYER_2:
 		hook_instance.set_collision_mask_value(2, true)

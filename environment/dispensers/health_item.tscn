@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://ck1ul7vpt0rx1"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dgwq5sy5q64q6" path="res://resources/bouncy.tres" id="1_i66vv"]
+[ext_resource type="Script" uid="uid://1w75nd1ca12d" path="res://environment/dispensers/health_item.gd" id="2_i66vv"]
+[ext_resource type="Script" uid="uid://bra3c2sjb5c2q" path="res://classes/particle_settings.gd" id="3_4r5pw"]
+[ext_resource type="Texture2D" uid="uid://1bd28x17rh4c" path="res://unused_assets/projectiles/bullet3.png" id="3_c0tgw"]
+
+[sub_resource type="Resource" id="Resource_ykh87"]
+script = ExtResource("3_4r5pw")
+amount = 5
+metadata/_custom_type_script = "uid://bra3c2sjb5c2q"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqxmy"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_11nof"]
+radius = 15.0
+
+[node name="HealthItem" type="RigidBody2D" node_paths=PackedStringArray("sprite")]
+collision_layer = 256
+collision_mask = 97
+mass = 0.2
+physics_material_override = ExtResource("1_i66vv")
+linear_damp_mode = 1
+linear_damp = 1.0
+angular_damp_mode = 1
+angular_damp = 1.0
+script = ExtResource("2_i66vv")
+spark_settings = SubResource("Resource_ykh87")
+sprite = NodePath("Sprite2D")
+power = 15.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("3_c0tgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eqxmy")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_11nof")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

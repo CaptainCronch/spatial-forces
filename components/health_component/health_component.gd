@@ -50,6 +50,7 @@ func damage(attack: Attack) -> void:
 		return
 
 	health -= roundf(attack.attack_damage)
+	#print(attack.attack_damage)
 	damage_taken.emit(attack)
 	health_changed.emit(-attack.attack_damage)
 	health_bar.value = health

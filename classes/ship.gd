@@ -1,6 +1,7 @@
 extends RigidBody2D
 class_name Ship
 
+const DAMAGE_UP = preload("uid://cv2lsek22eg5s")
 const DEATH_FIZZLE = preload("uid://7ff2833gs4p3")
 #const BOUNCE_DUST = preload("uid://bjsrwbu6ty1bh")
 
@@ -25,6 +26,7 @@ var player_id: PlayerIDs
 var top_speed_boost := 1.0
 var acceleration_boost := 1.0
 var rotational_boost := 1.0
+var damage_boost := 1.0
 var rotation_dir := 0
 var move_dir := Vector2()
 var last_damage: Attack
@@ -43,6 +45,7 @@ func _ready() -> void:
 	#body_entered.connect(func(): particulate(BOUNCE_DUST, bounce_settings))
 	#contact_monitor = true
 	#max_contacts_reported = 5
+	death_fizzle_settings = death_fizzle_settings.duplicate()
 	death_fizzle_settings.target = self.get_path()
 
 
@@ -98,6 +101,7 @@ func die() -> void:
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
 	
+	print(death_fizzle_settings.target)
 	particulate(DEATH_FIZZLE, death_fizzle_settings)
 	await get_tree().create_timer(1.0).timeout
 	var stable_force := minf(500, last_damage.knockback_force * 100)
@@ -144,6 +148,17 @@ func particulate(particle_scene: PackedScene, particle_settings: ParticleSetting
 		if is_instance_valid(particle_settings.subparticle):
 			await get_tree().create_timer(particles.lifetime).timeout
 			particulate(particle_settings.subparticle, particle_settings.subparticle_settings)
+
+
+func powerup(amount: float, duration: float) -> void:
+	if dead: return
+	damage_boost += amount
+	var particles := DAMAGE_UP.instantiate()
+	particles.target = self
+	get_tree().current_scene.add_child(particles)
+	await get_tree().create_timer(duration).timeout
+	damage_boost -= amount
+	particles.queue_free()
 
 
 func _on_hitbox_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:

@@ -4,9 +4,10 @@ extends Area2D
 @export var particles: CPUParticles2D
 @export var attack: Attack
 
-@export var previous_hit_bonus := 2.0
+@export var previous_hit_bonus := 3.0
 @export var radius := 60.0
 
+var ship: Ship
 var previous_hits: Array[Ship] = []
 
 func _ready() -> void:
@@ -67,7 +68,11 @@ func _on_area_entered(area: Area2D) -> void:
 				particles.amount *= previous_hit_bonus
 				particles.scale_amount_max *= previous_hit_bonus
 				particles.emitting = true
+			attack.attack_damage *= ship.damage_boost
+			attack.knockback_force *= ship.damage_boost
 			area.damage(attack)
+			attack.attack_damage /= ship.damage_boost
+			attack.knockback_force /= ship.damage_boost
 
 
 func _on_body_entered(body: Node2D) -> void:

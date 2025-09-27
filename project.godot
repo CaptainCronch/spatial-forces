@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Spatial Forces DX"
 config/description="awesome space video game"
-run/main_scene="uid://b2i211avmpf4e"
+run/main_scene="uid://b8a2sbnrfw260"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 boot_splash/quality/use_taa=false
@@ -223,6 +223,7 @@ flip_vert={
 2d_physics/layer_6="ProjectilePass"
 2d_physics/layer_7="Effect"
 2d_physics/layer_8="Projectile"
+2d_physics/layer_9="Item"
 
 [physics]
 

@@ -76,6 +76,7 @@ func primary():
 		bullet_instance.sprite.global_position = clip_component.get_global_position()
 		bullet_instance.rotation = rotation
 		bullet_instance.origin = clip_component
+		bullet_instance.ship = self
 		#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
 		get_tree().current_scene.call_deferred("add_child", bullet_instance)
 

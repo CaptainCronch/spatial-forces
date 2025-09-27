@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://b65dslacjcywd"]
+
+[ext_resource type="Script" uid="uid://hmo08g0wmw6i" path="res://environment/dispensers/dispenser.gd" id="1_mi3tr"]
+[ext_resource type="Texture2D" uid="uid://d1segpo10nnbf" path="res://environment/tiles/tileset.png" id="2_mag8a"]
+
+[node name="SquareDispenser" type="Node2D" node_paths=PackedStringArray("particles", "timer")]
+script = ExtResource("1_mi3tr")
+dispensed_scene = 2
+particles = NodePath("CPUParticles2D")
+timer = NodePath("Timer")
+spawn_time = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mag8a")
+region_enabled = true
+region_rect = Rect2(64, 32, 32, 32)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 2.0
+one_shot = true
+particle_flag_align_y = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+damping_min = 50.0
+damping_max = 50.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
