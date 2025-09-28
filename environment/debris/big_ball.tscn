@@ -9,7 +9,7 @@
 radius = 16.0
 
 [node name="BigBall" type="RigidBody2D" node_paths=PackedStringArray("imbued_particles")]
-collision_mask = 153
+collision_mask = 409
 mass = 2.0
 physics_material_override = ExtResource("1_p71u7")
 can_sleep = false

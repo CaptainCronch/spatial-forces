@@ -44,7 +44,7 @@ trail = NodePath("Trail")
 bounce_settings = SubResource("Resource_wvwqc")
 hitbox = NodePath("HitboxComponent")
 input = NodePath("InputComponent")
-rotation_speed = 430.0
+rotation_speed = 500.0
 back_acceleration = 64.0
 top_speed = 160.0
 

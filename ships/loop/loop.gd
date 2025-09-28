@@ -78,7 +78,8 @@ func primary():
 		bullet_instance.origin = clip_component
 		bullet_instance.ship = self
 		#bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
-		get_tree().current_scene.call_deferred("add_child", bullet_instance)
+		#get_tree().current_scene.call_deferred("add_child", bullet_instance)
+		get_tree().current_scene.add_child(bullet_instance)
 
 		set_projectile_player(bullet_instance)
 		await get_tree().create_timer(fire_time).timeout

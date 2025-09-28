@@ -43,6 +43,7 @@ func _ready() -> void:
 	lance.collider.position.x = min_shape.x / 2
 	lance.attack.attack_damage = lance_damage
 	lance.attack.knockback_force = lance_damage * damage_knockback_ratio
+	lance.ship = self
 	lance.hit.connect(hit)
 	if player_id == PlayerIDs.PLAYER_2:
 		lance.set_collision_layer_value(2, false)

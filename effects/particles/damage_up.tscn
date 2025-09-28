@@ -8,36 +8,20 @@ script/source = "extends Node2D
 
 @export var spin_speed := PI/4
 
-var target: Ship
-
-
-func _ready() -> void:
-	global_position = target.global_position
+#var target: Ship
+#
+#
+#func _ready() -> void:
+	#global_position = target.global_position
 
 
 func _process(delta: float) -> void:
 	rotation += spin_speed * delta
-	global_position = target.global_position
+	#global_position = target.global_position
 "
 
 [node name="DamageUp" type="Node2D"]
 script = SubResource("GDScript_vsthx")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2(32, 0)
-emitting = false
-amount = 1
-texture = ExtResource("1_mcnh8")
-lifetime = 0.8
-local_coords = true
-direction = Vector2(-1, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 50.0
-initial_velocity_max = 50.0
-damping_min = 60.0
-damping_max = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(24, 0)

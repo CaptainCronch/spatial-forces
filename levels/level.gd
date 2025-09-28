@@ -103,11 +103,15 @@ func _ready() -> void:
 	elif Global.current_map != null and (current_mode == Mode.GAME or current_mode == Mode.TEST):
 		current_map = Global.current_map.get_image()
 		build(current_map)
-		camera.global_position = current_map.get_size() * 32
+		#camera.position_smoothing_enabled = false
+		#camera.global_position = current_map.get_size() * 16
+		#camera.position_smoothing_enabled = true
 	elif base_map:
 		current_map = Global.maps[base_map].get_image()
 		build(current_map)
-		camera.global_position = current_map.get_size() * 32
+		#camera.position_smoothing_enabled = false
+		#camera.global_position = current_map.get_size() * 16
+		#camera.position_smoothing_enabled = true
 
 	if current_mode == Mode.GAME or current_mode == Mode.TEST: game_spawn()
 	elif current_mode == Mode.DEMO: demo_spawn()
@@ -248,16 +252,16 @@ func build(img: Image) -> void:
 			if not rect.has_point(Vector2i(x - padding, y - padding)):
 				tilemap.set_cell(Vector2i(x - padding, y - padding), BASE_TILES_SOURCE_ID, BOUNCY_COORDS)
 	
-	if p1_spawns.size() == 0: p1_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
-	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
-	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
-	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(0, img.get_width()*32), randi_range(0, img.get_height()*32)))
+	if p1_spawns.size() == 0: p1_spawns.append(Vector2i(randi_range(16, (img.get_width()*32)+16), randi_range(16, (img.get_height()*32)+16)))
+	if p2_spawns.size() == 0: p2_spawns.append(Vector2i(randi_range(16, (img.get_width()*32)+16), randi_range(16, (img.get_height()*32)+16)))
+	if p3_spawns.size() == 0: p3_spawns.append(Vector2i(randi_range(16, (img.get_width()*32)+16), randi_range(16, (img.get_height()*32)+16)))
+	if p4_spawns.size() == 0: p4_spawns.append(Vector2i(randi_range(16, (img.get_width()*32)+16), randi_range(16, (img.get_height()*32)+16)))
 	
 	if corner_spawn:
-		p1_spawns = [Vector2i(32, 32)]
-		p2_spawns = [Vector2i((img.get_width()*32)-32, (img.get_height()*32)-32)]
-		p3_spawns = [Vector2i(32, (img.get_height()*32)-32)]
-		p4_spawns = [Vector2i((img.get_width()*32)-32, 32)]
+		p1_spawns = [Vector2i(32+16, 32+16)]
+		p2_spawns = [Vector2i((img.get_width()*32)-48, (img.get_height()*32)-48)]
+		p3_spawns = [Vector2i(32+16, (img.get_height()*32)-48)]
+		p4_spawns = [Vector2i((img.get_width()*32)-48, 32+16)]
 
 func match_colors(img: Image, coords: Vector2i) -> Vector2i:
 	match img.get_pixelv(coords):
@@ -332,13 +336,13 @@ func match_colors(img: Image, coords: Vector2i) -> Vector2i:
 		Color8(0, 204, 170): #00ccaa
 			tilemap.set_cell(coords, SCENE_TILES_SOURCE_ID, NONE, SMALL_PILL_ID)
 		Color8(0, 0, 255): #0000ff
-			p1_spawns.append(coords * 32)
+			p1_spawns.append((coords * 32) + Vector2i(16, 16))
 		Color8(255, 0, 0): #ff0000
-			p2_spawns.append(coords * 32)
+			p2_spawns.append((coords * 32) + Vector2i(16, 16))
 		Color8(0, 255, 0): #00ff00
-			p3_spawns.append(coords * 32)
+			p3_spawns.append((coords * 32) + Vector2i(16, 16))
 		Color8(255, 255, 0): #ffff00
-			p4_spawns.append(coords * 32)
+			p4_spawns.append((coords * 32) + Vector2i(16, 16))
 		_:
 			return coords
 	return Vector2i(-1, -1)

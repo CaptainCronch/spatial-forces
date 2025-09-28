@@ -132,8 +132,12 @@ const INTERNAL_MAPS := {
 	"sel_original.png": preload("uid://q7e1savtg7ga"),
 }
 const OG_MAPS := {
-	"dm2_cycle_2.png": preload("uid://oydpl4apkhsb"),
+	"dm2_cycle_1.png": preload("uid://oydpl4apkhsb"),
 	"dm2_cramped_3.png": preload("uid://c4ve4lnrxwqe6"),
+	"dm2_gerver_3.png": preload("uid://dhvgw58wd5swj"),
+	"dm2_round_1.png": preload("uid://mwqg1ddx8hn0"),
+	"dm2_danger_3.png": preload("uid://drtkmtfnvcna7"),
+	"dm2_tiny_3.png": preload("uid://14yrcqnheg2d"),
 }
 
 var user_maps := {}

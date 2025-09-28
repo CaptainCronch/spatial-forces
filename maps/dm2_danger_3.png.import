@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oydpl4apkhsb"
-path="res://.godot/imported/dm2_cycle_2.png-139d5684d98abebc08f2b6a92bb734ca.ctex"
+uid="uid://drtkmtfnvcna7"
+path="res://.godot/imported/dm2_danger_3.png-97ba2f308555c6fc071458cd384c807b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/dm2_cycle_2.png"
-dest_files=["res://.godot/imported/dm2_cycle_2.png-139d5684d98abebc08f2b6a92bb734ca.ctex"]
+source_file="res://maps/dm2_danger_3.png"
+dest_files=["res://.godot/imported/dm2_danger_3.png-97ba2f308555c6fc071458cd384c807b.ctex"]
 
 [params]
 

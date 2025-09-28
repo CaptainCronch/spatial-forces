@@ -16,7 +16,7 @@ const PLASMA_BALL = preload("uid://comvsnlpgu2r7")
 @export var rotate_time := 1.0
 @export var max_rotates := 3
 
-var bullets: Array[PlasmaBall]
+var bullets: Array[PlasmaBall] = []
 var rotate_timer := 0.0
 var rotate_charges := max_rotates
 
@@ -67,7 +67,7 @@ func primary() -> void:
 	acceleration_boost = hold_acceleration_boost
 
 func primary_hold() -> void:
-	if is_instance_valid(bullets[0]) and not bullets[0].shot:
+	if bullets.size() > 0 and is_instance_valid(bullets[0]) and not bullets[0].shot:
 		bullets[0].increase_size(bullet_grow_speed * get_process_delta_time())
 		bullets[0].position = clip_comp.get_global_position()
 		bullets[0].rotation = rotation

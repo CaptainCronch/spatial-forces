@@ -6,7 +6,7 @@ class_name MultiTargetCamera
 @export var min_zoom := 0.15
 @export var max_zoom := 1.0
 @export var margin := Vector2(350, 150)
-@export var smooth_speed := 50
+@export var smooth_speed := 50.0
 @export var constant_movement := Vector2(100, 100)
 @export var constant_turn_speed := TAU/64
 

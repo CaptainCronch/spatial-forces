@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dj3qy5wvjw1dr" path="res://ui/start_ui/start_ui.gd" id="2_n3hmi"]
 [ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="3_y7364"]
 [ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://ui/GemunuLibre-VariableFont_wght.ttf" id="4_oiqkb"]
-[ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://maps/dm2_cycle_2.png" id="5_c22ev"]
+[ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://maps/dm2_cycle_1.png" id="5_c22ev"]
 [ext_resource type="PackedScene" uid="uid://ubj2iyrcimrv" path="res://ui/focus_selector/focus_selector.tscn" id="6_hwf5f"]
 
 [sub_resource type="FontVariation" id="FontVariation_54lsi"]

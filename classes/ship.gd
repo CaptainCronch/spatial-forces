@@ -101,7 +101,7 @@ func die() -> void:
 	if is_instance_valid(input): input.disabled = true
 	if is_instance_valid(steering): steering.disabled = true
 	
-	print(death_fizzle_settings.target)
+	#print(death_fizzle_settings.target)
 	particulate(DEATH_FIZZLE, death_fizzle_settings)
 	await get_tree().create_timer(1.0).timeout
 	var stable_force := minf(500, last_damage.knockback_force * 100)
@@ -154,8 +154,8 @@ func powerup(amount: float, duration: float) -> void:
 	if dead: return
 	damage_boost += amount
 	var particles := DAMAGE_UP.instantiate()
-	particles.target = self
-	get_tree().current_scene.add_child(particles)
+	#particles.target = self
+	add_child(particles)
 	await get_tree().create_timer(duration).timeout
 	damage_boost -= amount
 	particles.queue_free()

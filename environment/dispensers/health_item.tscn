@@ -28,7 +28,7 @@ angular_damp = 1.0
 script = ExtResource("2_i66vv")
 spark_settings = SubResource("Resource_ykh87")
 sprite = NodePath("Sprite2D")
-power = 15.0
+power = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

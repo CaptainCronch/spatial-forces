@@ -9,7 +9,7 @@
 size = Vector2(32, 32)
 
 [node name="BigCrate" type="RigidBody2D" node_paths=PackedStringArray("imbued_particles")]
-collision_mask = 153
+collision_mask = 409
 mass = 2.0
 physics_material_override = ExtResource("1_f3alr")
 can_sleep = false
@@ -17,7 +17,6 @@ contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("2_x7dxg")
 size_multiplier = 2.0
-imbued_damage = 30
 imbued_particles = NodePath("Imbued")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
