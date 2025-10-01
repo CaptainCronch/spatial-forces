@@ -39,6 +39,8 @@ var dead := false
 
 
 func _ready() -> void:
+	if player_id == PlayerIDs.PLAYER_1: Global.current_p1 = self
+	if player_id == PlayerIDs.PLAYER_2: Global.current_p2 = self
 	call_deferred("initialize")
 	hitbox.body_shape_entered.connect(_on_hitbox_body_shape_entered)
 	hitbox.body_shape_exited.connect(_on_hitbox_body_shape_exited)
@@ -112,7 +114,7 @@ func die() -> void:
 	await get_tree().create_timer(2.0).timeout
 	get_tree().current_scene.camera.zoom_scale = 1.0
 	await get_tree().create_timer(2.0).timeout
-	get_tree().current_scene.end_round()
+	get_tree().current_scene.end_round(player_id)
 	#queue_free()
 
 

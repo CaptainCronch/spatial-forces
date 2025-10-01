@@ -1,12 +1,26 @@
 extends Label
 class_name PlayerNumber
 
+const COUNTER := preload("uid://dh50vqrdb4gho")
+
 @export var player_line: Line2D
 @export var underline: Line2D
 @export var camera: MultiTargetCamera
+@export var counter_container: HBoxContainer
+@export var player_id: Ship.PlayerIDs
 #@export var fade_out_time := 0.5
 
-var ship: Ship
+var ship: Ship:
+	set(new_ship):
+		var score := Global.p1_score
+		if new_ship.player_id == Ship.PlayerIDs.PLAYER_2:
+			text = "P2"
+			score = Global.p2_score
+		for i in score:
+			counter_container.add_child(COUNTER.instantiate())
+		reset_line_reference()
+		ship = new_ship
+
 var leaving := false
 var offset := 16.0
 var multiplier := 0.0
@@ -15,12 +29,14 @@ var multiplier := 0.0
 func _ready() -> void:
 	var color := Global.base_color
 	(material as ShaderMaterial).set_shader_parameter("color_factor", color)
-	player_line.material = material
-	player_line.material.set_shader_parameter("color_factor", color)
-	var new_size := PackedVector2Array([])
-	new_size.resize(6)
-	player_line.points = new_size
-
+	#player_line.material = material
+	#player_line.material.set_shader_parameter("color_factor", color)
+	#var new_size := PackedVector2Array([])
+	#new_size.resize(6)
+	#player_line.points = new_size
+	
+	#if get_tree().current_scene.current_mode != get_tree().current_scene.Mode.GAME: return
+	
 	#var disappear := create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 	#disappear.tween_interval(3.0)
 	#disappear.tween_method(
@@ -32,7 +48,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	player_line.visible = visible
+	if not is_instance_valid(player_line): reset_line_reference()
+	#player_line.visible = visible
+	#print(player_line)
 	if not ship or not visible: return
 	if leaving:
 		#player_line.global_position = get_global_transform_with_canvas().origin + offset
@@ -45,6 +63,15 @@ func _process(_delta: float) -> void:
 	player_line.points[3] = Vector2(ship_rect.position.x, ship_rect.position.y + ship_rect.size.y) * multiplier
 	player_line.points[4] = ship_rect.position * multiplier
 	player_line.points[5] = underline.get_global_transform_with_canvas().origin
+
+
+func reset_line_reference():
+	#if not is_instance_valid(new_ship):
+		#new_ship = get_tree().get_first_node_in_group("Ship")
+	if player_id == Ship.PlayerIDs.PLAYER_1: # i was annoyed when i wrote this because the player line would keep being null only after the scene was reset
+		player_line = get_node("/root/Level").p1_line
+	else:
+		player_line = get_node("/root/Level").p2_line
 
 
 func leave():

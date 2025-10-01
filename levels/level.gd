@@ -76,6 +76,8 @@ enum Mode {GAME, DEMO, NONE, TEST}
 @export var player_2 : Global.Ships = Global.Ships.NONE
 @export var p1_label: PlayerNumber
 @export var p2_label: PlayerNumber
+@export var p1_line: Line2D
+@export var p2_line: Line2D
 @export var number_holder: MarginContainer
 @export var camera: MultiTargetCamera
 @export var tilemap: TileMapLayer
@@ -96,6 +98,10 @@ var p4_spawns : Array[Vector2i]
 
 
 func _ready() -> void:
+	p1_line.material.call_deferred("set_shader_parameter", "color_factor", Global.base_color)
+	p2_line.material.call_deferred("set_shader_parameter", "color_factor", Global.base_color)
+	#p1_line.material.set_shader_parameter("color_factor", Global.base_color)
+	#p2_line.material.set_shader_parameter("color_factor", Global.base_color)
 	color_overlay.material.set_shader_parameter("color_factor", Global.base_color)
 
 	if current_mode == Mode.NONE:
@@ -186,8 +192,8 @@ func demo_spawn() -> void:
 		select_ui.ships.append(new_ship)
 
 
-func end_round():
-	Global.pass_round()
+func end_round(who_lost: Ship.PlayerIDs):
+	Global.pass_round(who_lost)
 
 
 func build(img: Image) -> void:

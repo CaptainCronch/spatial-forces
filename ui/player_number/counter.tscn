@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://dh50vqrdb4gho"]
+
+[node name="Counter" type="ColorRect"]
+use_parent_material = true
+custom_minimum_size = Vector2(16, 16)
+size_flags_horizontal = 4
+size_flags_vertical = 4

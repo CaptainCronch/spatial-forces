@@ -148,6 +148,14 @@ var p1_ship := Ships.LOOP
 var p2_ship := Ships.LOOP
 var current_map: Texture2D
 var rounds := 1
+var p1_device := 0
+var p2_device := 1
+var last_p1_input_controller := false
+var last_p2_input_controller := false
+var p1_score := 0
+var p2_score := 0
+var current_p1: Ship
+var current_p2: Ship
 
 
 func _enter_tree() -> void:
@@ -163,6 +171,10 @@ func _enter_tree() -> void:
 	elif rand == 2: Engine.max_fps = 120
 	elif rand == 3: Engine.max_fps = 60
 	elif rand == 4: Engine.max_fps = 30
+	return
+	@warning_ignore("unreachable_code")
+	Engine.max_fps = 240
+	#Input.start_joy_vibration(0, 0, 1, 3)
 	#Input.use_accumulated_input = false
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#get_window().mode = Window.MODE_FULLSCREEN
@@ -183,6 +195,12 @@ func _process(_delta) -> void:
 			get_window().mode = Window.MODE_FULLSCREEN
 		else:
 			get_window().mode = Window.MODE_WINDOWED
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if event.device == p1_device: last_p1_input_controller = true
+		if event.device == p2_device: last_p2_input_controller = true
 
 
 func load_user_maps() -> void:
@@ -206,9 +224,15 @@ func load_user_maps() -> void:
 	maps.merge(user_maps, true)
 
 
-func pass_round():
+func pass_round(who_lost: Ship.PlayerIDs):
+	if who_lost == Ship.PlayerIDs.PLAYER_1:
+		p2_score += 1
+	elif who_lost == Ship.PlayerIDs.PLAYER_2:
+		p1_score += 1
 	rounds -= 1
 	if rounds <= 0:
+		p1_score = 0
+		p2_score = 0
 		current_map = null
 		rounds = 1
 		get_tree().change_scene_to_file("res://levels/start.tscn")
@@ -234,8 +258,6 @@ func decay_towards(value : float, target : float,
 		return target
 	else:
 		return new_value
-	
-	
 
 
 func decay_vec2_towards(value : Vector2, target : Vector2,
