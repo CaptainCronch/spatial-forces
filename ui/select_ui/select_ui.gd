@@ -39,37 +39,85 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.RIGHT]) and not p1_ready:
+	if (Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.RIGHT]) or
+			Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.DOWN])) and not p1_ready:
 		p1_selected_ship = switch_ship(p1_selected_ship, 1)
 		change_target()
 		update_boxes(1)
-	if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.LEFT]) and not p1_ready:
-		p1_selected_ship = switch_ship(p1_selected_ship, -1)
-		change_target()
-		update_boxes(-1)
-	if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.PRIMARY]) and not p1_selected_ship == null:
-		p1_ready = !p1_ready
-		ready_up()
+	if (Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.LEFT]) or
+			Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.UP])) and not p1_ready:
+		if not p1_selected_ship == null:
+			p1_selected_ship = switch_ship(p1_selected_ship, -1)
+			change_target()
+			update_boxes(-1)
+		else:
+			p1_selected_ship = switch_ship(p1_selected_ship, 1)
+			change_target()
+			update_boxes(1)
+	if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.PRIMARY]):
+		if not p1_selected_ship == null:
+			p1_ready = !p1_ready
+			ready_up()
+		else:
+			p1_selected_ship = switch_ship(p1_selected_ship, 1)
+			change_target()
+			update_boxes(1)
 	if Input.is_action_just_pressed(InputComponent.PLAYER1_INPUTS[InputComponent.PlayerInputs.SECONDARY]):
-		invalidate(0)
-		change_target()
-		update_boxes(0)
-
-	if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.RIGHT]) and not p2_ready:
+		if not p1_ready:
+			invalidate(0)
+			change_target()
+			update_boxes(0)
+		else:
+			p1_ready = false
+			ready_up()
+	
+	if (Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.RIGHT]) or
+			Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.DOWN])) and not p2_ready:
 		p2_selected_ship = switch_ship(p2_selected_ship, 1)
 		change_target()
 		update_boxes(1)
-	if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.LEFT]) and not p2_ready:
-		p2_selected_ship = switch_ship(p2_selected_ship, -1)
-		change_target()
-		update_boxes(-1)
-	if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.PRIMARY]) and not p2_selected_ship == null:
-		p2_ready = !p2_ready
-		ready_up()
+	if (Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.LEFT]) or
+			Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.UP])) and not p2_ready:
+		if not p2_selected_ship == null:
+			p2_selected_ship = switch_ship(p2_selected_ship, -1)
+			change_target()
+			update_boxes(-1)
+		else:
+			p2_selected_ship = switch_ship(p2_selected_ship, 1)
+			change_target()
+			update_boxes(1)
+	if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.PRIMARY]):
+		if not p2_selected_ship == null:
+			p2_ready = !p2_ready
+			ready_up()
+		else:
+			p2_selected_ship = switch_ship(p2_selected_ship, 1)
+			change_target()
+			update_boxes(1)
 	if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.SECONDARY]):
-		invalidate(1)
-		change_target()
-		update_boxes(0)
+		if not p2_ready:
+			invalidate(1)
+			change_target()
+			update_boxes(0)
+		else:
+			p2_ready = false
+			ready_up()
+	
+	#if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.RIGHT]) and not p2_ready:
+		#p2_selected_ship = switch_ship(p2_selected_ship, 1)
+		#change_target()
+		#update_boxes(1)
+	#if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.LEFT]) and not p2_ready:
+		#p2_selected_ship = switch_ship(p2_selected_ship, -1)
+		#change_target()
+		#update_boxes(-1)
+	#if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.PRIMARY]) and not p2_selected_ship == null:
+		#p2_ready = !p2_ready
+		#ready_up()
+	#if Input.is_action_just_pressed(InputComponent.PLAYER2_INPUTS[InputComponent.PlayerInputs.SECONDARY]):
+		#invalidate(1)
+		#change_target()
+		#update_boxes(0)
 
 	if not p1_selected_ship == null:
 		draw_box(ships[p1_selected_ship], ship_1_line, ship_select_p1.underline)
