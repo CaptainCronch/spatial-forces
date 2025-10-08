@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+#region exports
 @export var inside: Control
 @export var outside: Control
 @export var focus_outside: Control
@@ -46,6 +47,7 @@ extends CanvasLayer
 
 @export var fade_panel: Panel
 @export var tween_time := 0.5
+#endregion
 
 var map_rotation_speed := 0.0
 var map_rotation_direction := 1
@@ -327,3 +329,10 @@ func _on_filename_edit_text_changed(new_text: String) -> void:
 
 func _on_exit_focus_entered() -> void:
 	get_tree().quit()
+
+
+func _on_swap_controllers_focus_entered() -> void:
+	for action in InputComponent.PLAYER1_INPUTS:
+		pass
+	for action in InputComponent.PLAYER2_INPUTS:
+		pass

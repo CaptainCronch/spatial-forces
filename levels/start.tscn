@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8a2sbnrfw260"]
+[gd_scene load_steps=13 format=3 uid="uid://b8a2sbnrfw260"]
 
 [ext_resource type="PackedScene" uid="uid://b2i211avmpf4e" path="res://levels/level.tscn" id="1_8i3e1"]
 [ext_resource type="Script" uid="uid://dj3qy5wvjw1dr" path="res://ui/start_ui/start_ui.gd" id="2_n3hmi"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://c6wdjj6fil2ng" path="res://ui/GemunuLibre-VariableFont_wght.ttf" id="4_oiqkb"]
 [ext_resource type="Texture2D" uid="uid://oydpl4apkhsb" path="res://maps/dm2_cycle_1.png" id="5_c22ev"]
 [ext_resource type="PackedScene" uid="uid://ubj2iyrcimrv" path="res://ui/focus_selector/focus_selector.tscn" id="6_hwf5f"]
+[ext_resource type="PackedScene" uid="uid://b6d4ibkey2kbb" path="res://ui/start_ui/remap.tscn" id="6_n3hmi"]
 
 [sub_resource type="FontVariation" id="FontVariation_54lsi"]
 base_font = ExtResource("4_oiqkb")
@@ -233,7 +234,340 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_m0kjk")
 text = "ADD"
 flat = true
 
-[node name="InitialContainer" type="MarginContainer" parent="StartUI" index="2"]
+[node name="OptionsContainer" type="MarginContainer" parent="StartUI" index="2"]
+custom_minimum_size = Vector2(350, 0)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme = ExtResource("3_y7364")
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartUI/OptionsContainer" index="0"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "COLOR FILTER"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ColorFilterContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "R"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="RedLineEdit" type="LineEdit" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/minimum_character_width = 3
+theme_override_font_sizes/font_size = 22
+text = "1.0"
+placeholder_text = "1.0"
+alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="Label2" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "G"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="GreenLineEdit" type="LineEdit" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/minimum_character_width = 3
+theme_override_font_sizes/font_size = 22
+text = "1.0"
+placeholder_text = "1.0"
+alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="Label3" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "B"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="BlueLineEdit" type="LineEdit" parent="StartUI/OptionsContainer/VBoxContainer/ColorFilterContainer" index="5"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/minimum_character_width = 3
+theme_override_font_sizes/font_size = 22
+text = "1.0"
+placeholder_text = "1.0"
+alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="DevMapContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer" index="2"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="StartUI/OptionsContainer/VBoxContainer/DevMapContainer" index="0"]
+layout_mode = 2
+text = "
+"
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/DevMapContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "dev maps"
+uppercase = true
+
+[node name="CheckButton2" type="CheckButton" parent="StartUI/OptionsContainer/VBoxContainer/DevMapContainer" index="2"]
+layout_mode = 2
+text = "
+"
+
+[node name="Label2" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/DevMapContainer" index="3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "fullscreen"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="FPSContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer" index="3"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="StartUI/OptionsContainer/VBoxContainer/FPSContainer" index="0"]
+layout_mode = 2
+text = "
+"
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/FPSContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "VSYNC"
+uppercase = true
+
+[node name="Label2" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/FPSContainer" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "FPS"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="FPSLineEdit" type="LineEdit" parent="StartUI/OptionsContainer/VBoxContainer/FPSContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/minimum_character_width = 3
+theme_override_font_sizes/font_size = 22
+text = "60"
+placeholder_text = "60"
+alignment = 1
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="VolumeContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer" index="4"]
+layout_mode = 2
+alignment = 1
+
+[node name="MusicContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Minus" type="Button" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer" index="0"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+flat = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer/Minus" index="0"]
+position = Vector2(0, 17)
+polygon = PackedVector2Array(0, -1, 0, 1, 15, 16, 16, 16, 16, -16, 15, -16)
+
+[node name="MusicLevel" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer" index="1"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "8"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Plus" type="Button" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer" index="2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+flat = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer/Plus" index="0"]
+position = Vector2(16, 17)
+rotation = 3.1415927
+polygon = PackedVector2Array(0, -1, 0, 1, 15, 16, 16, 16, 16, -16, 15, -16)
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/MusicContainer" index="3"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "MUSIC"
+uppercase = true
+
+[node name="SoundContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer" index="1"]
+layout_mode = 2
+
+[node name="Minus" type="Button" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer" index="0"]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+flat = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer/Minus" index="0"]
+position = Vector2(0, 17)
+polygon = PackedVector2Array(0, -1, 0, 1, 15, 16, 16, 16, 16, -16, 15, -16)
+
+[node name="SoundLevel" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer" index="1"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "8"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Plus" type="Button" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer" index="2"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+flat = true
+
+[node name="Polygon2D" type="Polygon2D" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer/Plus" index="0"]
+position = Vector2(16, 17)
+rotation = 3.1415927
+polygon = PackedVector2Array(0, -1, 0, 1, 15, 16, 16, 16, 16, -16, 15, -16)
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/VolumeContainer/SoundContainer" index="3"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "SOUND"
+uppercase = true
+
+[node name="InputContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer" index="5"]
+layout_mode = 2
+alignment = 1
+
+[node name="P1" type="VBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1" index="0"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "reset"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="Remap" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer2" index="0" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+
+[node name="Remap2" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer2" index="1" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+action_type = 4
+
+[node name="Remap3" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer2" index="2" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+action_type = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1" index="2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Remap4" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer" index="0" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+action_type = 3
+
+[node name="Remap5" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer" index="1" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+action_type = 2
+
+[node name="Remap6" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P1/HBoxContainer" index="2" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+action_type = 1
+
+[node name="P2" type="VBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2" index="0"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "reset"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2" index="1"]
+layout_mode = 2
+alignment = 1
+
+[node name="Remap7" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer2" index="0" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+
+[node name="Remap8" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer2" index="1" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+action_type = 4
+
+[node name="Remap9" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer2" index="2" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+action_type = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2" index="2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Remap10" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer" index="0" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+action_type = 3
+
+[node name="Remap11" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer" index="1" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+action_type = 2
+
+[node name="Remap12" parent="StartUI/OptionsContainer/VBoxContainer/InputContainer/P2/HBoxContainer" index="2" instance=ExtResource("6_n3hmi")]
+layout_mode = 2
+player_id = 1
+action_type = 1
+
+[node name="SwapControllers" type="Label" parent="StartUI/OptionsContainer/VBoxContainer" index="6"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "swap controllers"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="InitialContainer" type="MarginContainer" parent="StartUI" index="3"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -286,7 +620,7 @@ text = "EXIT"
 flat = true
 alignment = 0
 
-[node name="Positions" type="Control" parent="StartUI" index="3"]
+[node name="Positions" type="Control" parent="StartUI" index="4"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -344,7 +678,7 @@ offset_top = 360.0
 offset_right = 320.0
 offset_bottom = 360.0
 
-[node name="Toast" type="VBoxContainer" parent="StartUI" index="4"]
+[node name="Toast" type="VBoxContainer" parent="StartUI" index="5"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -374,7 +708,7 @@ theme_override_fonts/font = SubResource("FontVariation_8i3e1")
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="StartUI" index="5"]
+[node name="MarginContainer" type="MarginContainer" parent="StartUI" index="6"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -413,12 +747,12 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_2edqo")
 placeholder_text = "Image URL"
 caret_blink = true
 
-[node name="HTTPRequest" type="HTTPRequest" parent="StartUI" index="6"]
+[node name="HTTPRequest" type="HTTPRequest" parent="StartUI" index="7"]
 timeout = 10.0
 
-[node name="FocusP1" parent="StartUI" index="7" instance=ExtResource("6_hwf5f")]
+[node name="FocusP1" parent="StartUI" index="8" instance=ExtResource("6_hwf5f")]
 
-[node name="FocusP2" parent="StartUI" index="8" instance=ExtResource("6_hwf5f")]
+[node name="FocusP2" parent="StartUI" index="9" instance=ExtResource("6_hwf5f")]
 player = 1
 desired_spin_speed = -0.785
 
@@ -426,6 +760,7 @@ desired_spin_speed = -0.785
 [connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/Arrows/ButtonDown" to="StartUI" method="_on_button_down_focus_entered"]
 [connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/VBoxContainer/Go" to="StartUI" method="_on_go_focus_entered"]
 [connection signal="focus_entered" from="StartUI/MapContainer/HBoxContainer/VBoxContainer/Add" to="StartUI" method="_on_add_focus_entered"]
+[connection signal="focus_entered" from="StartUI/OptionsContainer/VBoxContainer/SwapControllers" to="StartUI" method="_on_swap_controllers_focus_entered"]
 [connection signal="focus_entered" from="StartUI/InitialContainer/VBoxContainer/Play" to="StartUI" method="_on_play_focus_entered"]
 [connection signal="focus_entered" from="StartUI/InitialContainer/VBoxContainer/Exit" to="StartUI" method="_on_exit_focus_entered"]
 [connection signal="text_changed" from="StartUI/MarginContainer/Download/FilenameEdit" to="StartUI" method="_on_filename_edit_text_changed"]

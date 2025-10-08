@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6d4ibkey2kbb"]
+
+[ext_resource type="Theme" uid="uid://bnq06uyl2njxi" path="res://resources/default_theme.tres" id="1_gbgw1"]
+
+[sub_resource type="GDScript" id="GDScript_kpnl6"]
+resource_name = "remap"
+script/source = "extends Button
+
+const MAX_CHARACTERS := 8
+
+@export var player_id := Ship.PlayerIDs.PLAYER_1
+@export var action_type := InputComponent.PlayerInputs.UP
+
+@onready var scaler := $Node2D
+@onready var label := $Node2D/Label
+@onready var inputs := InputComponent.PLAYER1_INPUTS if player_id == Ship.PlayerIDs.PLAYER_1 else InputComponent.PLAYER2_INPUTS
+
+var waiting_for_input := false
+
+func _ready() -> void:
+	for action in InputMap.action_get_events(inputs[action_type]):
+		if action is InputEventKey:
+			label.text = action.as_text_physical_keycode()
+			label.pivot_offset = label.size/2
+			scaler.scale.x = clamp(inverse_lerp(MAX_CHARACTERS, 1, label.text.length()), 0.3, 1)
+			break
+
+
+func _input(event: InputEvent) -> void:
+	if waiting_for_input:
+		if event is InputEventKey and event.is_pressed():
+			for action in InputMap.action_get_events(inputs[action_type]):
+				if action is InputEventKey: # if the button is waiting for input delete the old key input from the action and add the one that was just pressed and then update the display
+					InputMap.action_erase_event(inputs[action_type], action)
+					InputMap.action_add_event(inputs[action_type], event)
+					label.text = event.as_text_physical_keycode()
+					label.pivot_offset = label.size/2
+					scaler.scale.x = clamp(inverse_lerp(MAX_CHARACTERS, 1, label.text.length()), 0.3, 1)
+					break
+			waiting_for_input = false
+			get_viewport().set_input_as_handled()
+
+
+func _on_focus_entered() -> void:
+	waiting_for_input = true
+"
+
+[node name="Remap" type="Button"]
+custom_minimum_size = Vector2(45, 33)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = -19.5
+offset_right = 16.5
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_gbgw1")
+theme_override_font_sizes/font_size = 22
+script = SubResource("GDScript_kpnl6")
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(22.5, 16)
+
+[node name="Label" type="Label" parent="Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -15.5
+offset_right = 32.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gbgw1")
+theme_override_font_sizes/font_size = 22
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
